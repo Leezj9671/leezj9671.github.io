@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2017 | HACK no limits</title>
+  <title>Github Pages搭建 | HACK no limits</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="flag{what_is_descript_?}">
-<meta property="og:type" content="website">
-<meta property="og:title" content="HACK no limits">
-<meta property="og:url" content="http://yoursite.com/archives/2017/index.html">
+  <meta name="description" content="前言最近正在重新系统地学习一遍linux，自己也经常在有道里面做做笔记。如今拥抱开源、知识分享也是一种趋势，搭建一个博客写写自己学到的知识和感悟也是挺不错的。今晚用一个小时利用Github Pages配置搭建好了Yilla主题的博客，记录一下操作和一些坑，希望能给别人一些帮助。">
+<meta name="keywords" content="Github Pages,博客搭建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Github Pages搭建">
+<meta property="og:url" content="http://yoursite.com/2017/12/16/Github Pages搭建/index.html">
 <meta property="og:site_name" content="HACK no limits">
-<meta property="og:description" content="flag{what_is_descript_?}">
+<meta property="og:description" content="前言最近正在重新系统地学习一遍linux，自己也经常在有道里面做做笔记。如今拥抱开源、知识分享也是一种趋势，搭建一个博客写写自己学到的知识和感悟也是挺不错的。今晚用一个小时利用Github Pages配置搭建好了Yilla主题的博客，记录一下操作和一些坑，希望能给别人一些帮助。">
+<meta property="og:updated_time" content="2017-12-16T16:15:23.657Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HACK no limits">
-<meta name="twitter:description" content="flag{what_is_descript_?}">
+<meta name="twitter:title" content="Github Pages搭建">
+<meta name="twitter:description" content="前言最近正在重新系统地学习一遍linux，自己也经常在有道里面做做笔记。如今拥抱开源、知识分享也是一种趋势，搭建一个博客写写自己学到的知识和感悟也是挺不错的。今晚用一个小时利用Github Pages配置搭建好了Yilla主题的博客，记录一下操作和一些坑，希望能给别人一些帮助。">
   
     <link rel="alternative" href="/atom.xml" title="HACK no limits" type="application/atom+xml">
   
@@ -146,36 +148,90 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Github Pages搭建" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/16/Github Pages搭建/" class="archive-article-date">
-  	<time datetime="2017-12-16T14:22:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/16/Github Pages搭建/">Github Pages搭建</a>
+    <h1 class="article-title" itemprop="name">
+      Github Pages搭建
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/12/16/Github Pages搭建/" class="archive-article-date">
+  	<time datetime="2017-12-16T14:22:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近正在重新系统地学习一遍linux，自己也经常在有道里面做做笔记。如今拥抱开源、知识分享也是一种趋势，搭建一个博客写写自己学到的知识和感悟也是挺不错的。今晚用一个小时利用Github Pages配置搭建好了Yilla主题的博客，记录一下操作和一些坑，希望能给别人一些帮助。</p>
+<a id="more"></a>
+<h2 id="Github操作"><a href="#Github操作" class="headerlink" title="Github操作"></a>Github操作</h2><ul>
+<li>创建仓库，仓库名为 githubname.github.io</li>
+<li>在仓库Setttings#Github Pages-&gt;choose a theme，完成配置</li>
+</ul>
+<h2 id="HEXO操作"><a href="#HEXO操作" class="headerlink" title="HEXO操作"></a>HEXO操作</h2><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
+<li>install Node.js, git</li>
+<li><p>git需要进行配置SSH，链接到你的github。使用</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+<p>  查看是否已配置成功</p>
+</li>
+</ul>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ul>
+<li><p>进行hexo配置</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">cd create_a_hexo_path</span><br><span class="line">hexo init</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>  打开<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a>看是否安装成功</p>
+</li>
+<li>打开hexo文件夹下的_config.yml，这就是hexo的相关配置。找到deploy进行修改  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:MyGithub/MyGithub.github.io.git</span><br><span class="line">  branch: master</span><br><span class="line">// warning:修改MyGithub为自己的账户名;在yml文件中，:后面必须要有空格</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h3><ul>
+<li>在<a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="noopener">各种themes</a>下载喜欢的主题到./themes下</li>
+<li><p>需要更新主题时可以到主题文件夹下进行</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在_config.yml 更改theme</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: http://hexo.io/plugins/</span><br><span class="line">## Themes: http://hexo.io/themes/</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>本地运行验证是否可用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s --debug</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="yilla的一些坑"><a href="#yilla的一些坑" class="headerlink" title="yilla的一些坑"></a>yilla的一些坑</h3><ul>
+<li><a href="http://www.jianshu.com/p/f389ad8c49bd" target="_blank" rel="noopener">GithubPages+Hexo博客主题Yilia</a></li>
+</ul>
+<h3 id="部署到github上"><a href="#部署到github上" class="headerlink" title="部署到github上"></a>部署到github上</h3><ul>
+<li><p>每次部署都需要输入三个命令</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate   //hexo g</span><br><span class="line">hexo deploy     //hexo d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果报错，则需要安装插件</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="博客文章放置点"><a href="#博客文章放置点" class="headerlink" title="博客文章放置点"></a>博客文章放置点</h3><ul>
+<li>在source文件夹下的_post文件夹下放置</li>
+</ul>
+<h2 id="注册域名与github-pages地址绑定"><a href="#注册域名与github-pages地址绑定" class="headerlink" title="注册域名与github pages地址绑定"></a>注册域名与github pages地址绑定</h2><ul>
+<li>待填坑</li>
+</ul>
+<h2 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h2><ul>
+<li><a href="https://cczeng.github.io/2017/05/03/git/%E6%88%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8Github-Pages%E6%90%AD%E5%BB%BA%E8%B5%B7%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E2%80%94%E2%80%94%E7%BB%86%E6%95%B0%E4%B8%80%E8%B7%AF%E7%9A%84%E5%9D%91/" target="_blank" rel="noopener">我是如何利用Github Pages搭建起我的博客，细数一路的坑客</a></li>
+<li><a href="http://barrysite.me/2017/05/07/Github%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" target="_blank" rel="noopener">Github+Hexo+NEXT主题+域名绑定 博客搭建全记录</a></li>
+<li><a href="http://www.jianshu.com/p/465830080ea9" target="_blank" rel="noopener">HEXO+Github,搭建属于自己的博客
+</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,19 +247,96 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/12/16/Github Pages搭建/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
+
   
 
-    
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -226,8 +359,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
