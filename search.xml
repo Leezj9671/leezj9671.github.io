@@ -3,6 +3,113 @@
   
     
     <entry>
+      <title><![CDATA[JQUERY实现SELECT框三级联动]]></title>
+      <url>/2017/12/19/JQUERY%E5%AE%9E%E7%8E%B0SELECT%E6%A1%86%E4%B8%89%E7%BA%A7%E8%81%94%E5%8A%A8/</url>
+      <content type="html"><![CDATA[<p>最近做了一个外包项目，其中写了一个模块是select框国家-省-市的三级联动，其中操作用到了JQuery，数据文件是引入了JSON，没有进行后端交互。如果用到后端交互的话，每次change的函数改成ajax请求即可。因为项目代码的保密，没有写得特别清楚，但结构应该也比较清晰了。</p>
+<a id="more"></a>
+<h2 id="JSON格式"><a href="#JSON格式" class="headerlink" title="JSON格式"></a>JSON格式</h2><p>由于数据是用脚本分几个文档处理出来的，所以JSON文件的格式是形如以下形式，分为了国家-省.json，省-市.json，一般情况下整合在一起会比较合适，操作起来也比较方便。</p>
+<pre><code class="JSON">[
+{
+    &quot;country&quot;:&quot;China&quot;,
+    &quot;provinces&quot;:[
+        &quot;Guangdong&quot;,
+        &quot;Beijing&quot;,
+        &quot;Shanghai&quot;
+    ]
+},
+{...}
+]
+</code></pre>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><pre><code class="html">&lt;div class=&quot;select-list&quot;&gt;
+    &lt;select name=&quot;country&quot;&gt;&lt;/select&gt;
+    &lt;select name=&quot;provinces&quot;&gt;&lt;/select&gt;
+    &lt;select name=&quot;cities&quot;&gt;&lt;/select&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h2><pre><code class="Javascript">var countrySel = $(&#39;select[name=country]&#39;);
+var provincesSel = $(&#39;select[name=provinces]&#39;);
+var citiesSel = $(&#39;select[name=cities]&#39;);
+
+var changePro = function () {
+    var optionData = &quot;&quot;;
+    // 遍历JSON
+    $.each(country2pro, function (idx, reg) {
+        optionData += &quot;&lt;option value=&#39;&quot; + reg.country + &quot;&#39;&gt;&quot; + reg.country + &quot;&lt;/option&gt;&quot;;
+    });
+    countrySel.empty();
+    countrySel.html(optionData);
+    changePro();
+};
+
+var changePro = function () {
+    var optionData = &quot;&quot;;
+    var idx = countrySel.get(0).selectedIndex;
+    country2pro[idx].provinces.sort();
+    country2pro[idx].provinces.forEach(function (item) {
+        optionData += &quot;&lt;option value=&#39;&quot;+item+&quot;&#39;&gt;&quot; + item + &quot;&lt;/option&gt;&quot;;
+    });
+    provincesSel.empty();
+    provincesSel.html(optionData);
+    changeCity();
+};
+
+var changeCity = function () {
+    var optionData = &quot;&quot;;
+    // 获取province值
+    var province = provincesSel.val();
+    $.each(prov2cities, function (idx, opt) {
+       if (opt.province == province) {
+           opt.cities.sort();
+           opt.cities.forEach(function (item) {
+               optionData += &quot;&lt;option value=&#39;&quot;+item+&quot;&#39;&gt;&quot; + item + &quot;&lt;/option&gt;&quot;;
+           });
+           return false;
+       }
+    });
+    citiesSel.empty();
+    citiesSel.html(optionData);
+};
+
+//文档加载时执行时事件
+window.onload = function () {
+    changeRegion();
+}
+
+//select框change事件
+regionSel.change(function () {
+    changePro();
+});
+
+countrySel.change(function () {
+    changeCity();
+});
+</code></pre>
+<h2 id="一些小知识点"><a href="#一些小知识点" class="headerlink" title="一些小知识点"></a>一些小知识点</h2><ul>
+<li>$.each遍历JSON的时候通过return进行类似for循环的break和continue</li>
+<li>select框change的时候必须要清除框内的值</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 前端 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> JQUERY </tag>
+            
+            <tag> Javascript </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Github Pages搭建]]></title>
       <url>/2017/12/16/Github%20Pages%E6%90%AD%E5%BB%BA/</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近正在重新系统地学习一遍Linux，自己也经常在有道里面做做笔记。如今拥抱开源、知识分享也是一种趋势，搭建一个博客写写自己学到的知识、整理一下笔记也是挺不错的。于是今晚用一个小时利用Github Pages配置搭建好了Yilia主题的博客，简单记录一下操作和一些坑，希望能给别人一些帮助。</p>
@@ -98,10 +205,9 @@
       <title><![CDATA[关于我]]></title>
       <url>/about/index.html</url>
       <content type="html"><![CDATA[<h2 id="我是谁"><a href="#我是谁" class="headerlink" title="我是谁"></a>我是谁</h2><ul>
-<li>无名小卒。在安全的路上一步一个脚印……</li>
-<li>热爱网络安全</li>
+<li>热爱网络安全的无名小卒</li>
 <li>CTF划水队员</li>
-<li>python哲学拥护者</li>
+<li>python爱好者</li>
 <li>偶尔玩玩前端，有一些前端的项目经历</li>
 </ul>
 <h2 id="Contact-Me"><a href="#Contact-Me" class="headerlink" title="Contact Me"></a>Contact Me</h2><ul>

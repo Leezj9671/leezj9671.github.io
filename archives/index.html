@@ -164,12 +164,7 @@
 
     <style>
       body{
-        background-color: #F5F5F5;
-      }
-
-      /* blog_info bottom background */
-      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
-        background-color: #fff;
+        background-image: url(/img/bg.png);
       }
     </style>
 
@@ -211,7 +206,7 @@
 
     <!-- Import jQuery -->
     
-        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.1/jquery.js", true)</script>
     
 
     <!-- WebAPP Icons -->
@@ -309,6 +304,67 @@
     
 
         <!-- Post Title -->
+        <p class="article-headline-p"><a href="/2017/12/19/JQUERY实现SELECT框三级联动/">JQUERY实现SELECT框三级联动</a></p>
+    </div>
+
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            最近做了一个外包项目，其中写了一个模块是select框国家-省-市的三级联动，其中操作用到了JQuery，数据文件是引入了JSON，没有进行后端交互。如果用到后端交互的话，每次change的函数改成ajax请求即可。因为项目代码的保密，没有写得特别清楚，但结构应该也比较清晰了。
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2017/12/19/JQUERY实现SELECT框三级联动/" target="_self">阅读全文</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="n3ver's avatar">
+            </div>
+            <div>
+                <strong>n3ver</strong>
+                <span>12月 19, 2017</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+          
+              <!-- Category -->
+              <span class="post_entry-category">
+                  <a class="post_category-link" href="/categories/前端/">前端</a>
+              </span>
+            
+
+            
+
+            
+
+            <!-- Post Views -->
+            <span class="post_entry-views">
+            </span>
+        </div>
+    </div>
+</div>
+
+            
+            
+        
+    
+        
+            
+                <!-- Paradox Thumbnail -->
+                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
+    <!-- Post Thumbnail -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+        
+    
+
+        <!-- Post Title -->
         <p class="article-headline-p"><a href="/2017/12/16/Github Pages搭建/">Github Pages搭建</a></p>
     </div>
 
@@ -366,7 +422,7 @@
 
     var locatePost = $('.locate-thumbnail-symbol').next();
     for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
+        randomNum = Math.floor(Math.random() * 15 + 1);
 
         locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
         locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
@@ -388,7 +444,7 @@
 <aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
     <div id="sidebar-main">
         <!-- Sidebar Header -->
-        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+        <div class="sidebar-header header-cover" style="background-image: url(http://p16yopw41.bkt.clouddn.com/201712201558_143.png);">
     <!-- Top bar -->
     <div class="top-bar"></div>
 
@@ -457,7 +513,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">1</span></a>
+                <a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a>
             </ul>
         </li>
         
@@ -475,7 +531,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                <a class="sidebar_archives-link" href="/categories/博客搭建/">博客搭建<span class="sidebar_archives-count">1</span></a>
+                <a class="sidebar_archives-link" href="/categories/前端/">前端<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/博客搭建/">博客搭建<span class="sidebar_archives-count">1</span></a>
             </ul>
         </li>
         
@@ -484,11 +540,31 @@
     <!-- Pages  -->
     
         <li>
-            <a href="about" title="About">
+            <a href="tags" title="标签">
+                
+                    <i class="material-icons sidebar-material-icons">loyalty</i>
+                
+                标签
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="timeline" title="时间轴">
+                
+                    <i class="material-icons sidebar-material-icons">timeline</i>
+                
+                时间轴
+            </a>
+        </li>
+        
+    
+        <li>
+            <a href="about" title="关于我">
                 
                     <i class="material-icons sidebar-material-icons">person</i>
                 
-                About
+                关于我
             </a>
         </li>
         
@@ -499,7 +575,7 @@
         <li>
             <a href="/archives">
                 文章总数
-                <span class="sidebar-badge">1</span>
+                <span class="sidebar-badge">2</span>
             </a>
         </li>
         
