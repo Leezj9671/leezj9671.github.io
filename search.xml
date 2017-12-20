@@ -194,15 +194,6 @@ countrySel.change(function () {
     
     <entry>
       <title><![CDATA[关于我]]></title>
-      <url>/index.html</url>
-      <content type="html"><![CDATA[<h2 id="我是谁"><a href="#我是谁" class="headerlink" title="我是谁"></a>我是谁</h2><ul>
-<li>无名小卒。在安全的路上一步一个脚印……</li>
-</ul>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[关于我]]></title>
       <url>/about/index.html</url>
       <content type="html"><![CDATA[<h2 id="我是谁"><a href="#我是谁" class="headerlink" title="我是谁"></a>我是谁</h2><ul>
 <li>热爱网络安全的无名小卒</li>
@@ -216,6 +207,18 @@ countrySel.change(function () {
 <li>Location: 广东深圳</li>
 </ul>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[标签云]]></title>
+      <url>/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[时间轴]]></title>
+      <url>/timeline/index.html</url>
+      <content type="html"></content>
     </entry>
     
   
