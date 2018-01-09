@@ -43,7 +43,7 @@
     
     <title>
         
-            分类: 博客搭建 | 
+            Linux服务部署之LNMP搭建(编译安装) | 
         
         HACK no limits
     </title>
@@ -53,8 +53,8 @@
     <link rel="icon" href="/img/favicon.png">
 
     <meta name="format-detection" content="telephone=no"/>
-    <meta name="description" itemprop="description" content="flag{what_is_descript_?}">
-    <meta name="keywords" content="网络安全">
+    <meta name="description" itemprop="description" content="前言LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。">
+    <meta name="keywords" content="网络安全,Linux LNMP PHP Nginx MySQL AliSQL">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -81,6 +81,9 @@
         <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?EudR1WYoUam/Mk2uX/xajw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tranquil-heart.min.css?ul3p9I9MsbOxK0L+BHzDDg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
             
         
 
@@ -217,7 +220,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="HACK no limits">
-    <meta name="msapplication-starturl" content="http://yoursite.com/categories/博客搭建/">
+    <meta name="msapplication-starturl" content="http://yoursite.com/20180109/Linux服务部署之LNMP搭建.html">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="HACK no limits">
@@ -232,13 +235,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://yoursite.com/categories/博客搭建/">
+    <meta property="og:url" content="http://yoursite.com/20180109/Linux服务部署之LNMP搭建.html">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="分类: 博客搭建 | HACK no limits">
+    <meta property="og:title" content="Linux服务部署之LNMP搭建(编译安装) | HACK no limits">
     <meta property="og:image" content="/img/favicon.png">
-    <meta property="og:description" content="flag{what_is_descript_?}">
-    
+    <meta property="og:description" content="前言LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。">
+    <meta property="og:article:tag" content="Linux LNMP PHP Nginx MySQL AliSQL"> 
 
+    
+        <meta property="article:published_time" content="Tue Jan 09 2018 20:56:48 GMT+0800">
+        <meta property="article:modified_time" content="Tue Jan 09 2018 20:59:53 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -246,13 +252,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://yoursite.com/categories/博客搭建/index.html" />
+        <link rel="canonical" href="http://yoursite.com/20180109/Linux服务部署之LNMP搭建.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://yoursite.com/20180109/Linux服务部署之LNMP搭建.html",
+    "headline": "Linux服务部署之LNMP搭建(编译安装)",
+    "datePublished": "Tue Jan 09 2018 20:56:48 GMT+0800",
+    "dateModified": "Tue Jan 09 2018 20:59:53 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "n3ver",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hacking is fun.,Let's hack!"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "HACK no limits",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",Linux LNMP PHP Nginx MySQL AliSQL网络安全",
+    "description": "前言LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。",
+}
+</script>
 
 
     
@@ -286,98 +322,483 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text"><a href="#&#x524D;&#x8A00;" class="headerlink" title="&#x524D;&#x8A00;"></a>&#x524D;&#x8A00;</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text"><a href="#&#x5B89;&#x88C5;&#x6B65;&#x9AA4;" class="headerlink" title="&#x5B89;&#x88C5;&#x6B65;&#x9AA4;"></a>&#x5B89;&#x88C5;&#x6B65;&#x9AA4;</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AliSQL"><span class="post-toc-number">2.1.</span> <span class="post-toc-text"><a href="#AliSQL" class="headerlink" title="AliSQL"></a>AliSQL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nginx"><span class="post-toc-number">2.2.</span> <span class="post-toc-text"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#listen把80改为8090，以防冲突"><span class="post-toc-number"></span> <span class="post-toc-text"><a href="#listen&#x628A;80&#x6539;&#x4E3A;8090&#xFF0C;&#x4EE5;&#x9632;&#x51B2;&#x7A81;" class="headerlink" title="listen&#x628A;80&#x6539;&#x4E3A;8090&#xFF0C;&#x4EE5;&#x9632;&#x51B2;&#x7A81;"></a>listen&#x628A;80&#x6539;&#x4E3A;8090&#xFF0C;&#x4EE5;&#x9632;&#x51B2;&#x7A81;</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PHP"><span class="post-toc-number">0.1.</span> <span class="post-toc-text"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更改Nginx配置"><span class="post-toc-number">0.2.</span> <span class="post-toc-text"><a href="#&#x66F4;&#x6539;Nginx&#x914D;&#x7F6E;" class="headerlink" title="&#x66F4;&#x6539;Nginx&#x914D;&#x7F6E;"></a>&#x66F4;&#x6539;Nginx&#x914D;&#x7F6E;</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考文档"><span class="post-toc-number">1.</span> <span class="post-toc-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x6863;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x6863;"></a>&#x53C2;&#x8003;&#x6587;&#x6863;</span></a></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 15 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/20171216/Github Pages搭建.html">Github Pages搭建</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            前言最近正在重新系统地学习一遍Linux，自己也经常在有道里面做做笔记。如今拥抱开源、知识分享也是一种趋势，搭建一个博客写写自己学到的知识、整理一下笔记也是挺不错的。于是今晚用一个小时利用Github Pages配置搭建好了Yilia主题的博客，简单记录一下操作和一些坑，希望能给别人一些帮助。
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/20171216/Github Pages搭建.html" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="n3ver's avatar">
-            </div>
-            <div>
-                <strong>n3ver</strong>
-                <span>12月 16, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/博客搭建/">博客搭建</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 15 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Linux服务部署之LNMP搭建(编译安装)
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>n3ver</strong>
+        <span>1月 09, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Linux-LNMP-PHP-Nginx-MySQL-AliSQL/">Linux LNMP PHP Nginx MySQL AliSQL</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Linux服务部署之LNMP搭建(编译安装)&url=http://yoursite.com/20180109/Linux服务部署之LNMP搭建.html&pic=http://yoursite.com/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=HACK no limits&title=Linux服务部署之LNMP搭建(编译安装)&summary=flag{what_is_descript_?}&pics=http://yoursite.com/img/favicon.png&url=http://yoursite.com/20180109/Linux服务部署之LNMP搭建.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。<br><a id="more"></a></p>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="AliSQL"><a href="#AliSQL" class="headerlink" title="AliSQL"></a>AliSQL</h3><ol>
+<li>安装编译源码所需库和工具<pre><code class="bash">yum install gcc gcc-c++ ncurses-devel perl
+</code></pre>
+</li>
+</ol>
+<p>还需要安装cmake和bison，因为已经自带了，所以不详述，详见参考文档</p>
+<ol>
+<li><p>增加mysql组和用户</p>
+<pre><code class="bash">groupadd mysql 
+useradd -r -g mysql mysql
+</code></pre>
+</li>
+<li><p>建立安装目录和数据文件目录</p>
+<pre><code class="bash">mkdir –p /usr/local/mysql 
+mkdir -p /data/mysqldb
+</code></pre>
+</li>
+<li><p>下载解压并编译源码</p>
+<pre><code class="bash">git clone https://github.com/alibaba/AliSQL
+unzip AliSQL-master.zip
+cd AliSQL-master
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DMYSQL_DATADIR=/data/mysqldb -DMYSQL_TCP_PORT=3306 -DENABLE_DOWNLOADS=1 
+make
+make install
+</code></pre>
+</li>
+<li><p>修改相关目录属主和数组</p>
+<pre><code class="bash">chown -R mysql:mysql /usr/local/mysql
+chown -R mysql:mysql /data/mysqldb
+</code></pre>
+</li>
+<li><p>初始化AliSQL数据库</p>
+<pre><code class="bash">cd /usr/local/mysql
+scripts/mysql_install_db –user=mysql –datadir=/data/mysqldb
+</code></pre>
+</li>
+</ol>
+<p>成功初始化后，提示以下信息，记下来以备后用。</p>
+<pre><code class="bash">To start mysqld at boot time you have to copy
+support-files/mysql.server to the right place for your system
+
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+To do so, start the server, then issue the following commands:
+
+  ./bin/mysqladmin -u root password &#39;new-password&#39;
+  ./bin/mysqladmin -u root -h localhost.localdomain password &#39;new-password&#39;
+
+Alternatively you can run:
+
+  ./bin/mysql_secure_installation
+
+which will also give you the option of removing the test
+databases and anonymous user created by default.  This is
+strongly recommended for production servers.
+
+See the manual for more instructions.
+
+You can start the MySQL daemon with:
+
+  cd . ; ./bin/mysqld_safe &amp;
+
+You can test the MySQL daemon with mysql-test-run.pl
+
+  cd mysql-test ; perl mysql-test-run.pl
+
+Please report any problems at http://bugs.mysql.com/
+
+The latest information about MySQL is available on the web at
+
+  http://www.mysql.com
+
+Support MySQL by buying support/licenses at http://shop.mysql.com
+
+New default config file was created as ./my.cnf and
+will be used by default by the server when you start it.
+You may edit this file to change server settings
+</code></pre>
+<ol>
+<li>复制AliSQL服务启动配置文件、脚本，并加入PATH<br>```bash<br>cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf<br>cp support-files/mysql.server /etc/init.d/mysqld<br>vim /etc/profile </li>
+</ol>
+<p>#加入这行<br>PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH </p>
+<p>export PATH<br>source/etc/profile </p>
+<pre><code>
+8. 启动AliSQL服务并加入开机自启
+```bash
+service mysqld start 
+chkconfig –level 35 mysqld on
+</code></pre><ol>
+<li>检查是否已启动<pre><code class="bash">netstat -tulnp | grep 3306 
+mysql -u root -p
+</code></pre>
+</li>
+</ol>
+<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><ol>
+<li><p>下载包并解压</p>
+<pre><code class="bash">tar zxvf nginx-1.12.2.tar.gz
+cd ./nginx-1.12.2
+</code></pre>
+</li>
+<li><p>编译安装</p>
+<pre><code class="bash">./configure  --prefix=/usr/local/nginx  --sbin-path=/usr/local/nginx/sbin/nginx --conf-path=/usr/local/nginx/conf/nginx.conf --error-log-path=/var/log/nginx/error.log  --http-log-path=/var/log/nginx/access.log  --pid-path=/var/run/nginx/nginx.pid --lock-path=/var/lock/nginx.lock  --user=nginx --group=nginx --with-http_ssl_module --with-http_stub_status_module --with-http_gzip_static_module --http-client-body-temp-path=/var/tmp/nginx/client/ --http-proxy-temp-path=/var/tmp/nginx/proxy/ --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi --http-scgi-temp-path=/var/tmp/nginx/scgi --with-pcre
+</code></pre>
+<p>可能需要依赖文件如下</p>
+<pre><code class="bash">yum install gcc gcc-c++ automake pcre pcre-devel zlip zlib-devel openssl openssl-devel
+</code></pre>
+<p>安装完毕后有相关的提示信息，马克以备后用</p>
+<pre><code class="bash">Configuration summary
++ using system PCRE library
++ using system OpenSSL library
++ using system zlib library
+
+nginx path prefix: &quot;/usr/local/nginx&quot;
+nginx binary file: &quot;/usr/local/nginx/sbin/nginx&quot;
+nginx modules path: &quot;/usr/local/nginx/modules&quot;
+nginx configuration prefix: &quot;/usr/local/nginx/conf&quot;
+nginx configuration file: &quot;/usr/local/nginx/conf/nginx.conf&quot;
+nginx pid file: &quot;/var/run/nginx/nginx.pid&quot;
+nginx error log file: &quot;/var/log/nginx/error.log&quot;
+nginx http access log file: &quot;/var/log/nginx/access.log&quot;
+nginx http client request body temporary files: &quot;/var/tmp/nginx/client/&quot;
+nginx http proxy temporary files: &quot;/var/tmp/nginx/proxy/&quot;
+nginx http fastcgi temporary files: &quot;/var/tmp/nginx/fcgi/&quot;
+nginx http uwsgi temporary files: &quot;/var/tmp/nginx/uwsgi&quot;
+nginx http scgi temporary files: &quot;/var/tmp/nginx/scgi&quot;
+</code></pre>
+</li>
+<li><p>修改监听端口<br>```bash<br>vim /usr/local/nginx/conf/nginx.conf</p>
+</li>
+</ol>
+<h1 id="listen把80改为8090，以防冲突"><a href="#listen把80改为8090，以防冲突" class="headerlink" title="listen把80改为8090，以防冲突"></a>listen把80改为8090，以防冲突</h1><p>server {<br>    listen       8090;</p>
+<pre><code>
+4. 启动nginx
+```bash
+ln -sf /usr/local/nginx/sbin/nginx  /usr/sbin
+# 启动
+nginx
+# 重载配置
+nginx -s reload
+# 停止
+nginx -s stop
+</code></pre><p>执行错误有：</p>
+<ul>
+<li><code>nginx: [emerg] getpwnam(&quot;nginx&quot;) failed</code>：表示没有nginx用户（<code>useradd -s /sbin/nologin -M nginx</code>)</li>
+<li><code>nginx: [emerg] mkdir() &quot;/var/tmp/nginx/client/&quot; failed (2: No such file or directory)</code>：表示没有该目录(<code>mkdir -p</code>)</li>
+</ul>
+<ol>
+<li><p>验证nginx是否开启、端口是否监听</p>
+<pre><code class="bash">ps -ef | grep nginx
+netstat -antl | grep 8090
+</code></pre>
+<p>直接访问<code>ip:8090</code>显示<code>Welcome to Nginx</code>表明安装成功</p>
+</li>
+<li><p>更复杂的配置详看参考文档2</p>
+</li>
+</ol>
+<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><ol>
+<li><p>下载PHP压缩包解压并进入目录</p>
+</li>
+<li><p>编译安装<br>为了整合mysql 记得要带上<code>--with-mysql=YOUR_MYSQL_PATH</code></p>
+<pre><code class="bash">./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --enable-fpm --with-fpm-user=php-fpm --with-fpm-group=php-fpm --with-mysql=/usr/local/mysql --with-libxml-dir --enable-soap --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-exif --disable-ipv6 --with-curl --with-openssl
+</code></pre>
+<p>同样可能需要安装依赖文件，见机行事</p>
+<pre><code class="bash">yum -y install libxml2 libxml2-devel curl curl-devel
+</code></pre>
+<p>安装后有提示信息，同样马克</p>
+<pre><code class="bash">You may want to add: /usr/local/php/lib/php to your php.ini include_path
+/usr/local/src/php-5.6.0/build/shtool install -c ext/phar/phar.phar /usr/local/php/bin
+ln -s -f /usr/local/php/bin/phar.phar /usr/local/php/bin/phar
+Installing PDO headers:  /usr/local/php/include/php/ext/pdo/
+</code></pre>
+</li>
+<li><p>修改配置文件</p>
+<pre><code class="bash">cp php-5.6.0/php.ini-production /usr/local/php/etc/php.ini
+cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+</code></pre>
+<p>使用<code>/usr/local/php/sbin/php-fpm -t</code>测试是否成功，不成功则</p>
+<pre><code class="bash">vim /usr/local/php/etc/php-fpm.conf
+# 将其中user和group改成系统用户
+</code></pre>
+</li>
+<li>启用php-fpm<br>```bash<br>service php-fpm start</li>
+</ol>
+<p>#开机启动和检测是否已启动<br>chkconfig php-fpm on<br>ps aux | grep php-fpm<br>netstat -ant |grep 9000</p>
+<pre><code>
+5. 加入环境变量
+```bash
+vim /etc/profile
+
+##添加以下两行
+PATH=/usr/local/webserver/php/bin:$PATH
+export PATH
+
+source /etc/profile
+# 写个代码检验一下
+php test.php
+</code></pre><h3 id="更改Nginx配置"><a href="#更改Nginx配置" class="headerlink" title="更改Nginx配置"></a>更改Nginx配置</h3><p>整合成LNMP，.conf的详细参数配置看参考文档2</p>
+<pre><code class="bash">&gt; /usr/local/nginx/conf/nginx.conf
+vim /usr/local/nginx/conf/nginx.conf
+
+
+user nobody nobody;
+worker_processes 2;
+error_log /usr/local/nginx/logs/nginx_error.log crit;
+pid /usr/local/nginx/logs/nginx.pid;
+worker_rlimit_nofile 51200;
+
+events
+{
+    use epoll;
+    worker_connections 6000;
+}
+
+http
+{
+    include mime.types;
+    default_type application/octet-stream;
+    server_names_hash_bucket_size 3526;
+    server_names_hash_max_size 4096;
+    log_format combined_realip &#39;$remote_addr $http_x_forwarded_for [$time_local]&#39;
+    &#39;$host &quot;$request_uri&quot; $status&#39;
+    &#39;&quot;$http_referer&quot; &quot;$http_user_agent&quot;&#39;;
+    sendfile on;
+    tcp_nopush on;
+    keepalive_timeout 30;
+    client_header_timeout 3m;
+    client_body_timeout 3m;
+    send_timeout 3m;
+    connection_pool_size 256;
+    client_header_buffer_size 1k;
+    large_client_header_buffers 8 4k;
+    request_pool_size 4k;
+    output_buffers 4 32k;
+    postpone_output 1460;
+    client_max_body_size 10m;
+    client_body_buffer_size 256k;
+    client_body_temp_path /usr/local/nginx/client_body_temp;
+    proxy_temp_path /usr/local/nginx/proxy_temp;
+    fastcgi_temp_path /usr/local/nginx/fastcgi_temp;
+    fastcgi_intercept_errors on;
+    tcp_nodelay on;
+    gzip on;
+    gzip_min_length 1k;
+    gzip_buffers 4 8k;
+    gzip_comp_level 5;
+    gzip_http_version 1.1;
+    gzip_types text/plain application/x-javascript text/css text/htm application/xml;
+
+    server
+    {
+        # 端口
+        listen 80;
+        server_name localhost;
+        index index.html index.htm index.php;
+        # 网站根地址
+        root /usr/local/nginx/html;
+
+        location ~ \.php$ {
+            include fastcgi_params;
+            fastcgi_pass 127.0.0.1:9000;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME /usr/local/nginx/html$fastcgi_script_name;
+        }
+    }
+}
+</code></pre>
+<p>在<code>/usr/local/nginx/html</code>创建<code>test.php</code>，内容如下</p>
+<pre><code class="php">&lt;?php
+    echo phpinfo();
+?&gt;
+</code></pre>
+<p>查看<code>http://ip/test.php</code>是否出现phpinfo，并且在里面查看mysql是否正确配置。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://blog.csdn.net/tanyhuan/article/details/64942722" target="_blank" rel="noopener">AliSQL 安装</a></li>
+<li><a href="https://www.cnblogs.com/zhang-shijie/p/5294162.html" target="_blank" rel="noopener">Nginx 安装</a></li>
+<li><a href="http://blog.csdn.net/dyllove98/article/details/41120789" target="_blank" rel="noopener">5分钟搭建 nginx +php</a></li>
+</ul>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/20180108/Linux服务部署之VSFTP搭建.html" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -726,6 +1147,10 @@ It will not impact the appearance and can give developers a lot of support :)
 <!-- Import prettify js  -->
 
     
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
 
 
 
@@ -738,6 +1163,11 @@ It will not impact the appearance and can give developers a lot of support :)
     });
 
     
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
         
     
     

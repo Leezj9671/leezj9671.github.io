@@ -3,8 +3,469 @@
   
     
     <entry>
+      <title><![CDATA[Linux服务部署之LNMP搭建(编译安装)]]></title>
+      <url>/20180109/Linux%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B9%8BLNMP%E6%90%AD%E5%BB%BA.html</url>
+      <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。<br><a id="more"></a></p>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="AliSQL"><a href="#AliSQL" class="headerlink" title="AliSQL"></a>AliSQL</h3><ol>
+<li>安装编译源码所需库和工具<pre><code class="bash">yum install gcc gcc-c++ ncurses-devel perl
+</code></pre>
+</li>
+</ol>
+<p>还需要安装cmake和bison，因为已经自带了，所以不详述，详见参考文档</p>
+<ol>
+<li><p>增加mysql组和用户</p>
+<pre><code class="bash">groupadd mysql 
+useradd -r -g mysql mysql
+</code></pre>
+</li>
+<li><p>建立安装目录和数据文件目录</p>
+<pre><code class="bash">mkdir –p /usr/local/mysql 
+mkdir -p /data/mysqldb
+</code></pre>
+</li>
+<li><p>下载解压并编译源码</p>
+<pre><code class="bash">git clone https://github.com/alibaba/AliSQL
+unzip AliSQL-master.zip
+cd AliSQL-master
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DMYSQL_DATADIR=/data/mysqldb -DMYSQL_TCP_PORT=3306 -DENABLE_DOWNLOADS=1 
+make
+make install
+</code></pre>
+</li>
+<li><p>修改相关目录属主和数组</p>
+<pre><code class="bash">chown -R mysql:mysql /usr/local/mysql
+chown -R mysql:mysql /data/mysqldb
+</code></pre>
+</li>
+<li><p>初始化AliSQL数据库</p>
+<pre><code class="bash">cd /usr/local/mysql
+scripts/mysql_install_db –user=mysql –datadir=/data/mysqldb
+</code></pre>
+</li>
+</ol>
+<p>成功初始化后，提示以下信息，记下来以备后用。</p>
+<pre><code class="bash">To start mysqld at boot time you have to copy
+support-files/mysql.server to the right place for your system
+
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+To do so, start the server, then issue the following commands:
+
+  ./bin/mysqladmin -u root password &#39;new-password&#39;
+  ./bin/mysqladmin -u root -h localhost.localdomain password &#39;new-password&#39;
+
+Alternatively you can run:
+
+  ./bin/mysql_secure_installation
+
+which will also give you the option of removing the test
+databases and anonymous user created by default.  This is
+strongly recommended for production servers.
+
+See the manual for more instructions.
+
+You can start the MySQL daemon with:
+
+  cd . ; ./bin/mysqld_safe &amp;
+
+You can test the MySQL daemon with mysql-test-run.pl
+
+  cd mysql-test ; perl mysql-test-run.pl
+
+Please report any problems at http://bugs.mysql.com/
+
+The latest information about MySQL is available on the web at
+
+  http://www.mysql.com
+
+Support MySQL by buying support/licenses at http://shop.mysql.com
+
+New default config file was created as ./my.cnf and
+will be used by default by the server when you start it.
+You may edit this file to change server settings
+</code></pre>
+<ol>
+<li>复制AliSQL服务启动配置文件、脚本，并加入PATH<br>```bash<br>cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf<br>cp support-files/mysql.server /etc/init.d/mysqld<br>vim /etc/profile </li>
+</ol>
+<p>#加入这行<br>PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH </p>
+<p>export PATH<br>source/etc/profile </p>
+<pre><code>
+8. 启动AliSQL服务并加入开机自启
+```bash
+service mysqld start 
+chkconfig –level 35 mysqld on
+</code></pre><ol>
+<li>检查是否已启动<pre><code class="bash">netstat -tulnp | grep 3306 
+mysql -u root -p
+</code></pre>
+</li>
+</ol>
+<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><ol>
+<li><p>下载包并解压</p>
+<pre><code class="bash">tar zxvf nginx-1.12.2.tar.gz
+cd ./nginx-1.12.2
+</code></pre>
+</li>
+<li><p>编译安装</p>
+<pre><code class="bash">./configure  --prefix=/usr/local/nginx  --sbin-path=/usr/local/nginx/sbin/nginx --conf-path=/usr/local/nginx/conf/nginx.conf --error-log-path=/var/log/nginx/error.log  --http-log-path=/var/log/nginx/access.log  --pid-path=/var/run/nginx/nginx.pid --lock-path=/var/lock/nginx.lock  --user=nginx --group=nginx --with-http_ssl_module --with-http_stub_status_module --with-http_gzip_static_module --http-client-body-temp-path=/var/tmp/nginx/client/ --http-proxy-temp-path=/var/tmp/nginx/proxy/ --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi --http-scgi-temp-path=/var/tmp/nginx/scgi --with-pcre
+</code></pre>
+<p>可能需要依赖文件如下</p>
+<pre><code class="bash">yum install gcc gcc-c++ automake pcre pcre-devel zlip zlib-devel openssl openssl-devel
+</code></pre>
+<p>安装完毕后有相关的提示信息，马克以备后用</p>
+<pre><code class="bash">Configuration summary
++ using system PCRE library
++ using system OpenSSL library
++ using system zlib library
+
+nginx path prefix: &quot;/usr/local/nginx&quot;
+nginx binary file: &quot;/usr/local/nginx/sbin/nginx&quot;
+nginx modules path: &quot;/usr/local/nginx/modules&quot;
+nginx configuration prefix: &quot;/usr/local/nginx/conf&quot;
+nginx configuration file: &quot;/usr/local/nginx/conf/nginx.conf&quot;
+nginx pid file: &quot;/var/run/nginx/nginx.pid&quot;
+nginx error log file: &quot;/var/log/nginx/error.log&quot;
+nginx http access log file: &quot;/var/log/nginx/access.log&quot;
+nginx http client request body temporary files: &quot;/var/tmp/nginx/client/&quot;
+nginx http proxy temporary files: &quot;/var/tmp/nginx/proxy/&quot;
+nginx http fastcgi temporary files: &quot;/var/tmp/nginx/fcgi/&quot;
+nginx http uwsgi temporary files: &quot;/var/tmp/nginx/uwsgi&quot;
+nginx http scgi temporary files: &quot;/var/tmp/nginx/scgi&quot;
+</code></pre>
+</li>
+<li><p>修改监听端口<br>```bash<br>vim /usr/local/nginx/conf/nginx.conf</p>
+</li>
+</ol>
+<h1 id="listen把80改为8090，以防冲突"><a href="#listen把80改为8090，以防冲突" class="headerlink" title="listen把80改为8090，以防冲突"></a>listen把80改为8090，以防冲突</h1><p>server {<br>    listen       8090;</p>
+<pre><code>
+4. 启动nginx
+```bash
+ln -sf /usr/local/nginx/sbin/nginx  /usr/sbin
+# 启动
+nginx
+# 重载配置
+nginx -s reload
+# 停止
+nginx -s stop
+</code></pre><p>执行错误有：</p>
+<ul>
+<li><code>nginx: [emerg] getpwnam(&quot;nginx&quot;) failed</code>：表示没有nginx用户（<code>useradd -s /sbin/nologin -M nginx</code>)</li>
+<li><code>nginx: [emerg] mkdir() &quot;/var/tmp/nginx/client/&quot; failed (2: No such file or directory)</code>：表示没有该目录(<code>mkdir -p</code>)</li>
+</ul>
+<ol>
+<li><p>验证nginx是否开启、端口是否监听</p>
+<pre><code class="bash">ps -ef | grep nginx
+netstat -antl | grep 8090
+</code></pre>
+<p>直接访问<code>ip:8090</code>显示<code>Welcome to Nginx</code>表明安装成功</p>
+</li>
+<li><p>更复杂的配置详看参考文档2</p>
+</li>
+</ol>
+<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><ol>
+<li><p>下载PHP压缩包解压并进入目录</p>
+</li>
+<li><p>编译安装<br>为了整合mysql 记得要带上<code>--with-mysql=YOUR_MYSQL_PATH</code></p>
+<pre><code class="bash">./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --enable-fpm --with-fpm-user=php-fpm --with-fpm-group=php-fpm --with-mysql=/usr/local/mysql --with-libxml-dir --enable-soap --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-exif --disable-ipv6 --with-curl --with-openssl
+</code></pre>
+<p>同样可能需要安装依赖文件，见机行事</p>
+<pre><code class="bash">yum -y install libxml2 libxml2-devel curl curl-devel
+</code></pre>
+<p>安装后有提示信息，同样马克</p>
+<pre><code class="bash">You may want to add: /usr/local/php/lib/php to your php.ini include_path
+/usr/local/src/php-5.6.0/build/shtool install -c ext/phar/phar.phar /usr/local/php/bin
+ln -s -f /usr/local/php/bin/phar.phar /usr/local/php/bin/phar
+Installing PDO headers:  /usr/local/php/include/php/ext/pdo/
+</code></pre>
+</li>
+<li><p>修改配置文件</p>
+<pre><code class="bash">cp php-5.6.0/php.ini-production /usr/local/php/etc/php.ini
+cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+</code></pre>
+<p>使用<code>/usr/local/php/sbin/php-fpm -t</code>测试是否成功，不成功则</p>
+<pre><code class="bash">vim /usr/local/php/etc/php-fpm.conf
+# 将其中user和group改成系统用户
+</code></pre>
+</li>
+<li>启用php-fpm<br>```bash<br>service php-fpm start</li>
+</ol>
+<p>#开机启动和检测是否已启动<br>chkconfig php-fpm on<br>ps aux | grep php-fpm<br>netstat -ant |grep 9000</p>
+<pre><code>
+5. 加入环境变量
+```bash
+vim /etc/profile
+
+##添加以下两行
+PATH=/usr/local/webserver/php/bin:$PATH
+export PATH
+
+source /etc/profile
+# 写个代码检验一下
+php test.php
+</code></pre><h3 id="更改Nginx配置"><a href="#更改Nginx配置" class="headerlink" title="更改Nginx配置"></a>更改Nginx配置</h3><p>整合成LNMP，.conf的详细参数配置看参考文档2</p>
+<pre><code class="bash">&gt; /usr/local/nginx/conf/nginx.conf
+vim /usr/local/nginx/conf/nginx.conf
+
+
+user nobody nobody;
+worker_processes 2;
+error_log /usr/local/nginx/logs/nginx_error.log crit;
+pid /usr/local/nginx/logs/nginx.pid;
+worker_rlimit_nofile 51200;
+
+events
+{
+    use epoll;
+    worker_connections 6000;
+}
+
+http
+{
+    include mime.types;
+    default_type application/octet-stream;
+    server_names_hash_bucket_size 3526;
+    server_names_hash_max_size 4096;
+    log_format combined_realip &#39;$remote_addr $http_x_forwarded_for [$time_local]&#39;
+    &#39;$host &quot;$request_uri&quot; $status&#39;
+    &#39;&quot;$http_referer&quot; &quot;$http_user_agent&quot;&#39;;
+    sendfile on;
+    tcp_nopush on;
+    keepalive_timeout 30;
+    client_header_timeout 3m;
+    client_body_timeout 3m;
+    send_timeout 3m;
+    connection_pool_size 256;
+    client_header_buffer_size 1k;
+    large_client_header_buffers 8 4k;
+    request_pool_size 4k;
+    output_buffers 4 32k;
+    postpone_output 1460;
+    client_max_body_size 10m;
+    client_body_buffer_size 256k;
+    client_body_temp_path /usr/local/nginx/client_body_temp;
+    proxy_temp_path /usr/local/nginx/proxy_temp;
+    fastcgi_temp_path /usr/local/nginx/fastcgi_temp;
+    fastcgi_intercept_errors on;
+    tcp_nodelay on;
+    gzip on;
+    gzip_min_length 1k;
+    gzip_buffers 4 8k;
+    gzip_comp_level 5;
+    gzip_http_version 1.1;
+    gzip_types text/plain application/x-javascript text/css text/htm application/xml;
+
+    server
+    {
+        # 端口
+        listen 80;
+        server_name localhost;
+        index index.html index.htm index.php;
+        # 网站根地址
+        root /usr/local/nginx/html;
+
+        location ~ \.php$ {
+            include fastcgi_params;
+            fastcgi_pass 127.0.0.1:9000;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME /usr/local/nginx/html$fastcgi_script_name;
+        }
+    }
+}
+</code></pre>
+<p>在<code>/usr/local/nginx/html</code>创建<code>test.php</code>，内容如下</p>
+<pre><code class="php">&lt;?php
+    echo phpinfo();
+?&gt;
+</code></pre>
+<p>查看<code>http://ip/test.php</code>是否出现phpinfo，并且在里面查看mysql是否正确配置。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://blog.csdn.net/tanyhuan/article/details/64942722" target="_blank" rel="noopener">AliSQL 安装</a></li>
+<li><a href="https://www.cnblogs.com/zhang-shijie/p/5294162.html" target="_blank" rel="noopener">Nginx 安装</a></li>
+<li><a href="http://blog.csdn.net/dyllove98/article/details/41120789" target="_blank" rel="noopener">5分钟搭建 nginx +php</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux LNMP PHP Nginx MySQL AliSQL </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Linux服务部署之VSFTP搭建(编译安装)]]></title>
+      <url>/20180108/Linux%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B9%8BVSFTP%E6%90%AD%E5%BB%BA.html</url>
+      <content type="html"><![CDATA[<h2 id="系统环境和预计目标"><a href="#系统环境和预计目标" class="headerlink" title="系统环境和预计目标"></a>系统环境和预计目标</h2><ol>
+<li>CentOS 7.4</li>
+<li>ftp 根目录 :  <code>/data/ftp</code></li>
+<li>ftp 配置文件目录： <code>/etc/vsftpd</code></li>
+<li>ftp 虚拟用户权限配置文件目录： <code>/etc/vsftpd/vuser_config</code></li>
+</ol>
+<a id="more"></a>
+<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><ol>
+<li><p>安装vsftpd和db_load加密工具</p>
+<pre><code class="bash">#修改配置文件
+sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/&#39; /etc/selinux/config 
+#临时关闭
+setenforce 0  
+#关闭防火墙
+systemctl stop firewalld.service 
+yum install vsftpd -y
+</code></pre>
+</li>
+<li><p>创建本地用户用于映射虚拟用户</p>
+<pre><code class="bash"># 创建ftp用户目录
+mkdir -p /data/ftp
+# 创建用户
+useradd -d /data/ftp vuser -s /sbin/nologin
+# 更改权限和主组权限
+chmod 755 /data/ftp
+chown vuser.root /data/ftp
+</code></pre>
+</li>
+<li><p>创建虚拟用户文件<br>```bash<br>vim /etc/vsftpd/vuser-list</p>
+</li>
+</ol>
+<h1 id="用户名一行，密码一行"><a href="#用户名一行，密码一行" class="headerlink" title="用户名一行，密码一行"></a>用户名一行，密码一行</h1><p>li<br>123123123<br>li1<br>123123123</p>
+<pre><code>
+4. 加密用户密码文件生成数据库文件
+```bash
+cd /etc/vsftpd
+db_load -T -t hash -f ./vuser-list ./vuser-list.db
+chmod 600 vuser-list.db
+</code></pre><ol>
+<li>创建PAM认证文件<br>```bash<br>vim /etc/pam.d/vuser.vu</li>
+</ol>
+<h1 id="PAM认证模块"><a href="#PAM认证模块" class="headerlink" title="PAM认证模块"></a>PAM认证模块</h1><p>#注意64位系统写/lib64这个路径，32位系统要写成/lib<br>auth required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser-list<br>account required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser-list</p>
+<pre><code>
+6. 修改配置文件
+```bash
+# 先备份
+mv /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf-bak
+vim /etc/vsftpd/vsftpd.conf
+
+
+#是否开启匿名登陆
+anonymous_enable=YES
+
+local_enable=YES
+write_enable=YES
+local_umask=022
+dirmessage_enable=YES
+xferlog_enable=YES
+connect_from_port_20=YES
+#登陆日志地址
+xferlog_file=/var/log/xferlog
+xferlog_std_format=YES
+
+listen=YES
+listen_ipv6=NO
+
+#修改ftp默认目录到/data/ftp下面
+chroot_local_user=YES
+#使用户不能离开主目录
+chroot_list_enable=YES
+#设定支持ASCII
+ascii_upload_enable=YES
+ascii_download_enable=YES
+local_root=/data/ftp
+anon_root=/data/ftp
+
+#pam认证文件
+pam_service_name=vuser.vu
+
+#虚拟用户权限配置目录
+user_config_dir=/etc/vsftpd/vuser_config
+userlist_enable=YES
+tcp_wrappers=YES
+
+allow_writeable_chroot=YES
+one_process_model=NO
+#开启虚拟用户
+guest_enable=YES
+guest_username=vuser
+</code></pre><ol>
+<li>创建虚拟用户权限的配置文件<br>```bash<br>mkdir /etc/vsftpd/vuser_config<br>cd /etc/vsftpd/vuser_config</li>
+</ol>
+<p>mkdir -p /data/ftp/li<br>mkdir -p /data/ftp/li1<br>chmod 777 /data/ftp/li<br>chmod 777 /data/ftp/li1</p>
+<p>vim li </p>
+<h1 id="有所有权限"><a href="#有所有权限" class="headerlink" title="[有所有权限]"></a>[有所有权限]</h1><p>#设置登录后禁锢的目录<br>local_root=/data/ftp/li</p>
+<p>#开放写权限<br>write_enable=yes</p>
+<p>#开放下载权限<br>anon_world_readable_only=no</p>
+<p>#开放上传权限<br>anon_upload_enable=yes</p>
+<p>#开放创建目录的权限<br>anon_mkdir_write_enable=yes</p>
+<p>#开放删除和重命名的权限<br>anon_other_write_enable=yes</p>
+<p>vim li1</p>
+<h1 id="只有上传下载的权限"><a href="#只有上传下载的权限" class="headerlink" title="[只有上传下载的权限]"></a>[只有上传下载的权限]</h1><p>local_root=/data/ftp/li1<br>anon_upload_enable=yes<br>anon_world_readable_only=no</p>
+<pre><code>
+8. 更改虚拟用户目录权限，目的是不让匿名用户进行访问
+```bash
+chmod 700 li
+chmod 700 li1
+</code></pre><ol>
+<li><p>设置ftp自启动<code>systemctl enable vsftpd</code>，打开ftp服务 <code>systemctl start vsftpd</code>，为了验证是否启动，使用<code>systemctl status vsftpd.service</code>查看是否已开启。</p>
+</li>
+<li><p>使用xftp或ftp命令进行测试，使用li时可以进行任何操作，包括新建文件夹；使用li1时只能上传和下载，不能新建文件夹，测试有问题则对6和7进行排错。</p>
+</li>
+</ol>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ol>
+<li>useradd可能会出现<code>useradd: warning: the home directory already exists.</code>，是因为默认配置home目录在 <code>/home</code>，导致冲突。第二是因为没有skel目录。没有太大的关系，用户已经成功创建。如果十分纠结这点可以对其建自己的home目录，手动拷贝skel相关文件到home目录下。</li>
+<li><code>550 OOPS: Permission Denied</code>上传失败或创建文件夹失败，可能是selinux的问题。</li>
+</ol>
+<ul>
+<li>关闭selinux：修改 <code>/etc/selinux/config</code>文件中的 <code>SELINUX=&quot;&quot;</code> 为  <code>disabled</code>，使用 <code>setenforce 0</code>重启，使用 <code>getenforce</code>查看是否成功disable掉。值得注意的是需要关闭ftp窗口，重新链接才能生效。</li>
+<li>不关闭selinux：修改selinux配置，详见参考文档2。</li>
+</ul>
+<ol>
+<li><code>226 Transfer done (but failed to open directory)</code>，selinux和防火墙的问题，重新配置一下第一步。</li>
+<li><code>500 OOPS vsftpd: refusing to run with writable root inside chroot()</code>，配置文件中加入 <code>allow_writeable_chroot=YES</code>,创建相应文件<pre><code>touch /etc/vsftpd/chroot_list
+chmod 644 /etc/vsftpd/chroot_list
+</code></pre></li>
+<li>在操作过程中遇到 <code>No such file or directory</code>，表示不存在目录，可使用 <code>mkdir -p</code>进行创建。</li>
+<li>遇到该问题时候，查看6修改配置处是否有错误，拼写错误也可能导致该错误。<br>```bash<br>[root@localhost vsftpd]# systemctl status vsftpd.service<br>● vsftpd.service - Vsftpd ftp daemon<br>Loaded: loaded (/usr/lib/systemd/system/vsftpd.service; enabled; vendor preset: disabled)<br>Active: failed (Result: exit-code) since Mon 2018-01-08 16:22:04 CST; 3min 24s ago<br>Process: 1202 ExecStart=/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf (code=exited, status=2)</li>
+</ol>
+<p>Jan 08 16:22:04 localhost.localdomain systemd[1]: Starting Vsftpd ftp daemon…<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: vsftpd.service: control process exited, code=exited status=2<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: Failed to start Vsftpd ftp daemon.<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: Unit vsftpd.service entered failed state.<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: vsftpd.service failed.<br>```</p>
+<ol>
+<li>出现pam验证通过，但是不能连接的可能是因为配置第七点有一个大坑，是每一行包括文件末尾不能有空格，命令行下会报 <code>500 OOPS: bad bool value in config file for: anon_world_readable_only</code></li>
+<li><code>550 Create directory operation failed.</code>：目录权限没给写权限，使用 <code>chmod 777 /data/ftp/li</code>即可</li>
+</ol>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li>ftp最好使用命令行，这样返回错误码和错误信息容易排错。</li>
+<li>多看日志判断信息。包括 <code>tail -f /var/log/secure</code> 和 <code>systemctl status vsftpd</code><br>-</li>
+</ul>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://blog.csdn.net/aerchi/article/details/78042443" target="_blank" rel="noopener">centos7 安装vsftpd和配置虚拟用户访问及权限分配</a></li>
+<li><a href="http://blog.163.com/haizhifeng6@126/blog/static/45615427201489111836632/" target="_blank" rel="noopener">selinux配置 VSFTP不能上传</a></li>
+<li><a href="http://man.linuxde.net/systemctl" target="_blank" rel="noopener">systemctl命令</a></li>
+<li><a href="http://www.linuxidc.com/Linux/2015-12/126357.htm" target="_blank" rel="noopener">如何在命令行中使用 ftp 命令上传和下载文件</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux FTP </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[JQUERY实现SELECT框三级联动]]></title>
-      <url>/2017/12/19/JQUERY%E5%AE%9E%E7%8E%B0SELECT%E6%A1%86%E4%B8%89%E7%BA%A7%E8%81%94%E5%8A%A8/</url>
+      <url>/20171219/JQUERY%E5%AE%9E%E7%8E%B0SELECT%E6%A1%86%E4%B8%89%E7%BA%A7%E8%81%94%E5%8A%A8.html</url>
       <content type="html"><![CDATA[<p>最近做了一个外包项目，其中写了一个模块是select框国家-省-市的三级联动，其中操作用到了JQuery，数据文件是引入了JSON，没有进行后端交互。如果用到后端交互的话，每次change的函数改成ajax请求即可。因为项目代码的保密，没有写得特别清楚，但结构应该也比较清晰了。</p>
 <a id="more"></a>
 <h2 id="JSON格式"><a href="#JSON格式" class="headerlink" title="JSON格式"></a>JSON格式</h2><p>由于数据是用脚本分几个文档处理出来的，所以JSON文件的格式是形如以下形式，分为了国家-省.json，省-市.json，一般情况下整合在一起会比较合适，操作起来也比较方便。</p>
@@ -111,7 +572,7 @@ countrySel.change(function () {
     
     <entry>
       <title><![CDATA[Github Pages搭建]]></title>
-      <url>/2017/12/16/Github%20Pages%E6%90%AD%E5%BB%BA/</url>
+      <url>/20171216/Github%20Pages%E6%90%AD%E5%BB%BA.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近正在重新系统地学习一遍Linux，自己也经常在有道里面做做笔记。如今拥抱开源、知识分享也是一种趋势，搭建一个博客写写自己学到的知识、整理一下笔记也是挺不错的。于是今晚用一个小时利用Github Pages配置搭建好了Yilia主题的博客，简单记录一下操作和一些坑，希望能给别人一些帮助。</p>
 <a id="more"></a>
 <h2 id="Github操作"><a href="#Github操作" class="headerlink" title="Github操作"></a>Github操作</h2><ul>
@@ -193,6 +654,18 @@ countrySel.change(function () {
   
     
     <entry>
+      <title><![CDATA[时间轴]]></title>
+      <url>/timeline/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[标签云]]></title>
+      <url>/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[关于我]]></title>
       <url>/about/index.html</url>
       <content type="html"><![CDATA[<h2 id="我是谁"><a href="#我是谁" class="headerlink" title="我是谁"></a>我是谁</h2><ul>
@@ -207,18 +680,6 @@ countrySel.change(function () {
 <li>Location: 广东深圳</li>
 </ul>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[标签云]]></title>
-      <url>/tags/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[时间轴]]></title>
-      <url>/timeline/index.html</url>
-      <content type="html"></content>
     </entry>
     
   
