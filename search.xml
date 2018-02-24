@@ -9,11 +9,17 @@
 <h3 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h3><ol>
 <li>域名从阿里云下的万网处购买，在域名管理中点击解析-添加解析</li>
 <li>具体设置如图所示，因为我使用子域名作为博客地址，因此此处选择CNAME作为记录类型<br><img src="http://p16yopw41.bkt.clouddn.com/201802241345_432.png" alt=""></li>
-<li>在Github Pages中的source目录中添加CNAME文件，填入域名；更新设置。<br>```bash<br>touch CNAME<br>vim CNAME</li>
-</ol>
-<p>blog.n3ver.top<br>:q</p>
-<p>hexo g<br>hexo d<br>```</p>
-<ol>
+<li><p>在Github Pages中的source目录中添加CNAME文件，填入域名；更新设置。</p>
+<pre><code class="bash"> touch CNAME
+ vim CNAME
+
+ blog.n3ver.top
+ :q
+
+ hexo g
+ hexo d
+</code></pre>
+</li>
 <li>等待5分钟即可生效</li>
 </ol>
 <h3 id="启用HTTPS"><a href="#启用HTTPS" class="headerlink" title="启用HTTPS"></a>启用HTTPS</h3><h4 id="为什么使用SSL"><a href="#为什么使用SSL" class="headerlink" title="为什么使用SSL"></a>为什么使用SSL</h4><ol>
@@ -698,6 +704,12 @@ countrySel.change(function () {
   
     
     <entry>
+      <title><![CDATA[标签云]]></title>
+      <url>/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[关于我]]></title>
       <url>/about/index.html</url>
       <content type="html"><![CDATA[<h2 id="我是谁"><a href="#我是谁" class="headerlink" title="我是谁"></a>我是谁</h2><ul>
@@ -712,12 +724,6 @@ countrySel.change(function () {
 <li>Location: 广东深圳</li>
 </ul>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[标签云]]></title>
-      <url>/tags/index.html</url>
-      <content type="html"></content>
     </entry>
     
     <entry>
