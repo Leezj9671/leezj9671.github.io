@@ -3,6 +3,57 @@
   
     
     <entry>
+      <title><![CDATA[Gitpages绑定域名及启用HTTPS]]></title>
+      <url>/20180224/Gitpages%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%E5%8F%8A%E5%90%AF%E7%94%A8HTTPS.html</url>
+      <content type="html"><![CDATA[<p>为了不使用看起来就很长的、B格不够高的<a href="">*.github.io</a>作为博客地址，我购买了一个域名(<a href="n3ver.top">n3ver.top</a>)，将<a href="blog.n3ver.top">blog.n3ver.top</a>绑定到我的Github Pages上，并且使用了HTTPS。接下来是我的做法：<br><a id="more"></a></p>
+<h2 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h2><ol>
+<li>域名从阿里云下的万网处购买，在域名管理中点击解析-添加解析</li>
+<li><p>具体设置如图所示，因为我使用子域名作为博客地址，因此此处选择CNAME作为记录类型<br><img src="p16yopw41.bkt.clouddn.com/201802241345_432.png" alt=""></p>
+</li>
+<li><p>在Github Pages中的source目录中添加CNAME文件，填入域名；更新设置。</p>
+<pre><code class="bash"> touch CNAME
+ vim CNAME
+
+ blog.n3ver.top
+ :q
+
+ hexo g
+ hexo d
+</code></pre>
+</li>
+<li>等待5分钟即可生效</li>
+</ol>
+<h2 id="启用HTTPS"><a href="#启用HTTPS" class="headerlink" title="启用HTTPS"></a>启用HTTPS</h2><h3 id="为什么使用SSL"><a href="#为什么使用SSL" class="headerlink" title="为什么使用SSL"></a>为什么使用SSL</h3><ol>
+<li>SSL是大势所趋，Chrome即将把所有HTTP都标记为不安全。</li>
+<li>SSL可以提高搜索引擎排名。</li>
+</ol>
+<h3 id="使用Cloudflare添加SSL"><a href="#使用Cloudflare添加SSL" class="headerlink" title="使用Cloudflare添加SSL"></a>使用Cloudflare添加SSL</h3><ol>
+<li>注册并登陆Cloudflare，填入你的域名，选择免费计划。</li>
+<li>在阿里云域名管理处将DNS服务器修改为Cloudflare的DNS。<br><img src="p16yopw41.bkt.clouddn.com/201802241359_476.png" alt=""></li>
+<li>在Cloudflare中将Crypto设置为flexible<br><img src="p16yopw41.bkt.clouddn.com/201802241401_562.png" alt=""></li>
+<li>设置页面规则<br><img src="p16yopw41.bkt.clouddn.com/201802241404_610.png" alt=""><br><img src="p16yopw41.bkt.clouddn.com/201802241404_992.png" alt=""></li>
+<li>稍等5-30分钟即可生效</li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> 博客搭建 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Github Pages </tag>
+            
+            <tag> 博客搭建 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Linux服务部署之LNMP搭建(编译安装)]]></title>
       <url>/20180109/Linux%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B9%8BLNMP%E6%90%AD%E5%BB%BA.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。<br><a id="more"></a></p>
@@ -654,6 +705,12 @@ countrySel.change(function () {
   
     
     <entry>
+      <title><![CDATA[标签云]]></title>
+      <url>/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[关于我]]></title>
       <url>/about/index.html</url>
       <content type="html"><![CDATA[<h2 id="我是谁"><a href="#我是谁" class="headerlink" title="我是谁"></a>我是谁</h2><ul>
@@ -668,12 +725,6 @@ countrySel.change(function () {
 <li>Location: 广东深圳</li>
 </ul>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[标签云]]></title>
-      <url>/tags/index.html</url>
-      <content type="html"></content>
     </entry>
     
     <entry>
