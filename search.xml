@@ -700,14 +700,183 @@ countrySel.change(function () {
         
     </entry>
     
-  
-  
+    <entry>
+      <title><![CDATA[2017蓝盾杯bdctf热身题]]></title>
+      <url>/20171013/2017%E8%93%9D%E7%9B%BE%E6%9D%AFbdctf%E7%83%AD%E8%BA%AB%E9%A2%98.html</url>
+      <content type="html"><![CDATA[<p>又水了一场比赛，蓝盾这次系统漏洞百出，口碑炸裂了……放出我的一些WP<br><a id="more"></a></p>
+<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><p>WEB题目没记录，所以只写思路</p>
+<h3 id="Forbidden"><a href="#Forbidden" class="headerlink" title="Forbidden"></a>Forbidden</h3><p>提示所在地要是在台湾，目测修改HTTP头，然而flag直接在页面了。。</p>
+<h3 id="False"><a href="#False" class="headerlink" title="False"></a>False</h3><p>提示两个参数需要不同且sha1值相同。PHP的sha1函数对数组无用，利用数组绕过。</p>
+<h3 id="mdzz"><a href="#mdzz" class="headerlink" title="mdzz"></a>mdzz</h3><p>平台太卡，做不了</p>
+<h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><h3 id="base64全家桶"><a href="#base64全家桶" class="headerlink" title="base64全家桶"></a>base64全家桶</h3><p>用base64 base32 base16依次解即可</p>
+<h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h3 id="虚拟镜像"><a href="#虚拟镜像" class="headerlink" title="虚拟镜像"></a>虚拟镜像</h3><p>用VMware挂载磁盘，目测NTFS隐藏，利用labs看出来有文件隐藏。<br>执行notepad flag.txt:flaghidden.txt</p>
+<h2 id="Stega"><a href="#Stega" class="headerlink" title="Stega"></a>Stega</h2><h3 id="愤怒的小鸟"><a href="#愤怒的小鸟" class="headerlink" title="愤怒的小鸟"></a>愤怒的小鸟</h3><p>提示使用outguess，直接用outguess即可</p>
+<h3 id="空白的图片"><a href="#空白的图片" class="headerlink" title="空白的图片"></a>空白的图片</h3><p>stegsolve看有个key{},为压缩包密码，解压出gif，给gif添加头GIF8，用stegsolve查看Analyse-Frame Browser，逐帧查看可得</p>
+<h3 id="他是什么人"><a href="#他是什么人" class="headerlink" title="他是什么人"></a>他是什么人</h3><p>foremost就行</p>
+<h2 id="PPC"><a href="#PPC" class="headerlink" title="PPC"></a>PPC</h2><h3 id="求最大循环次数"><a href="#求最大循环次数" class="headerlink" title="求最大循环次数"></a>求最大循环次数</h3><pre><code class="python">def cnt(n):
+   cnt = 1
+   while(n != 1):
+       if n%2 == 0:
+           n = int(n/2)
+       else:
+           n = 3*n + 1
+       cnt += 1
+       # print(n)
+   return cnt
+m = 0
+for i in range(900, 1001):
+   c = cnt(i)
+   m = c if c&gt;m else m
+
+print(m)
+</code></pre>
+<h3 id="求素数"><a href="#求素数" class="headerlink" title="求素数"></a>求素数</h3><pre><code class="c++">#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+int main() {
+    int start = 367;
+    int diff = 186;
+    // 判断输入的数值，是否是素数
+    int isPrime(int digit) {
+        int sq = sqrt(digit);
+        for (int i = 2; i &lt;= sq; i++) {
+            if (digit % i == 0) {
+                return 0;
+            }
+        }
+        return 1;
+    }
+    int count = 0;  //存储找到的素数的个数
+    int current = start; //存储等差数列的当前值
+    while (1) {
+        if (isPrime(current)) {
+            count += 1;
+            if(count == 151) break;
+        }
+        current += diff;
+    }
+    printf(&quot;第154个素数是: %d&quot;, current);
+}
+</code></pre>
+<h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a>题目链接</h2><p><a href="http://pan.baidu.com/s/1i5lCHUl" target="_blank" rel="noopener">http://pan.baidu.com/s/1i5lCHUl</a> 密码：ob08</p>
+]]></content>
+      
+        <categories>
+            
+            <category> CTF </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> CTF </tag>
+            
+            <tag> 网络安全 </tag>
+            
+        </tags>
+        
+    </entry>
     
     <entry>
-      <title><![CDATA[标签云]]></title>
-      <url>/tags/index.html</url>
-      <content type="html"></content>
+      <title><![CDATA[you_need_python_by_sunnyelf题解]]></title>
+      <url>/20170823/%5BCTF%5Dyou_need_python_by_sunnyelf.html</url>
+      <content type="html"><![CDATA[<p>今天碰到了一个比较有意思的综合题目，记下来给大家看看。<br><a id="more"></a><br>题目和脚本地址：you_need_python_by_sunnyelf<br>解压zip有两个文件，一个是flag.py，一个是key_is_here_but_do_you_know_rfc4042。<br>首先第一步看提示rfc4042的文件，查询可得，它是utf9或者是utf18的编码。在github上找到utf9解码的库，代码如下：</p>
+<pre><code class="python">import utf9
+
+dt = &#39;&#39;
+with open(&#39;key_is_here_but_do_you_know_rfc4042&#39;, &#39;r&#39;) as f:
+    t = f.read()
+    dt = utf9.utf9decode(t)
+print dt
+</code></pre>
+<p>解出为</p>
+<pre><code>_____*((__//__+___+______-____%____)**((___%(___-_))+________+(___%___+_____+_______%__+______-(______//(_____%___)))))+__*(((________/__)+___%__+_______-(________//____))**(_*(_____+_____)+_______+_________%___))+________*(((_________//__+________%__)+(_______-_))**((___+_______)+_________-(______//__)))+_______*((___+_________-(______//___-_______%__%_))**(_____+_____+_____))+__*(__+_________-(___//___-_________%_____%__))**(_________-____+_______)+(___+_______)**(________%___%__+_____+______)+(_____-__)*((____//____-_____%____%_)+_________)**(_____-(_______//_______+_________%___)+______)+(_____+(_________%_______)*__+_)**_________+_______*(((_________%_______)*__+_______-(________//________))**_______)+(________/__)*(((____-_+_______)*(______+____))**___)+___*((__+_________-_)**_____)+___*(((___+_______-______/___+__-_________%_____%__)*(___-_+________/__+_________%_____))**__)+(_//_)*(((________%___%__+_____+_____)%______)+_______-_)**___+_____*((______/(_____%___))+_______)*((_________%_______)*__+_____+_)+___//___+_________+_________/___
+</code></pre><p>刚开始还以为是类似brainfuck之类的东西，但是观察到有括号和运算符，于是猜测是不是下划线的个数代表数字，验证了一下结果是正确的。运算之后得到了一串数字，应该为key。</p>
+<pre><code class="python"># 似乎不能直接u&#39;_&#39;会验证不出来，因此用dt[0]代替
+ul = dt[0]
+cnt = 0
+ns = &#39;&#39;
+for i in dt:
+    if i is ul:
+        cnt += 1
+    else:
+        if cnt != 0:
+            ns += str(cnt)
+            cnt = 0
+            ns += i
+        else:
+            ns += i
+# add
+ns += str(cnt)
+ns = ns.replace(&#39;//&#39;, &#39;/&#39;)
+print ns
+key = eval(ns)
+print key
+# 5287002131074331513 key
+</code></pre>
+<p>第二步是难点，看marshal.loads()应该处理之后的是编译后的二进制流，查阅资料 <a href="http://www.cnblogs.com/rainduck/p/3524557.html" target="_blank" rel="noopener">http://www.cnblogs.com/rainduck/p/3524557.html</a> 找到反编译的方法，因此用uncompyle2是最好不过的了，反编译得出py文件。</p>
+<pre><code class="python">import marshal, zlib, base64
+
+bs = marshal.loads(zlib.decompress(base64.b64decode(&#39;eJxtVP9r21YQvyd/ieWm66Cd03QM1B8C3pggUuzYCSWstHSFQijyoJBhhGq9OXJl2ZFeqAMOK6Q/94f9Ofvn1s+d7Lgtk/3O997du/vc584a0eqpYP2GVfwDEeOrKCU6g2LRRyiK4oooFsVVUSqkqxTX6J1F+SfSNYrrdKPorC76luhbpOEGCZNFZw2KG3Rmk26QtuXi3xTb7ND6/aVu0g2RuvhEcZNut5lAGbTvAFbyH57TkYLKy8J6xpDvQxiiiaIlcdqJxVcHbXY6bXNlZgviPCrO0+StqfKd88gzNh/qRZyMdWHE29TZZvIkG7eZFRGGRcBmsXJaUoKCQ9fWKHwSqNeKFnsM5PnwJ7q2aKk4AFhcWtQCh+ChB5+Lu/RmyYUxmtOEYxas7i/2iuR7Ti14OEOSmU0RADd4+dQzbM1FJhukAUeQ+kZROuLyioagrau76kc1slY1NNaY/y3LAxDQBrAICJisV2hMdF2lxQcyFuMoqcX3+TCl6xotqzSpkqmxYVmjXVjAXiwBsEfBrd1VvTvLCj2EXRnhoryAKdpxcIgJcowUB68yAx/tlCAuPHqDuZo0CN3CUGHwkPhGMA7aXMfphjbmQLhLhJcHa0a+mpgB191c1U1lnHJQbgkHx+WGxeJbejnpkzSavo2jkxZ7i725npGAaTc8FXmUjbUETHUmkxXN5zqL5WiWxwE7Bc11yyYzNJpN02jerq+DzNNodfxOX8kE4FcmYKscDdYD1oPGGucXYNmgs1F+NTf3GOt3Mg7b+NTVruqoQyX1hOEUacKw+AGbP38ZOq9THRXaSbL5pXGQ8bho/Z/lrzQaHxdoCrlev+t6nZ7re57r+57rHXag93Deh37k+vuw9zorO/Qj/B50cAf2oyOsvut3D+ADWxdxfN/1Drqu39mHzvcRswv/Hvz7sHeg9w8Qzy99DzuFwxhPhs6zWTbOI3OZRiaZZcVj5wVwOklx7OwVxR47PR46r/SVM8ulBJic9zku/eqY/MqJxiDj+Gd55wS3f35pbLCzHoEwzKKpDkN5i+TR+1AYCWTo5IV0Z0P9H3phDDd6lMzPdS5bbo9eJGbTsW9nbDqLL1N9Iq+rRxDbll2x67a9Lf27hw5uK1s1rZr6DOPF+FI=&#39;)))
+
+import uncompyle2
+with open(&#39;f.py&#39;, &#39;w&#39;) as f:
+    uncompyle2.uncompyle(&#39;2.7&#39;, bs, f)
+看encrypt函数，加密方法如下：
+def encrypt(plain, key):
+    keySHA1 = sha1(key)
+    intSHA1 = calc(keySHA1)
+    r = []
+    for i in range(len(plain)):
+        r.append(ord(plain[i]) + int(&#39;0x%s&#39; % keySHA1[i % 40], 16) - intSHA1)
+        intSHA1 = calc(sha1(plain[:i + 1])[:20] + sha1(str(intSHA1))[:20])
+
+    return &#39;&#39;.join(map(lambda x: str(x), r))
+</code></pre>
+<p>对key进行sha1加密为16进制串，再处理为10进制串保存到intSHA1；<br>对plain里面的每一位ascii编码与keySHA1的某位进行相加后减去intSHA1，放入r中；<br>intSHA1变化为plain前i位的sha1前二十位与intSHA1的SHA1前二十位相加的十进制值；<br>将r中的元素转化为字符串得到加密后的字符串，因此，该加密方法是前后字符关联的，第n位的加密都与前n-1位有关。<br>了解了加密方法后，接下来尝试用第一步爆出的key爆破，爆破代码如下：</p>
+<pre><code class="python">...
+if __name__ == &#39;__main__&#39;
+    cipherText = &#39;-185-147-211-221-164-217-188-169-205-174-211-225-191-234-148-199-198-253-175-157-222-135-240-229-201-154-178-187-244-183-212-222-164&#39;
+
+    key = &#39;5287002131074331513&#39;
+    flag =&#39;&#39;
+    for i in range(len(cipherText)/4):
+        for j in range(31, 128):   # 一般31-128才是常用字符
+            if encrypt(flag+chr(j), key) == cipherText[0:i*4+4]:
+                print j,
+                flag += chr(j)
+                break
+    print flag
+发现爆破出的都是无意义字符串，猜想是否key有问题，尝试将key转换为16进制、16进制转字符串发现有意义字符串I_4m-k3y
+hk = hex(key)[2:]
+print hk
+kk = &#39;&#39;
+for i in range(len(hk)/2):
+    kk += chr(int(&#39;0x&#39; + hk[i*2:i*2+2], 16))
+print kk
+</code></pre>
+<p>将key代入爆破代码即可解出flag。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> CTF </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> CTF </tag>
+            
+            <tag> 网络安全 </tag>
+            
+        </tags>
+        
     </entry>
+    
+  
+  
     
     <entry>
       <title><![CDATA[关于我]]></title>
@@ -729,6 +898,12 @@ countrySel.change(function () {
     <entry>
       <title><![CDATA[时间轴]]></title>
       <url>/timeline/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[标签云]]></title>
+      <url>/tags/index.html</url>
       <content type="html"></content>
     </entry>
     
