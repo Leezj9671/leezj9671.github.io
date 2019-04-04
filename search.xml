@@ -100,8 +100,6 @@
         
         <tags>
             
-            <tag> Github Pages </tag>
-            
             <tag> 博客搭建 </tag>
             
         </tags>
@@ -399,7 +397,7 @@ http
         
         <tags>
             
-            <tag> Linux LNMP PHP Nginx MySQL AliSQL </tag>
+            <tag> Linux LNMP </tag>
             
         </tags>
         
@@ -563,7 +561,7 @@ chmod 644 /etc/vsftpd/chroot_list
         
         <tags>
             
-            <tag> Linux FTP </tag>
+            <tag> Linux </tag>
             
         </tags>
         
@@ -748,8 +746,6 @@ countrySel.change(function () {
         
         <tags>
             
-            <tag> Github Pages </tag>
-            
             <tag> 博客搭建 </tag>
             
         </tags>
@@ -826,8 +822,6 @@ int main() {
         <tags>
             
             <tag> CTF </tag>
-            
-            <tag> 网络安全 </tag>
             
         </tags>
         
@@ -925,8 +919,6 @@ print kk
             
             <tag> CTF </tag>
             
-            <tag> 网络安全 </tag>
-            
         </tags>
         
     </entry>
@@ -937,12 +929,12 @@ print kk
     <entry>
       <title><![CDATA[关于我]]></title>
       <url>/about/index.html</url>
-      <content type="html"><![CDATA[<h2 id="我是谁"><a href="#我是谁" class="headerlink" title="我是谁"></a>我是谁</h2><ul>
-<li>热爱网络安全的无名小卒</li>
+      <content type="html"><![CDATA[<h2 id="WhoAmI"><a href="#WhoAmI" class="headerlink" title="WhoAmI"></a>WhoAmI</h2><ul>
+<li>热爱网络安全的无名小卒，熟悉渗透测试、流量分析</li>
 <li>四非本科 18 应届毕业生</li>
-<li>CTF 划水队员</li>
-<li>Python 爱好者</li>
-<li>偶尔玩玩前端，有一些前端的项目经历</li>
+<li>CTF 划水队员，获得过一些奖项</li>
+<li>Python 爱好者，熟练 Python 的安装和卸载</li>
+<li>偶尔玩玩前端，有一些前端的踩坑经历</li>
 </ul>
 <h2 id="Contact-Me"><a href="#Contact-Me" class="headerlink" title="Contact Me"></a>Contact Me</h2><ul>
 <li>Mail: <a href="mailto://leezj9671@gmail.com" target="_blank" rel="noopener">GMail</a></li>
