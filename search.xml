@@ -3,12 +3,68 @@
   
     
     <entry>
+      <title><![CDATA[新手友好的CTF靶场整理合集]]></title>
+      <url>/20190404/%E6%96%B0%E6%89%8B%E5%8F%8B%E5%A5%BD%E7%9A%84CTF%E9%9D%B6%E5%9C%BA%E6%95%B4%E7%90%86%E5%90%88%E9%9B%86.html</url>
+      <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我整理得没有那么全，这里的合集主要还是面对新手。做题贵精不在多，好好练习每一题，学习每个知识点，不懂的百度或者 Google 即可。记住，你是为了提高自己而去打 CTF 。<br><a id="more"></a></p>
+<h2 id="CTF-比赛时间表"><a href="#CTF-比赛时间表" class="headerlink" title="CTF 比赛时间表"></a>CTF 比赛时间表</h2><ul>
+<li>CTFwiki（入门必看wiki）: <a href="https://ctf-wiki.github.io/ctf-wiki/#/introduction" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/#/introduction</a></li>
+<li>XCTF社区： <a href="https://time.xctf.org.cn" target="_blank" rel="noopener">https://time.xctf.org.cn</a></li>
+<li>i春秋: <a href="https://www.ichunqiu.com/competition" target="_blank" rel="noopener">https://www.ichunqiu.com/competition</a></li>
+<li>CTFrank: <a href="https://ctfrank.org/" target="_blank" rel="noopener">https://ctfrank.org/</a></li>
+<li>CTFtime（基本都是国外的）: <a href="https://ctftime.org" target="_blank" rel="noopener">https://ctftime.org</a> </li>
+</ul>
+<h2 id="本地靶场"><a href="#本地靶场" class="headerlink" title="本地靶场"></a>本地靶场</h2><ul>
+<li>DVWA: <a href="https://github.com/ethicalhack3r/DVWA" target="_blank" rel="noopener">https://github.com/ethicalhack3r/DVWA</a></li>
+<li>metsploitable3: <a href="https://github.com/rapid7/metasploitable3/" target="_blank" rel="noopener">https://github.com/rapid7/metasploitable3/</a></li>
+<li>Webgoat: <a href="https://github.com/WebGoat/WebGoat" target="_blank" rel="noopener">https://github.com/WebGoat/WebGoat</a></li>
+<li>Juiceshop: <a href="https://github.com/bkimminich/juice-shop" target="_blank" rel="noopener">https://github.com/bkimminich/juice-shop</a></li>
+</ul>
+<h2 id="国内-CTF"><a href="#国内-CTF" class="headerlink" title="国内 CTF"></a>国内 CTF</h2><ul>
+<li>实验吧: <a href="http://www.shiyanbar.com" target="_blank" rel="noopener">http://www.shiyanbar.com</a></li>
+<li>XCTF 实训平台: <a href="http://oj.xctf.org.cn" target="_blank" rel="noopener">http://oj.xctf.org.cn</a></li>
+<li>安恒周周练： <a href="https://www.linkedbyx.com/home" target="_blank" rel="noopener">https://www.linkedbyx.com/home</a></li>
+<li>XSS专练： <a href="https://xss.haozi.me/tools/xss-encode/" target="_blank" rel="noopener">https://xss.haozi.me/tools/xss-encode/</a></li>
+<li>南京邮电大学CTF/网络攻防训练平台: <a href="http://ctf.nuptzj.cn/" target="_blank" rel="noopener">http://ctf.nuptzj.cn/</a></li>
+<li>BugkuCTF: <a href="https://ctf.bugku.com/" target="_blank" rel="noopener">https://ctf.bugku.com/</a></li>
+</ul>
+<h2 id="国外-CTF"><a href="#国外-CTF" class="headerlink" title="国外 CTF"></a>国外 CTF</h2><ul>
+<li>Root-me: <a href="https://root-me.org" target="_blank" rel="noopener">https://root-me.org</a></li>
+<li>CTF365: <a href="https://ctf365.com/" target="_blank" rel="noopener">https://ctf365.com/</a></li>
+</ul>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><ul>
+<li>Vulhub: <a href="https://github.com/vulhub/vulhub" target="_blank" rel="noopener">https://github.com/vulhub/vulhub</a></li>
+</ul>
+<h2 id="其它大佬整理的链接"><a href="#其它大佬整理的链接" class="headerlink" title="其它大佬整理的链接"></a>其它大佬整理的链接</h2><p>多搜搜，很多前辈已经整理了很多啦！</p>
+<ul>
+<li><p>Awesome-Platforms/CTF-Platforms: <a href="https://github.com/We5ter/Awesome-Platforms/blob/master/CTF-Platforms.md" target="_blank" rel="noopener">https://github.com/We5ter/Awesome-Platforms/blob/master/CTF-Platforms.md</a></p>
+</li>
+<li><p>知乎提问： <a href="https://www.zhihu.com/question/267204109/answer/320502511" target="_blank" rel="noopener">https://www.zhihu.com/question/267204109/answer/320502511</a></p>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> CTF </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> CTF </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Gitpages绑定域名及启用HTTPS]]></title>
       <url>/20180224/Gitpages%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%E5%8F%8A%E5%90%AF%E7%94%A8HTTPS.html</url>
-      <content type="html"><![CDATA[<p>为了不使用看起来就很长的、B格不够高的<a href="">*.github.io</a>作为博客地址，我购买了一个域名(<a href="n3ver.top">n3ver.top</a>)，将<a href="blog.n3ver.top">blog.n3ver.top</a>绑定到我的Github Pages上，并且使用了HTTPS。接下来是我的做法：<br><a id="more"></a></p>
+      <content type="html"><![CDATA[<p>为了不使用看起来就很长的、B格不够高的<a href>*.github.io</a>作为博客地址，我购买了一个域名(<a href="n3ver.top">n3ver.top</a>)，将<a href="blog.n3ver.top">blog.n3ver.top</a>绑定到我的Github Pages上，并且使用了HTTPS。接下来是我的做法：<br><a id="more"></a></p>
 <h3 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h3><ol>
 <li>域名从阿里云下的万网处购买，在域名管理中点击解析-添加解析</li>
-<li>具体设置如图所示，因为我使用子域名作为博客地址，因此此处选择CNAME作为记录类型<br><img src="../../images/201802241345_432.png" alt=""></li>
+<li>具体设置如图所示，因为我使用子域名作为博客地址，因此此处选择CNAME作为记录类型<br><img src="../../images/201802241345_432.png" alt></li>
 <li><p>在Github Pages中的source目录中添加CNAME文件，填入域名；更新设置。</p>
 <pre><code class="bash"> touch CNAME
  vim CNAME
@@ -28,9 +84,9 @@
 </ol>
 <h4 id="使用Cloudflare添加SSL"><a href="#使用Cloudflare添加SSL" class="headerlink" title="使用Cloudflare添加SSL"></a>使用Cloudflare添加SSL</h4><ol>
 <li>注册并登陆Cloudflare，填入你的域名，选择免费计划。</li>
-<li>在阿里云域名管理处将DNS服务器修改为Cloudflare的DNS。<br><img src="../../images/201802241359_476.png" alt=""></li>
-<li>在Cloudflare中将Crypto设置为flexible<br><img src="../../images/201802241401_562.png" alt=""></li>
-<li>设置页面规则<br><img src="../../images/201802241404_610.png" alt=""><br><img src="../../images/201802241404_992.png" alt=""></li>
+<li>在阿里云域名管理处将DNS服务器修改为Cloudflare的DNS。<br><img src="../../images/201802241359_476.png" alt></li>
+<li>在Cloudflare中将Crypto设置为flexible<br><img src="../../images/201802241401_562.png" alt></li>
+<li>设置页面规则<br><img src="../../images/201802241404_610.png" alt><br><img src="../../images/201802241404_992.png" alt></li>
 <li>稍等5-30分钟即可生效</li>
 </ol>
 ]]></content>
@@ -57,20 +113,20 @@
       <url>/20180109/Linux%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B9%8BLNMP%E6%90%AD%E5%BB%BA.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。<br><a id="more"></a></p>
 <h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="AliSQL"><a href="#AliSQL" class="headerlink" title="AliSQL"></a>AliSQL</h3><ol>
-<li>安装编译源码所需库和工具<pre><code class="bash">yum install gcc gcc-c++ ncurses-devel perl
+<li>安装编译源码所需库和工具<pre><code class="bash">yum install gcc gcc-c++ ncurses-devel perl 
 </code></pre>
 </li>
 </ol>
 <p>还需要安装cmake和bison，因为已经自带了，所以不详述，详见参考文档</p>
-<ol>
+<ol start="2">
 <li><p>增加mysql组和用户</p>
 <pre><code class="bash">groupadd mysql 
-useradd -r -g mysql mysql
+useradd -r -g mysql mysql 
 </code></pre>
 </li>
 <li><p>建立安装目录和数据文件目录</p>
 <pre><code class="bash">mkdir –p /usr/local/mysql 
-mkdir -p /data/mysqldb
+mkdir -p /data/mysqldb 
 </code></pre>
 </li>
 <li><p>下载解压并编译源码</p>
@@ -89,7 +145,7 @@ chown -R mysql:mysql /data/mysqldb
 </li>
 <li><p>初始化AliSQL数据库</p>
 <pre><code class="bash">cd /usr/local/mysql
-scripts/mysql_install_db –user=mysql –datadir=/data/mysqldb
+scripts/mysql_install_db –user=mysql –datadir=/data/mysqldb 
 </code></pre>
 </li>
 </ol>
@@ -133,8 +189,8 @@ New default config file was created as ./my.cnf and
 will be used by default by the server when you start it.
 You may edit this file to change server settings
 </code></pre>
-<ol>
-<li>复制AliSQL服务启动配置文件、脚本，并加入PATH<br>```bash<br>cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf<br>cp support-files/mysql.server /etc/init.d/mysqld<br>vim /etc/profile </li>
+<ol start="7">
+<li>复制AliSQL服务启动配置文件、脚本，并加入PATH<br><code>`</code>bash<br>cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf<br>cp support-files/mysql.server /etc/init.d/mysqld<br>vim /etc/profile </li>
 </ol>
 <p>#加入这行<br>PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH </p>
 <p>export PATH<br>source/etc/profile </p>
@@ -142,8 +198,8 @@ You may edit this file to change server settings
 8. 启动AliSQL服务并加入开机自启
 ```bash
 service mysqld start 
-chkconfig –level 35 mysqld on
-</code></pre><ol>
+chkconfig –level 35 mysqld on 
+</code></pre><ol start="9">
 <li>检查是否已启动<pre><code class="bash">netstat -tulnp | grep 3306 
 mysql -u root -p
 </code></pre>
@@ -159,7 +215,7 @@ cd ./nginx-1.12.2
 <pre><code class="bash">./configure  --prefix=/usr/local/nginx  --sbin-path=/usr/local/nginx/sbin/nginx --conf-path=/usr/local/nginx/conf/nginx.conf --error-log-path=/var/log/nginx/error.log  --http-log-path=/var/log/nginx/access.log  --pid-path=/var/run/nginx/nginx.pid --lock-path=/var/lock/nginx.lock  --user=nginx --group=nginx --with-http_ssl_module --with-http_stub_status_module --with-http_gzip_static_module --http-client-body-temp-path=/var/tmp/nginx/client/ --http-proxy-temp-path=/var/tmp/nginx/proxy/ --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi --http-scgi-temp-path=/var/tmp/nginx/scgi --with-pcre
 </code></pre>
 <p>可能需要依赖文件如下</p>
-<pre><code class="bash">yum install gcc gcc-c++ automake pcre pcre-devel zlip zlib-devel openssl openssl-devel
+<pre><code class="bash">yum install gcc gcc-c++ automake pcre pcre-devel zlip zlib-devel openssl openssl-devel 
 </code></pre>
 <p>安装完毕后有相关的提示信息，马克以备后用</p>
 <pre><code class="bash">Configuration summary
@@ -182,7 +238,7 @@ nginx http uwsgi temporary files: &quot;/var/tmp/nginx/uwsgi&quot;
 nginx http scgi temporary files: &quot;/var/tmp/nginx/scgi&quot;
 </code></pre>
 </li>
-<li><p>修改监听端口<br>```bash<br>vim /usr/local/nginx/conf/nginx.conf</p>
+<li><p>修改监听端口<br><code>`</code>bash<br>vim /usr/local/nginx/conf/nginx.conf</p>
 </li>
 </ol>
 <h1 id="listen把80改为8090，以防冲突"><a href="#listen把80改为8090，以防冲突" class="headerlink" title="listen把80改为8090，以防冲突"></a>listen把80改为8090，以防冲突</h1><p>server {<br>    listen       8090;</p>
@@ -201,7 +257,7 @@ nginx -s stop
 <li><code>nginx: [emerg] getpwnam(&quot;nginx&quot;) failed</code>：表示没有nginx用户（<code>useradd -s /sbin/nologin -M nginx</code>)</li>
 <li><code>nginx: [emerg] mkdir() &quot;/var/tmp/nginx/client/&quot; failed (2: No such file or directory)</code>：表示没有该目录(<code>mkdir -p</code>)</li>
 </ul>
-<ol>
+<ol start="5">
 <li><p>验证nginx是否开启、端口是否监听</p>
 <pre><code class="bash">ps -ef | grep nginx
 netstat -antl | grep 8090
@@ -218,7 +274,7 @@ netstat -antl | grep 8090
 <pre><code class="bash">./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --enable-fpm --with-fpm-user=php-fpm --with-fpm-group=php-fpm --with-mysql=/usr/local/mysql --with-libxml-dir --enable-soap --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-exif --disable-ipv6 --with-curl --with-openssl
 </code></pre>
 <p>同样可能需要安装依赖文件，见机行事</p>
-<pre><code class="bash">yum -y install libxml2 libxml2-devel curl curl-devel
+<pre><code class="bash">yum -y install libxml2 libxml2-devel curl curl-devel 
 </code></pre>
 <p>安装后有提示信息，同样马克</p>
 <pre><code class="bash">You may want to add: /usr/local/php/lib/php to your php.ini include_path
@@ -236,7 +292,7 @@ cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
 # 将其中user和group改成系统用户
 </code></pre>
 </li>
-<li>启用php-fpm<br>```bash<br>service php-fpm start</li>
+<li>启用php-fpm<br><code>`</code>bash<br>service php-fpm start</li>
 </ol>
 <p>#开机启动和检测是否已启动<br>chkconfig php-fpm on<br>ps aux | grep php-fpm<br>netstat -ant |grep 9000</p>
 <pre><code>
@@ -351,7 +407,7 @@ http
     
     <entry>
       <title><![CDATA[Linux服务部署之VSFTP搭建(编译安装)]]></title>
-      <url>/20180108/Linux%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B9%8BVSFTP%E6%90%AD%E5%BB%BA.html</url>
+      <url>/20180108/20180108-Linux%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E4%B9%8BVSFTP%E6%90%AD%E5%BB%BA.html</url>
       <content type="html"><![CDATA[<h2 id="系统环境和预计目标"><a href="#系统环境和预计目标" class="headerlink" title="系统环境和预计目标"></a>系统环境和预计目标</h2><ol>
 <li>CentOS 7.4</li>
 <li>ftp 根目录 :  <code>/data/ftp</code></li>
@@ -380,7 +436,7 @@ chmod 755 /data/ftp
 chown vuser.root /data/ftp
 </code></pre>
 </li>
-<li><p>创建虚拟用户文件<br>```bash<br>vim /etc/vsftpd/vuser-list</p>
+<li><p>创建虚拟用户文件<br><code>`</code>bash<br>vim /etc/vsftpd/vuser-list</p>
 </li>
 </ol>
 <h1 id="用户名一行，密码一行"><a href="#用户名一行，密码一行" class="headerlink" title="用户名一行，密码一行"></a>用户名一行，密码一行</h1><p>li<br>123123123<br>li1<br>123123123</p>
@@ -390,8 +446,8 @@ chown vuser.root /data/ftp
 cd /etc/vsftpd
 db_load -T -t hash -f ./vuser-list ./vuser-list.db
 chmod 600 vuser-list.db
-</code></pre><ol>
-<li>创建PAM认证文件<br>```bash<br>vim /etc/pam.d/vuser.vu</li>
+</code></pre><ol start="5">
+<li>创建PAM认证文件<br><code>`</code>bash<br>vim /etc/pam.d/vuser.vu</li>
 </ol>
 <h1 id="PAM认证模块"><a href="#PAM认证模块" class="headerlink" title="PAM认证模块"></a>PAM认证模块</h1><p>#注意64位系统写/lib64这个路径，32位系统要写成/lib<br>auth required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser-list<br>account required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser-list</p>
 <pre><code>
@@ -441,8 +497,8 @@ one_process_model=NO
 #开启虚拟用户
 guest_enable=YES
 guest_username=vuser
-</code></pre><ol>
-<li>创建虚拟用户权限的配置文件<br>```bash<br>mkdir /etc/vsftpd/vuser_config<br>cd /etc/vsftpd/vuser_config</li>
+</code></pre><ol start="7">
+<li>创建虚拟用户权限的配置文件<br><code>`</code>bash<br>mkdir /etc/vsftpd/vuser_config<br>cd /etc/vsftpd/vuser_config</li>
 </ol>
 <p>mkdir -p /data/ftp/li<br>mkdir -p /data/ftp/li1<br>chmod 777 /data/ftp/li<br>chmod 777 /data/ftp/li1</p>
 <p>vim li </p>
@@ -459,7 +515,7 @@ guest_username=vuser
 ```bash
 chmod 700 li
 chmod 700 li1
-</code></pre><ol>
+</code></pre><ol start="9">
 <li><p>设置ftp自启动<code>systemctl enable vsftpd</code>，打开ftp服务 <code>systemctl start vsftpd</code>，为了验证是否启动，使用<code>systemctl status vsftpd.service</code>查看是否已开启。</p>
 </li>
 <li><p>使用xftp或ftp命令进行测试，使用li时可以进行任何操作，包括新建文件夹；使用li1时只能上传和下载，不能新建文件夹，测试有问题则对6和7进行排错。</p>
@@ -473,22 +529,22 @@ chmod 700 li1
 <li>关闭selinux：修改 <code>/etc/selinux/config</code>文件中的 <code>SELINUX=&quot;&quot;</code> 为  <code>disabled</code>，使用 <code>setenforce 0</code>重启，使用 <code>getenforce</code>查看是否成功disable掉。值得注意的是需要关闭ftp窗口，重新链接才能生效。</li>
 <li>不关闭selinux：修改selinux配置，详见参考文档2。</li>
 </ul>
-<ol>
+<ol start="3">
 <li><code>226 Transfer done (but failed to open directory)</code>，selinux和防火墙的问题，重新配置一下第一步。</li>
 <li><code>500 OOPS vsftpd: refusing to run with writable root inside chroot()</code>，配置文件中加入 <code>allow_writeable_chroot=YES</code>,创建相应文件<pre><code>touch /etc/vsftpd/chroot_list
 chmod 644 /etc/vsftpd/chroot_list
 </code></pre></li>
 <li>在操作过程中遇到 <code>No such file or directory</code>，表示不存在目录，可使用 <code>mkdir -p</code>进行创建。</li>
-<li>遇到该问题时候，查看6修改配置处是否有错误，拼写错误也可能导致该错误。<br>```bash<br>[root@localhost vsftpd]# systemctl status vsftpd.service<br>● vsftpd.service - Vsftpd ftp daemon<br>Loaded: loaded (/usr/lib/systemd/system/vsftpd.service; enabled; vendor preset: disabled)<br>Active: failed (Result: exit-code) since Mon 2018-01-08 16:22:04 CST; 3min 24s ago<br>Process: 1202 ExecStart=/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf (code=exited, status=2)</li>
+<li>遇到该问题时候，查看6修改配置处是否有错误，拼写错误也可能导致该错误。<br><code>`</code>bash<br>[root@localhost vsftpd]# systemctl status vsftpd.service<br>● vsftpd.service - Vsftpd ftp daemon<br>Loaded: loaded (/usr/lib/systemd/system/vsftpd.service; enabled; vendor preset: disabled)<br>Active: failed (Result: exit-code) since Mon 2018-01-08 16:22:04 CST; 3min 24s ago<br>Process: 1202 ExecStart=/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf (code=exited, status=2)</li>
 </ol>
-<p>Jan 08 16:22:04 localhost.localdomain systemd[1]: Starting Vsftpd ftp daemon…<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: vsftpd.service: control process exited, code=exited status=2<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: Failed to start Vsftpd ftp daemon.<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: Unit vsftpd.service entered failed state.<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: vsftpd.service failed.<br>```</p>
-<ol>
+<p>Jan 08 16:22:04 localhost.localdomain systemd[1]: Starting Vsftpd ftp daemon…<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: vsftpd.service: control process exited, code=exited status=2<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: Failed to start Vsftpd ftp daemon.<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: Unit vsftpd.service entered failed state.<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: vsftpd.service failed.<br><code>`</code></p>
+<ol start="7">
 <li>出现pam验证通过，但是不能连接的可能是因为配置第七点有一个大坑，是每一行包括文件末尾不能有空格，命令行下会报 <code>500 OOPS: bad bool value in config file for: anon_world_readable_only</code></li>
 <li><code>550 Create directory operation failed.</code>：目录权限没给写权限，使用 <code>chmod 777 /data/ftp/li</code>即可</li>
 </ol>
 <h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
 <li>ftp最好使用命令行，这样返回错误码和错误信息容易排错。</li>
-<li>多看日志判断信息。包括 <code>tail -f /var/log/secure</code> 和 <code>systemctl status vsftpd</code><br>-</li>
+<li>多看日志判断信息。包括 <code>tail -f /var/log/secure</code> 和 <code>systemctl status vsftpd</code></li>
 </ul>
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
 <li><a href="http://blog.csdn.net/aerchi/article/details/78042443" target="_blank" rel="noopener">centos7 安装vsftpd和配置虚拟用户访问及权限分配</a></li>
@@ -883,8 +939,9 @@ print kk
       <url>/about/index.html</url>
       <content type="html"><![CDATA[<h2 id="我是谁"><a href="#我是谁" class="headerlink" title="我是谁"></a>我是谁</h2><ul>
 <li>热爱网络安全的无名小卒</li>
-<li>CTF划水队员</li>
-<li>python爱好者</li>
+<li>四非本科 18 应届毕业生</li>
+<li>CTF 划水队员</li>
+<li>Python 爱好者</li>
 <li>偶尔玩玩前端，有一些前端的项目经历</li>
 </ul>
 <h2 id="Contact-Me"><a href="#Contact-Me" class="headerlink" title="Contact Me"></a>Contact Me</h2><ul>
@@ -896,14 +953,14 @@ print kk
     </entry>
     
     <entry>
-      <title><![CDATA[时间轴]]></title>
-      <url>/timeline/index.html</url>
+      <title><![CDATA[标签云]]></title>
+      <url>/tags/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[标签云]]></title>
-      <url>/tags/index.html</url>
+      <title><![CDATA[时间轴]]></title>
+      <url>/timeline/index.html</url>
       <content type="html"></content>
     </entry>
     

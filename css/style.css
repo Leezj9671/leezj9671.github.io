@@ -445,7 +445,7 @@ a {
 /****************/
 
 #scheme-Paradox .index-top-block {
-    margin-bottom: 47.59px
+    margin-bottom: 10px
 }
 @media screen and (max-width: 480px) {
     #scheme-Paradox .index-top-block {
@@ -465,7 +465,7 @@ a {
     #scheme-Paradox .index-top-block {
         min-height: 200px!important;
         transition: 1s;
-        margin-bottom: 47.59px
+        margin-bottom: 10px
     }
     #scheme-Paradox .material-layout .daily-pic {
         width: calc(66.6666666667% - 16px)
@@ -495,7 +495,7 @@ a {
     background-repeat: no-repeat
 }
 #scheme-Paradox .post_entry-module {
-    margin-bottom: 47.59px;
+    margin-bottom: 10px;
     margin-top: 0;
 }
 #scheme-Paradox .material-layout .material-post,
@@ -644,6 +644,7 @@ a {
     }
 }
 #scheme-Paradox .material-layout .something-else .something-else-logo img {
+    border-radius: 5px;
     margin-bottom: 10px;
     width: 10pc;
     height: 10pc

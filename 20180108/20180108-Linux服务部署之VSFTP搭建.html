@@ -45,7 +45,7 @@
     
     <title>
         
-            标签: Linux LNMP PHP Nginx MySQL AliSQL | 
+            Linux服务部署之VSFTP搭建(编译安装) | 
         
         NeverSec的博客 | 安全不止
     </title>
@@ -55,8 +55,13 @@
     <link rel="icon" href="/img/favicon.png">
 
     <meta name="format-detection" content="telephone=no">
-    <meta name="description" itemprop="description" content="flag{what_is_descript_?}">
-    <meta name="keywords" content="渗透测试">
+    <meta name="description" itemprop="description" content="系统环境和预计目标
+CentOS 7.4
+ftp 根目录 :  /data/ftp
+ftp 配置文件目录： /etc/vsftpd
+ftp 虚拟用户权限配置文件目录： /etc/vsftpd/vuser_config
+">
+    <meta name="keywords" content="渗透测试,Linux FTP">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -83,6 +88,9 @@
         <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MVnrJVYp3tSqExNi6Hjzsg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/tranquil-heart.min.css?ul3p9I9MsbOxK0L+BHzDDg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
             
         
 
@@ -219,7 +227,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="NeverSec的博客 | 安全不止">
-    <meta name="msapplication-starturl" content="https://leezj9671.github.io/tags/Linux-LNMP-PHP-Nginx-MySQL-AliSQL/">
+    <meta name="msapplication-starturl" content="https://leezj9671.github.io/20180108/20180108-Linux服务部署之VSFTP搭建.html">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="NeverSec的博客 | 安全不止">
@@ -234,13 +242,21 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="https://leezj9671.github.io/tags/Linux-LNMP-PHP-Nginx-MySQL-AliSQL/">
+    <meta property="og:url" content="https://leezj9671.github.io/20180108/20180108-Linux服务部署之VSFTP搭建.html">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: Linux LNMP PHP Nginx MySQL AliSQL | NeverSec的博客 | 安全不止">
+    <meta property="og:title" content="Linux服务部署之VSFTP搭建(编译安装) | NeverSec的博客 | 安全不止">
     <meta property="og:image" content="/img/favicon.png">
-    <meta property="og:description" content="flag{what_is_descript_?}">
-    
+    <meta property="og:description" content="系统环境和预计目标
+CentOS 7.4
+ftp 根目录 :  /data/ftp
+ftp 配置文件目录： /etc/vsftpd
+ftp 虚拟用户权限配置文件目录： /etc/vsftpd/vuser_config
+">
+    <meta property="og:article:tag" content="Linux FTP"> 
 
+    
+        <meta property="article:published_time" content="Mon Jan 08 2018 08:17:40 GMT+0800">
+        <meta property="article:modified_time" content="Wed Apr 03 2019 15:34:23 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -248,13 +264,48 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="https://leezj9671.github.io/tags/Linux-LNMP-PHP-Nginx-MySQL-AliSQL/index.html">
+        <link rel="canonical" href="https://leezj9671.github.io/20180108/20180108-Linux服务部署之VSFTP搭建.html">
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://leezj9671.github.io/20180108/20180108-Linux服务部署之VSFTP搭建.html",
+    "headline": "Linux服务部署之VSFTP搭建(编译安装)",
+    "datePublished": "Mon Jan 08 2018 08:17:40 GMT+0800",
+    "dateModified": "Wed Apr 03 2019 15:34:23 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "n3ver",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hacking is fun.,Let's hack!"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "NeverSec的博客 | 安全不止",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",Linux FTP渗透测试",
+    "description": "系统环境和预计目标
+CentOS 7.4
+ftp 根目录 :  /data/ftp
+ftp 配置文件目录： /etc/vsftpd
+ftp 虚拟用户权限配置文件目录： /etc/vsftpd/vuser_config
+",
+}
+</script>
 
 
     
@@ -301,98 +352,400 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统环境和预计目标"><span class="post-toc-number">1.</span> <span class="post-toc-text">系统环境和预计目标</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#操作步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">操作步骤</span></a></li></ol><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#用户名一行，密码一行"><span class="post-toc-number"></span> <span class="post-toc-text">用户名一行，密码一行</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#PAM认证模块"><span class="post-toc-number"></span> <span class="post-toc-text">PAM认证模块</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#有所有权限"><span class="post-toc-number"></span> <span class="post-toc-text">[有所有权限]</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#只有上传下载的权限"><span class="post-toc-number"></span> <span class="post-toc-text">[只有上传下载的权限]</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#遇到的问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">遇到的问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#注意"><span class="post-toc-number">2.</span> <span class="post-toc-text">注意</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考文档"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考文档</span></a></li></ol>
+    </li></ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 15 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/20180109/Linux服务部署之LNMP搭建.html">Linux服务部署之LNMP搭建(编译安装)</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            前言LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/20180109/Linux服务部署之LNMP搭建.html" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="n3ver's avatar">
-            </div>
-            <div>
-                <strong>n3ver</strong>
-                <span>1月 09, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/Linux/">Linux</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 15 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Linux服务部署之VSFTP搭建(编译安装)
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>n3ver</strong>
+        <span>1月 08, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+    
+    <i class="material-icons">keyboard</i><span class="post-count" style="margin-right:5px">本文共:1.3k字  </span>
+    <i class="material-icons">query_builder</i><span class="post-count">阅读时间≈5分  </span>
+    
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Linux-FTP/">Linux FTP</a>
+    </li></ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Linux服务部署之VSFTP搭建(编译安装)&url=https://leezj9671.github.io/20180108/20180108-Linux服务部署之VSFTP搭建.html&pic=https://leezj9671.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=NeverSec的博客 | 安全不止&title=Linux服务部署之VSFTP搭建(编译安装)&summary=flag{what_is_descript_?}&pics=https://leezj9671.github.io/img/favicon.png&url=https://leezj9671.github.io/20180108/20180108-Linux服务部署之VSFTP搭建.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h2 id="系统环境和预计目标"><a href="#系统环境和预计目标" class="headerlink" title="系统环境和预计目标"></a>系统环境和预计目标</h2><ol>
+<li>CentOS 7.4</li>
+<li>ftp 根目录 :  <code>/data/ftp</code></li>
+<li>ftp 配置文件目录： <code>/etc/vsftpd</code></li>
+<li>ftp 虚拟用户权限配置文件目录： <code>/etc/vsftpd/vuser_config</code></li>
+</ol>
+<a id="more"></a>
+<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><ol>
+<li><p>安装vsftpd和db_load加密工具</p>
+<pre><code class="bash">#修改配置文件
+sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/&#39; /etc/selinux/config 
+#临时关闭
+setenforce 0  
+#关闭防火墙
+systemctl stop firewalld.service 
+yum install vsftpd -y
+</code></pre>
+</li>
+<li><p>创建本地用户用于映射虚拟用户</p>
+<pre><code class="bash"># 创建ftp用户目录
+mkdir -p /data/ftp
+# 创建用户
+useradd -d /data/ftp vuser -s /sbin/nologin
+# 更改权限和主组权限
+chmod 755 /data/ftp
+chown vuser.root /data/ftp
+</code></pre>
+</li>
+<li><p>创建虚拟用户文件<br><code>`</code>bash<br>vim /etc/vsftpd/vuser-list</p>
+</li>
+</ol>
+<h1 id="用户名一行，密码一行"><a href="#用户名一行，密码一行" class="headerlink" title="用户名一行，密码一行"></a>用户名一行，密码一行</h1><p>li<br>123123123<br>li1<br>123123123</p>
+<pre><code>
+4. 加密用户密码文件生成数据库文件
+```bash
+cd /etc/vsftpd
+db_load -T -t hash -f ./vuser-list ./vuser-list.db
+chmod 600 vuser-list.db
+</code></pre><ol start="5">
+<li>创建PAM认证文件<br><code>`</code>bash<br>vim /etc/pam.d/vuser.vu</li>
+</ol>
+<h1 id="PAM认证模块"><a href="#PAM认证模块" class="headerlink" title="PAM认证模块"></a>PAM认证模块</h1><p>#注意64位系统写/lib64这个路径，32位系统要写成/lib<br>auth required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser-list<br>account required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser-list</p>
+<pre><code>
+6. 修改配置文件
+```bash
+# 先备份
+mv /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf-bak
+vim /etc/vsftpd/vsftpd.conf
+
+
+#是否开启匿名登陆
+anonymous_enable=YES
+
+local_enable=YES
+write_enable=YES
+local_umask=022
+dirmessage_enable=YES
+xferlog_enable=YES
+connect_from_port_20=YES
+#登陆日志地址
+xferlog_file=/var/log/xferlog
+xferlog_std_format=YES
+
+listen=YES
+listen_ipv6=NO
+
+#修改ftp默认目录到/data/ftp下面
+chroot_local_user=YES
+#使用户不能离开主目录
+chroot_list_enable=YES
+#设定支持ASCII
+ascii_upload_enable=YES
+ascii_download_enable=YES
+local_root=/data/ftp
+anon_root=/data/ftp
+
+#pam认证文件
+pam_service_name=vuser.vu
+
+#虚拟用户权限配置目录
+user_config_dir=/etc/vsftpd/vuser_config
+userlist_enable=YES
+tcp_wrappers=YES
+
+allow_writeable_chroot=YES
+one_process_model=NO
+#开启虚拟用户
+guest_enable=YES
+guest_username=vuser
+</code></pre><ol start="7">
+<li>创建虚拟用户权限的配置文件<br><code>`</code>bash<br>mkdir /etc/vsftpd/vuser_config<br>cd /etc/vsftpd/vuser_config</li>
+</ol>
+<p>mkdir -p /data/ftp/li<br>mkdir -p /data/ftp/li1<br>chmod 777 /data/ftp/li<br>chmod 777 /data/ftp/li1</p>
+<p>vim li </p>
+<h1 id="有所有权限"><a href="#有所有权限" class="headerlink" title="[有所有权限]"></a>[有所有权限]</h1><p>#设置登录后禁锢的目录<br>local_root=/data/ftp/li</p>
+<p>#开放写权限<br>write_enable=yes</p>
+<p>#开放下载权限<br>anon_world_readable_only=no</p>
+<p>#开放上传权限<br>anon_upload_enable=yes</p>
+<p>#开放创建目录的权限<br>anon_mkdir_write_enable=yes</p>
+<p>#开放删除和重命名的权限<br>anon_other_write_enable=yes</p>
+<p>vim li1</p>
+<h1 id="只有上传下载的权限"><a href="#只有上传下载的权限" class="headerlink" title="[只有上传下载的权限]"></a>[只有上传下载的权限]</h1><p>local_root=/data/ftp/li1<br>anon_upload_enable=yes<br>anon_world_readable_only=no</p>
+<pre><code>
+8. 更改虚拟用户目录权限，目的是不让匿名用户进行访问
+```bash
+chmod 700 li
+chmod 700 li1
+</code></pre><ol start="9">
+<li><p>设置ftp自启动<code>systemctl enable vsftpd</code>，打开ftp服务 <code>systemctl start vsftpd</code>，为了验证是否启动，使用<code>systemctl status vsftpd.service</code>查看是否已开启。</p>
+</li>
+<li><p>使用xftp或ftp命令进行测试，使用li时可以进行任何操作，包括新建文件夹；使用li1时只能上传和下载，不能新建文件夹，测试有问题则对6和7进行排错。</p>
+</li>
+</ol>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ol>
+<li>useradd可能会出现<code>useradd: warning: the home directory already exists.</code>，是因为默认配置home目录在 <code>/home</code>，导致冲突。第二是因为没有skel目录。没有太大的关系，用户已经成功创建。如果十分纠结这点可以对其建自己的home目录，手动拷贝skel相关文件到home目录下。</li>
+<li><code>550 OOPS: Permission Denied</code>上传失败或创建文件夹失败，可能是selinux的问题。</li>
+</ol>
+<ul>
+<li>关闭selinux：修改 <code>/etc/selinux/config</code>文件中的 <code>SELINUX=&quot;&quot;</code> 为  <code>disabled</code>，使用 <code>setenforce 0</code>重启，使用 <code>getenforce</code>查看是否成功disable掉。值得注意的是需要关闭ftp窗口，重新链接才能生效。</li>
+<li>不关闭selinux：修改selinux配置，详见参考文档2。</li>
+</ul>
+<ol start="3">
+<li><code>226 Transfer done (but failed to open directory)</code>，selinux和防火墙的问题，重新配置一下第一步。</li>
+<li><code>500 OOPS vsftpd: refusing to run with writable root inside chroot()</code>，配置文件中加入 <code>allow_writeable_chroot=YES</code>,创建相应文件<pre><code>touch /etc/vsftpd/chroot_list
+chmod 644 /etc/vsftpd/chroot_list
+</code></pre></li>
+<li>在操作过程中遇到 <code>No such file or directory</code>，表示不存在目录，可使用 <code>mkdir -p</code>进行创建。</li>
+<li>遇到该问题时候，查看6修改配置处是否有错误，拼写错误也可能导致该错误。<br><code>`</code>bash<br>[root@localhost vsftpd]# systemctl status vsftpd.service<br>● vsftpd.service - Vsftpd ftp daemon<br>Loaded: loaded (/usr/lib/systemd/system/vsftpd.service; enabled; vendor preset: disabled)<br>Active: failed (Result: exit-code) since Mon 2018-01-08 16:22:04 CST; 3min 24s ago<br>Process: 1202 ExecStart=/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf (code=exited, status=2)</li>
+</ol>
+<p>Jan 08 16:22:04 localhost.localdomain systemd[1]: Starting Vsftpd ftp daemon…<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: vsftpd.service: control process exited, code=exited status=2<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: Failed to start Vsftpd ftp daemon.<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: Unit vsftpd.service entered failed state.<br>Jan 08 16:22:04 localhost.localdomain systemd[1]: vsftpd.service failed.<br><code>`</code></p>
+<ol start="7">
+<li>出现pam验证通过，但是不能连接的可能是因为配置第七点有一个大坑，是每一行包括文件末尾不能有空格，命令行下会报 <code>500 OOPS: bad bool value in config file for: anon_world_readable_only</code></li>
+<li><code>550 Create directory operation failed.</code>：目录权限没给写权限，使用 <code>chmod 777 /data/ftp/li</code>即可</li>
+</ol>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li>ftp最好使用命令行，这样返回错误码和错误信息容易排错。</li>
+<li>多看日志判断信息。包括 <code>tail -f /var/log/secure</code> 和 <code>systemctl status vsftpd</code></li>
+</ul>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://blog.csdn.net/aerchi/article/details/78042443" target="_blank" rel="noopener">centos7 安装vsftpd和配置虚拟用户访问及权限分配</a></li>
+<li><a href="http://blog.163.com/haizhifeng6@126/blog/static/45615427201489111836632/" target="_blank" rel="noopener">selinux配置 VSFTP不能上传</a></li>
+<li><a href="http://man.linuxde.net/systemctl" target="_blank" rel="noopener">systemctl命令</a></li>
+<li><a href="http://www.linuxidc.com/Linux/2015-12/126357.htm" target="_blank" rel="noopener">如何在命令行中使用 ftp 命令上传和下载文件</a></li>
+</ul>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <!-- 使用 Gitalk -->
+<div id="gitalk-comment">
+    <!-- Gitalk 评论框 -->
+<div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script>
+    var gitalk = new Gitalk({
+            clientID: 'ad451cc3feb9601c7fb1',
+            clientSecret: '80a6439f8f871afa1e07a8a4a00d0aafce1f8494',
+            repo: 'Leezj9671',
+            owner: 'Leezj9671',
+            admin: ['Leezj9671'],
+            // facebook-like distraction free mode
+            distractionFreeMode: false
+        })
+   gitalk.render('gitalk-container')
+</script>
+</div>
+<style>
+    #gitalk-comment {
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/20180109/Linux服务部署之LNMP搭建.html" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/20171219/JQUERY实现SELECT框三级联动.html" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -593,6 +946,14 @@ It will not impact the appearance and can give developers a lot of support :)
                     
 
                     
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
 
                     <!--Footer-->
 <footer class="mdl-mini-footer" id="bottom">
@@ -752,6 +1113,10 @@ It will not impact the appearance and can give developers a lot of support :)
 <!-- Import prettify js  -->
 
     
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
 
 
 
@@ -764,6 +1129,11 @@ It will not impact the appearance and can give developers a lot of support :)
     });
 
     
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
         
     
     
