@@ -3,6 +3,226 @@
   
     
     <entry>
+      <title><![CDATA[Docker-OpenVPN搭建局域网记录]]></title>
+      <url>/20190515/openvqn.html</url>
+      <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近要搞个公司内网穿透类似的东东，需要从外网连接到办公内网，一波挑选之后决定采用 OpenVPN。由于需要搭一个大内网，且不妨碍访问外网，并且要求客户端之间也要互通，搜了一下网上都没有 docker 版本的说明，倒腾两天，记录一下。</p>
+<a id="more"></a>
+<h2 id="机器配置"><a href="#机器配置" class="headerlink" title="机器配置"></a>机器配置</h2><p>机器:</p>
+<ul>
+<li>服务端 CentOS 7.3</li>
+<li>客户端 Windows 10/Ubuntu Server 16.04</li>
+</ul>
+<p>其实是什么平台都不重要，因为全篇都在 docker 下玩的</p>
+<p>Git 项目：</p>
+<ul>
+<li><a href="https://github.com/kylemanna/docker-openvpn" target="_blank" rel="noopener">kylemanna/docker-openvpn</a></li>
+</ul>
+<h2 id="安装Docker-拉取镜像"><a href="#安装Docker-拉取镜像" class="headerlink" title="安装Docker,拉取镜像"></a>安装Docker,拉取镜像</h2><pre><code>sudo yum -y install docker.io
+docker pull kylemanna/openvpn
+</code></pre><h2 id="配置OpenVPN"><a href="#配置OpenVPN" class="headerlink" title="配置OpenVPN"></a>配置OpenVPN</h2><ol>
+<li>配置数据卷，生成配置文件。预计网段人数不多，使用192.168.0.0/24网段，但需要注意的是在配置固定IP时，掩码必须为/30，因此固定IP需要注意正确配置。</li>
+</ol>
+<pre><code class="bash">#配置数据卷
+export OVPN_DATA=openvpn-data
+docker volume create --name $OVPN_DATA
+
+#生成配置文件
+#-d 取消默认配置     -c 打开c2c模式     -u 指定当前IP
+#-s 划分服务器子网     -C 指定算法
+docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -d -c -C &#39;AES-256-CBC&#39; -u udp://SERVER_IP -s 192.168.100.0/24
+</code></pre>
+<ol start="2">
+<li>生成密钥文件，输入密钥和CA名称</li>
+</ol>
+<pre><code class="bash">docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn ovpn_initpki
+</code></pre>
+<ol start="3">
+<li>运行容器</li>
+</ol>
+<pre><code class="bash">#开启特权
+docker run -v $OVPN_DATA:/etc/openvpn -d -p 1194:1194/udp --restart=on-failure:10 --cap-add=NET_ADMIN --name=openvpn --privileged=true kylemanna/openvpn
+
+#登陆docker
+docker run -v $OVPN_DATA:/etc/openvpn -it --rm kylemanna/openvpn bash -l
+</code></pre>
+<h2 id="用户操作"><a href="#用户操作" class="headerlink" title="用户操作"></a>用户操作</h2><h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><ol>
+<li>生成证书</li>
+</ol>
+<pre><code class="bash">#生成客户端证书，输入密钥
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa build-client-full CLIENTNAME nopass
+#需要配置密码则删掉nopass
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa build-client-full testuser
+</code></pre>
+<ol start="2">
+<li>导出证书</li>
+</ol>
+<pre><code class="bash">#将用户证书导出到本地文件
+docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient testuser &gt; testuser.ovpn
+</code></pre>
+<ol start="3">
+<li>如果有需要，需要给某个用户生成固定ip，操作如下：<pre><code class="bash">//注意掩码为/30，配置固定IP需要保证其可用
+echo &quot;ifconfig-push 192.168.100.5 192.168.100.6&quot; &gt; /var/lib/docker/volumes/&quot;$OVPN_DATA&quot;/_data/ccd/client1
+</code></pre>
+</li>
+</ol>
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><pre><code class="bash">//删除用户证书
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa revoke user
+//更新证书数据库
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa gen-crl update-db
+//重启openvpn容器
+docker restart openvpn
+</code></pre>
+<h2 id="客户端下载及安装"><a href="#客户端下载及安装" class="headerlink" title="客户端下载及安装"></a>客户端下载及安装</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><blockquote>
+<p><a href="https://openvpn.net/community-downloads/" target="_blank" rel="noopener">https://openvpn.net/community-downloads/</a></p>
+</blockquote>
+<p>下载对应客户端后，在系统上安装 OpenVPN 客户端软件，将导出的文件 xx.ovpn 放到 OpenVPN 的配置文件夹中，默认是C:\Program Files\OpenVPN\config。或者直接打开 OpenVPN 客户端，右键-导入配置文件。</p>
+<p>运行 OpenVPN 客户端软件，连接即可</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>Linux更为简单: </p>
+<pre><code class="bash">#先安装openvpn
+sudo apt install openvpn
+#配置.ovpn为配置文件
+openvpn --config xxx.ovpn
+</code></pre>
+<h2 id="增删用户脚本"><a href="#增删用户脚本" class="headerlink" title="增删用户脚本"></a>增删用户脚本</h2><p>为了减少工作量，方便快速配置，可以使用如下两个增添用户的脚本。</p>
+<p>OpenVPN 创建用户脚本：</p>
+<pre><code class="bash">#!/bin/bash
+read -p &quot;please your username: &quot; NAME
+OVPN_DATA=&quot;openvpn-data&quot;
+LOCALIP=&quot;IP&quot;
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa build-client-full $NAME nopass
+docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient $NAME &gt; /data/openvpn/conf/&quot;$NAME&quot;.ovpn
+#修改端口(可选)
+sed -i &quot;s/$LOCALIP 1194/$LOCALIP 1194/g&quot; /data/openvpn/conf/&quot;$NAME&quot;.ovpn
+#压缩(可选)
+echo &quot;comp-lzo&quot; &gt;&gt; /data/openvpn/conf/&quot;$NAME&quot;.ovpn
+docker restart openvpn
+echo &quot;CA saved to /data/openvpn/conf/$NAME.ovpn&quot;
+</code></pre>
+<p>OpenVPN 删除用户脚本：</p>
+<pre><code class="bash">#!/bin/bash
+read -p &quot;Delete username: &quot; DNAME
+OVPN_DATA=&quot;openvpn-data&quot;
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa revoke $DNAME
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa gen-crl
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn rm -f /etc/openvpn/pki/reqs/&quot;$DNAME&quot;.req
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn rm -f /etc/openvpn/pki/private/&quot;$DNAME&quot;.key
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn rm -f /etc/openvpn/pki/issued/&quot;$DNAME&quot;.crt
+#删除相关用户conf(可选)
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn rm -f /data/openvpn/conf/&quot;$DNAME&quot;
+docker restart openvpn
+echo &quot;Deleted $DNAME&quot;
+</code></pre>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>docker pull 一个Nginx，连接VPN服务器，先 ping ，互相 curl。</p>
+<h2 id="systemd持久化"><a href="#systemd持久化" class="headerlink" title="systemd持久化"></a>systemd持久化</h2><p>目的：自动下载最新的 <code>docker-openvpn</code> 镜像并更新；如果服务挂掉, systemd 可以设定为每隔10秒进行重启。</p>
+<ol>
+<li><p>设定 volume</p>
+<pre><code class="bash">OVPN_DATA=&quot;openvpn-data&quot;
+docker volume create --name $OVPN_DATA
+</code></pre>
+</li>
+<li><p>初始化容器</p>
+<pre><code class="bash">docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://VPN.SERVERNAME.COM
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn ovpn_initpki
+</code></pre>
+</li>
+<li><p>下载 docker-openvpn@.service 放到 <code>/etc/systemd/system</code>，根据实际情况修改</p>
+<pre><code class="bash">curl -L https://raw.githubusercontent.com/kylemanna/docker-openvpn/master/init/docker-openvpn%40.service | sudo tee /etc/systemd/system/docker-openvpn@.service
+</code></pre>
+</li>
+<li><p>设定开机启动</p>
+<pre><code class="bash">systemctl enable --now docker-openvpn@example.service
+</code></pre>
+</li>
+<li><p>验证一下</p>
+<pre><code class="bash">systemctl status docker-openvpn@example.service
+journalctl --unit docker-openvpn@example.service
+</code></pre>
+</li>
+</ol>
+<h2 id="错误记录"><a href="#错误记录" class="headerlink" title="错误记录"></a>错误记录</h2><ol>
+<li><p>连接时发生<code>write to TUN/TAP : Invalid argument (code=22)</code></p>
+<p> 服务端启用了 <code>comp-lzo</code>，但生成的客户端 ovpn 文件没有，添加 <code>comp-lzo</code> 到 *.ovpn即可</p>
+</li>
+<li><p>连接时报 Warning:<code>WARNING: this cipher&#39;s block size is less than 128 bit (64 bit).  Consider using a --cipher with a larger block size.</code></p>
+<p> 进入容器看看支持哪些算法：<code>openvpn --show-ciphers</code>，挑一个在 genconfig 的时候使用 <code>-C</code> 参数进行配置：<code>docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://vpn.example.com -C $CIPHER</code></p>
+</li>
+</ol>
+<h2 id="高级安全"><a href="#高级安全" class="headerlink" title="高级安全"></a>高级安全</h2><h3 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h3><p>安全高要求下可以离线备份，本场景不需要。</p>
+<pre><code># 备份到存档
+docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn tar -cvf - -C /etc openvpn | xz &gt; openvpn-backup.tar.xz
+# 恢复到新数据卷
+docker volume create --name $OVPN_DATA
+xzcat openvpn-backup.tar.xz | docker run -v $OVPN_DATA:/etc/openvpn -i kylemanna/openvpn tar -xvf - -C /etc
+</code></pre><h3 id="CA-root-key安全"><a href="#CA-root-key安全" class="headerlink" title="CA root key安全"></a>CA root key安全</h3><p>本场景无需如此，先做记录。ovpn_copy_server_files 脚本将所有需要的配置放在默认的子目录中 $OPENVPN/server</p>
+<pre><code class="bash">docker run --net=none --rm -t -i -v $PWD:/etc/openvpn kylemanna/openvpn ovpn_genconfig -u udp://VPN.SERVERNAME.COM
+docker run --net=none --rm -t -i -v $PWD:/etc/openvpn kylemanna/openvpn ovpn_initpki
+docker run --net=none --rm -t -i -v $PWD:/etc/openvpn kylemanna/openvpn ovpn_copy_server_files
+</code></pre>
+<h2 id="其它记录"><a href="#其它记录" class="headerlink" title="其它记录"></a>其它记录</h2><p>以下为记录，并未操作</p>
+<h3 id="防火墙配置"><a href="#防火墙配置" class="headerlink" title="防火墙配置"></a>防火墙配置</h3><p>可选操作。</p>
+<pre><code class="bash">关闭firewalld
+systemctl stop firewalld.service
+systemctl disable firewalld.service
+装iptables
+yum -y install iptables-services net-tools
+systemctl enable iptables.service
+
+配置iptables
+
+
+iptables -A Filter -d 127.0.0.1 -j ACCEPT
+iptables -A Filter -p tcp --dport 80 -j ACCEPT
+iptables -A Filter -j DROP
+iptables -A INPUT -p tcp --destination-port 1194 -j ACCEPT
+iptables -A INPUT -i tun0 -j ACCEPT
+iptables -A INPUT -i lo -j ACCEPT
+iptables -t nat -A POSTROUTING -s 192.168.85.0/24 -j SNAT --to-source 10.10.10.167
+</code></pre>
+<h3 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h3><p>如果喜欢 docker-compose ，可以使用如下文件部署：</p>
+<pre><code class="bash">version: &#39;2&#39;
+services:
+  openvnp:
+    cap_add:
+     - NET_ADMIN
+    image: kylemanna/openvpn
+    container_name: openvpn
+    ports:
+     - &quot;1194:1194/udp&quot;
+    restart: always
+    volumes:
+     - ./openvpn-data/conf:/etc/openvpn
+</code></pre>
+<p>相关操作：</p>
+<pre><code class="bash">docker-compose run --rm openvpn ovpn_genconfig -u udp://VPN.SERVERNAME.COM
+docker-compose run --rm openvpn ovpn_initpki
+docker-compose run --rm openvpn rm /etc/openvpn/ovpn_env.sh
+docker-compose run --rm openvpn ovpn_genconfig -N -d -n 192.168.13.6 -u udp://vpn.mycompany.net -p &quot;dhcp-option DOMAIN mycompany.net&quot; -p &quot;route 192.168.13.0 255.255.255.0&quot; -p &quot;route 172.17.0.0 255.255.0.0&quot;
+</code></pre>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="https://github.com/kylemanna/docker-openvpn" target="_blank" rel="noopener">kylemanna/docker-openvpn</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-16-04" target="_blank" rel="noopener">How To Set Up an OpenVPN Server on Ubuntu 16.04</a></li>
+<li><a href="https://blog.sunflyer.cn/archives/445" target="_blank" rel="noopener">使用Openvpn组建服务器内网</a></li>
+<li><a href="https://www.e-learn.cn/content/linux/961142" target="_blank" rel="noopener">使用OpenVPN实现局域网互联</a></li>
+<li><a href="https://www.cnblogs.com/EasonJim/p/8372989.html" target="_blank" rel="noopener">OpenVPN分配静态IP以及同一网段内IP个数（64个）</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[多Git账号管理]]></title>
       <url>/20190423/%E5%A4%9AGit%E8%B4%A6%E5%8F%B7%E7%AE%A1%E7%90%86.html</url>
       <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于最近需要有多个账号、多个邮箱，并且需要配置多个 Git 托管网站，因此不能直接使用 <code>git config --global</code> 来设置全局邮箱。钻研了一波，记录一下。</p>
@@ -81,7 +301,9 @@ git config user.email &quot;leezj9671@gmail.com&quot;
         
         <tags>
             
-            <tag> git, 神兵利器 </tag>
+            <tag> 神兵利器 </tag>
+            
+            <tag> git </tag>
             
         </tags>
         
@@ -2180,6 +2402,12 @@ print kk
   
     
     <entry>
+      <title><![CDATA[时间轴]]></title>
+      <url>/timeline/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[标签云]]></title>
       <url>/tags/index.html</url>
       <content type="html"></content>
@@ -2201,12 +2429,6 @@ print kk
 <li>Location: 广东深圳</li>
 </ul>
 ]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[时间轴]]></title>
-      <url>/timeline/index.html</url>
-      <content type="html"></content>
     </entry>
     
   
