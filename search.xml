@@ -99,6 +99,8 @@
             
             <tag> CTF </tag>
             
+            <tag> 靶场 </tag>
+            
         </tags>
       
     </entry>
@@ -199,6 +201,8 @@
             
             <tag> CTF </tag>
             
+            <tag> 靶场 </tag>
+            
         </tags>
       
     </entry>
@@ -248,6 +252,8 @@
         <tags>
             
             <tag> CTF </tag>
+            
+            <tag> 靶场 </tag>
             
         </tags>
       
@@ -424,6 +430,10 @@
             
             <tag> CTF </tag>
             
+            <tag> Python </tag>
+            
+            <tag> 加解密 </tag>
+            
         </tags>
       
     </entry>
@@ -434,22 +444,22 @@
     
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>关于我</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h2 id="WhoAmI"><a href="#WhoAmI" class="headerlink" title="WhoAmI"></a>WhoAmI</h2><ul><li>热爱网络安全的同学，熟悉<strong>渗透测试</strong>、流量分析</li><li>四非大学 <strong>UJS</strong> 本科 18 应届毕业生</li><li>CTF 划水队员，获得过一些<em>说大不大说小不小</em>奖项</li><li>Python 爱好者，熟练 Python <del>的安装和卸载</del></li><li>偶尔玩玩前端，有一些前端的踩坑经历</li></ul><h2 id="Work"><a href="#Work" class="headerlink" title="Work"></a>Work</h2><ul><li>无实习经历，喜欢搞这搞那</li><li>曾就职中国移动，目前位于深圳某创业公司</li></ul><h2 id="Contact-Me"><a href="#Contact-Me" class="headerlink" title="Contact Me"></a>Contact Me</h2><ul><li>Mail: <a href="mailto://leezj9671@gmail.com" target="_blank" rel="noopener">GMail</a></li><li>QQ: R000REdPSlRHVVpUUU1aWUdNWVRHT0pUR1laVEk9PT0</li><li>Location: 广东深圳</li></ul>]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>关于我</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
-        <content type="html"><![CDATA[<h2 id="WhoAmI"><a href="#WhoAmI" class="headerlink" title="WhoAmI"></a>WhoAmI</h2><ul><li>热爱网络安全的同学，熟悉<strong>渗透测试</strong>、流量分析</li><li>四非大学 <strong>UJS</strong> 本科 18 应届毕业生</li><li>CTF 划水队员，获得过一些<em>说大不大说小不小</em>奖项</li><li>Python 爱好者，熟练 Python <del>的安装和卸载</del></li><li>偶尔玩玩前端，有一些前端的踩坑经历</li></ul><h2 id="Work"><a href="#Work" class="headerlink" title="Work"></a>Work</h2><ul><li>无实习经历，喜欢搞这搞那</li><li>曾就职中国移动，目前位于深圳某创业公司</li></ul><h2 id="Contact-Me"><a href="#Contact-Me" class="headerlink" title="Contact Me"></a>Contact Me</h2><ul><li>Mail: <a href="mailto://leezj9671@gmail.com" target="_blank" rel="noopener">GMail</a></li><li>QQ: R000REdPSlRHVVpUUU1aWUdNWVRHT0pUR1laVEk9PT0</li><li>Location: 广东深圳</li></ul>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
