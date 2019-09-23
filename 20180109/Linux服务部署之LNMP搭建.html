@@ -1,539 +1,198 @@
 <!DOCTYPE html>
-<html style="display: none;" lang="zh">
-    <head><meta name="generator" content="Hexo 3.8.0">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
     <meta charset="utf-8">
-    <!--
-        © Material Theme
-        https://github.com/viosey/hexo-theme-material
-        Version: 1.5.2 -->
-    <script>
-        window.materialVersion = "1.5.2"
-        // Delete localstorage with these tags
-        window.oldVersion = [
-            'codestartv1',
-            '1.3.4',
-            '1.4.0',
-            '1.4.0b1',
-            '1.5.0'
-        ]
-    </script>
-
-    <!-- dns prefetch -->
-    <meta http-equiv="x-dns-prefetch-control" content="on">
-
-
-
-    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Meta & Info -->
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
-    <!-- Title -->
-    
-    <title>
-        
-            Linux服务部署之LNMP搭建(编译安装) | 
-        
-        NeverSec的博客 | 安全不止
-    </title>
-
-    <!-- Favicons -->
-    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
-    <link rel="icon" href="/img/favicon.png">
-
-    <meta name="format-detection" content="telephone=no">
-    <meta name="description" itemprop="description" content="前言LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。">
-    <meta name="keywords" content="渗透测试,Linux LNMP">
-    <meta name="theme-color" content="#0097A7">
-
-    <!-- Disable Fucking Bloody Baidu Tranformation -->
-    <meta http-equiv="Cache-Control" content="no-transform">
-    <meta http-equiv="Cache-Control" content="no-siteapp">
-
-    <!--[if lte IE 9]>
-        <link rel="stylesheet" href="/css/ie-blocker.css">
-
-        
-            <script src="/js/ie-blocker.zhCN.js"></script>
-        
-    <![endif]-->
-
-    <!-- Import lsloader -->
-    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
-
-    <!-- Import queue -->
-    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
-
-    <!-- Import CSS -->
-    
-        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
-        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?YnKWKi7Llh7tGEKEFvFvpQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
-
-        
-            
-                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?/UbZynXPjQe4Gveoh/O8NQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
-                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/github-v2.min.css?AfzKxt++K+/lhZBlSjnxwg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
-            
-        
-
-    
-
-    
-
-    <!-- Config CSS -->
-
-<!-- Other Styles -->
-<style>
-  body, html {
-    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-    overflow-x: hidden !important;
-  }
-  
-  code {
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  }
-
-  a {
-    color: #00838F;
-  }
-
-  .mdl-card__media,
-  #search-label,
-  #search-form-label:after,
-  #scheme-Paradox .hot_tags-count,
-  #scheme-Paradox .sidebar_archives-count,
-  #scheme-Paradox .sidebar-colored .sidebar-header,
-  #scheme-Paradox .sidebar-colored .sidebar-badge{
-    background-color: #0097A7 !important;
-  }
-
-  /* Sidebar User Drop Down Menu Text Color */
-  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
-  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
-    color: #0097A7 !important;
-  }
-
-  #post_entry-right-info,
-  .sidebar-colored .sidebar-nav li:hover > a,
-  .sidebar-colored .sidebar-nav li:hover > a i,
-  .sidebar-colored .sidebar-nav li > a:hover,
-  .sidebar-colored .sidebar-nav li > a:hover i,
-  .sidebar-colored .sidebar-nav li > a:focus i,
-  .sidebar-colored .sidebar-nav > .open > a,
-  .sidebar-colored .sidebar-nav > .open > a:hover,
-  .sidebar-colored .sidebar-nav > .open > a:focus,
-  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
-    color: #0097A7 !important;
-  }
-
-  .toTop {
-    background: #757575 !important;
-  }
-
-  .material-layout .material-post>.material-nav,
-  .material-layout .material-index>.material-nav,
-  .material-nav a {
-    color: #757575;
-  }
-
-  #scheme-Paradox .MD-burger-layer {
-    background-color: #757575;
-  }
-
-  #scheme-Paradox #post-toc-trigger-btn {
-    color: #757575;
-  }
-
-  .post-toc a:hover {
-    color: #00838F;
-    text-decoration: underline;
-  }
-
-</style>
-
-
-<!-- Theme Background Related-->
-
-    <style>
-      body{
-        background-color: #F5F5F5;
-      }
-
-      /* blog_info bottom background */
-      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
-        background-color: #fff;
-      }
-    </style>
-
-
-
-
-<!-- Fade Effect -->
-
-    <style>
-      .fade {
-        transition: all 800ms linear;
-        -webkit-transform: translate3d(0,0,0);
-        -moz-transform: translate3d(0,0,0);
-        -ms-transform: translate3d(0,0,0);
-        -o-transform: translate3d(0,0,0);
-        transform: translate3d(0,0,0);
-        opacity: 1;
-      }
-
-      .fade.out{
-        opacity: 0;
-      }
-    </style>
-
-
-<!-- Import Font -->
-<!-- Import Roboto -->
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-
-
-<!-- Import Material Icons -->
-
-
-    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
-
-
-
-
-    <!-- Import jQuery -->
-    
-        <script>lsloader.load("jq_js","https://cdn.bootcss.com/jquery/2.2.1/jquery.js", true)</script>
-    
-
-    <!-- WebAPP Icons -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="NeverSec的博客 | 安全不止">
-    <meta name="msapplication-starturl" content="https://leezj9671.github.io/20180109/Linux服务部署之LNMP搭建.html">
-    <meta name="msapplication-navbutton-color" content="#0097A7">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="NeverSec的博客 | 安全不止">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-icon" href="/img/favicon.png">
-
-    <!-- Site Verification -->
     
     
-
-    <!-- RSS -->
-    
-
-    <!-- The Open Graph protocol -->
-    <meta property="og:url" content="https://leezj9671.github.io/20180109/Linux服务部署之LNMP搭建.html">
-    <meta property="og:type" content="blog">
-    <meta property="og:title" content="Linux服务部署之LNMP搭建(编译安装) | NeverSec的博客 | 安全不止">
-    <meta property="og:image" content="/img/favicon.png">
-    <meta property="og:description" content="前言LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。">
-    <meta property="og:article:tag" content="Linux LNMP"> 
-
-    
-        <meta property="article:published_time" content="Tue Jan 09 2018 20:56:48 GMT+0800">
-        <meta property="article:modified_time" content="Thu Apr 04 2019 16:12:25 GMT+0800">
-    
-
-    <!-- The Twitter Card protocol -->
-    <meta name="twitter:card" content="summary_large_image">
-
-    <!-- Add canonical link for SEO -->
-    
-        <link rel="canonical" href="https://leezj9671.github.io/20180109/Linux服务部署之LNMP搭建.html">
-    
-
-    <!-- Structured-data for SEO -->
-    
-        
-
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "mainEntityOfPage": "https://leezj9671.github.io/20180109/Linux服务部署之LNMP搭建.html",
-    "headline": "Linux服务部署之LNMP搭建(编译安装)",
-    "datePublished": "Tue Jan 09 2018 20:56:48 GMT+0800",
-    "dateModified": "Thu Apr 04 2019 16:12:25 GMT+0800",
-    "author": {
-        "@type": "Person",
-        "name": "n3ver",
-        "image": {
-            "@type": "ImageObject",
-            "url": "/img/avatar.png"
-        },
-        "description": "博客搭建中……,Hacking is No Limited"
-    },
-    "publisher": {
-        "@type": "Organization",
-        "name": "NeverSec的博客 | 安全不止",
-        "logo": {
-            "@type":"ImageObject",
-            "url": "/img/favicon.png"
-        }
-    },
-    "keywords": ",Linux LNMP渗透测试",
-    "description": "前言LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。",
-}
-</script>
-
-
-    
-
-    <!-- Analytics -->
     
     
-        <script>
-    var _hmt = _hmt || [];
-    (function() {var hm = document.createElement('script');
-    hm.src = 'https://hm.baidu.com/hm.js?b3c4d22f885f6f353c15234e03abe245';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(hm, s);
-    })();
-</script>
+    <title>Linux服务部署之LNMP搭建(编译安装) | NeverSec的博客 | 安全不止 | Hacking fun!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
     
     
-        <div style="display: none;">
-    <script src="//s95.cnzz.com/z_stat.php?id=UA-137586292-1&web_id=UA-137586292-1" language="JavaScript"></script>
-</div>
+    <meta name="keywords" content="Linux">
+    <meta name="description" content="前言LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux服务部署之LNMP搭建(编译安装)">
+<meta property="og:url" content="https://leezj9671.github.io/20180109/Linux服务部署之LNMP搭建.html">
+<meta property="og:site_name" content="NeverSec的博客 | 安全不止">
+<meta property="og:description" content="前言LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-23T06:14:50.221Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux服务部署之LNMP搭建(编译安装)">
+<meta name="twitter:description" content="前言LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。">
     
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
 
-    <!-- Custom Head -->
+    <!-- custom head -->
     
 
 </head>
 
+<body>
+    <div id="loading" class="active"></div>
 
-    
-        <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
-                
-
-                <!-- Main Container -->
-                <main class="material-layout__content" id="main">
-
-                    <!-- Top Anchor -->
-                    <div id="top"></div>
-
-                    
-                        <!-- Hamburger Button -->
-                        <button class="MD-burger-icon sidebar-toggle">
-                            <span class="MD-burger-layer"></span>
-                        </button>
-                    
-
-                    <!-- Post TOC -->
-
-    
-    <!-- Back Button -->
-    <!--
-    <div class="material-back" id="backhome-div" tabindex="0">
-        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
-           href="#" onclick="window.history.back();return false;"
-           target="_self"
-           role="button"
-           data-upgraded=",MaterialButton,MaterialRipple">
-            <i class="material-icons" role="presentation">arrow_back</i>
-            <span class="mdl-button__ripple-container">
-                <span class="mdl-ripple"></span>
-            </span>
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/sidebar_header.png)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
         </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">n3ver</h5>
+          <a href="mailto:leezj9671@gmail.com" title="leezj9671@gmail.com" class="mail">leezj9671@gmail.com</a>
+        </hgroup>
+      </div>
     </div>
-    -->
-
-
-    <!-- Left aligned menu below button -->
-    
-    
-    <button id="post-toc-trigger-btn" class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">format_list_numbered</i>
-    </button>
-
-    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装步骤</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AliSQL"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">AliSQL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nginx"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Nginx</span></a></li></ol></li></ol><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#listen把80改为8090，以防冲突"><span class="post-toc-number"></span> <span class="post-toc-text">listen把80改为8090，以防冲突</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PHP"><span class="post-toc-number">0.1.</span> <span class="post-toc-text">PHP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更改Nginx配置"><span class="post-toc-number">0.2.</span> <span class="post-toc-text">更改Nginx配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考文档"><span class="post-toc-number">1.</span> <span class="post-toc-text">参考文档</span></a></li>
-    </ul>
-    
-
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-    <!-- Paradox Post Header -->
-    
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
         
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 15 + 1);
-
-    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-</script>
-
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
         
-    
-            <p class="article-headline-p">
-                Linux服务部署之LNMP搭建(编译安装)
-            </p>
-        </div>
-
-
-
-
-
-                
-                    <!-- Paradox Post Info -->
-                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar">
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Leezj9671" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
     </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>n3ver</strong>
-        <span>1月 09, 2018</span>
-    </div>
+  </div>
+</aside>
 
-    <div class="section-spacer"></div>
-    
-    <i class="material-icons">keyboard</i><span class="post-count" style="margin-right:5px">本文共:1.6k字  </span>
-    <i class="material-icons">query_builder</i><span class="post-count">阅读时间≈8分  </span>
-    
-    <!-- Favorite -->
-    <!--
-        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-            <i class="material-icons" role="presentation">favorite</i>
-            <span class="visuallyhidden">favorites</span>
-        </button>
-    -->
-
-    <!-- Qrcode -->
-    
-
-    <!-- Tags (bookmark) -->
-    
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/Linux-LNMP/">Linux LNMP</a>
-    </li></ul>
-    
-
-    <!-- Share -->
-    
-        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-    
-
-    
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Linux服务部署之LNMP搭建(编译安装)</div>
         
-            <!-- Busuanzi Views -->
-            <a class="post_share-link" href="#">
-                <li class="mdl-menu__item">
-                    <span id="busuanzi_container_page_pv">
-                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
-                    </span>
-                </li>
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
             </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
         
-    
+        
+    </div>
+</header>
+<header class="content-header post-header">
 
-    <!-- Share Weibo -->
-    
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Linux服务部署之LNMP搭建(编译安装)&url=https://leezj9671.github.io/20180109/Linux服务部署之LNMP搭建.html&pic=https://leezj9671.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
-            <li class="mdl-menu__item">
-                分享到微博
-            </li>
-        </a>
-    
+    <div class="container fade-scale">
+        <h1 class="title">Linux服务部署之LNMP搭建(编译安装)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-01-09T12:56:48.000Z" itemprop="datePublished" class="page-time">
+  2018-01-09
+</time>
 
-    <!-- Share Twitter -->
-    
 
-    <!-- Share Facebook -->
-    
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
 
-    <!-- Share Google+ -->
-    
-
-    <!-- Share LinkedIn -->
-    
-
-    <!-- Share QQ -->
-    
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=NeverSec的博客 | 安全不止&title=Linux服务部署之LNMP搭建(编译安装)&summary=网络安全,渗透测试,CTF&pics=https://leezj9671.github.io/img/favicon.png&url=https://leezj9671.github.io/20180109/Linux服务部署之LNMP搭建.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 QQ
-            </li>
-        </a>
-    
-
-    <!-- Share Telegram -->
-    
-        <a class="post_share-link" href="https://telegram.me/share/url?url=https://leezj9671.github.io/20180109/Linux服务部署之LNMP搭建.html&text=Linux服务部署之LNMP搭建(编译安装)" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Telegram
-            </li>
-        </a>
-    
-</ul>
+            
+        </h5>
+    </div>
 
     
-</div>
 
-                
 
-                <!-- Post Content -->
-                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+</header>
+
+
+<div class="container body-wrap">
     
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。<br><a id="more"></a></p>
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装步骤</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#AliSQL"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">AliSQL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nginx"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Nginx</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#listen把80改为8090，以防冲突"><span class="post-toc-number"></span> <span class="post-toc-text">listen把80改为8090，以防冲突</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PHP"><span class="post-toc-number">0.1.</span> <span class="post-toc-text">PHP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更改Nginx配置"><span class="post-toc-number">0.2.</span> <span class="post-toc-text">更改Nginx配置</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考文档"><span class="post-toc-number">1.</span> <span class="post-toc-text">参考文档</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Linux服务部署之LNMP搭建"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Linux服务部署之LNMP搭建(编译安装)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-01-09 20:56:48" datetime="2018-01-09T12:56:48.000Z"  itemprop="datePublished">2018-01-09</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>LNMP算是比较容易的一个服务了，没有使用YUM直接安装还是比较痛苦的。</p>
+<a id="more"></a>
 <h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="AliSQL"><a href="#AliSQL" class="headerlink" title="AliSQL"></a>AliSQL</h3><ol>
-<li>安装编译源码所需库和工具<pre><code class="bash">yum install gcc gcc-c++ ncurses-devel perl 
-</code></pre>
+<li>安装编译源码所需库和工具<pre><code class="bash">yum install gcc gcc-c++ ncurses-devel perl </code></pre>
 </li>
 </ol>
-<p>还需要安装cmake和bison，因为已经自带了，所以不详述，详见参考文档</p>
-<ol start="2">
-<li><p>增加mysql组和用户</p>
+<p>还需要安装cmake和bison，因为已经自带了，所以不详述，详见参考文档<br>2. 增加mysql组和用户</p>
 <pre><code class="bash">groupadd mysql 
-useradd -r -g mysql mysql 
-</code></pre>
-</li>
+useradd -r -g mysql mysql </code></pre>
+<ol start="3">
 <li><p>建立安装目录和数据文件目录</p>
 <pre><code class="bash">mkdir –p /usr/local/mysql 
-mkdir -p /data/mysqldb 
-</code></pre>
+mkdir -p /data/mysqldb </code></pre>
 </li>
 <li><p>下载解压并编译源码</p>
 <pre><code class="bash">git clone https://github.com/alibaba/AliSQL
@@ -541,18 +200,15 @@ unzip AliSQL-master.zip
 cd AliSQL-master
 cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_UNIX_ADDR=/usr/local/mysql/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DMYSQL_DATADIR=/data/mysqldb -DMYSQL_TCP_PORT=3306 -DENABLE_DOWNLOADS=1 
 make
-make install
-</code></pre>
+make install</code></pre>
 </li>
 <li><p>修改相关目录属主和数组</p>
 <pre><code class="bash">chown -R mysql:mysql /usr/local/mysql
-chown -R mysql:mysql /data/mysqldb
-</code></pre>
+chown -R mysql:mysql /data/mysqldb</code></pre>
 </li>
 <li><p>初始化AliSQL数据库</p>
 <pre><code class="bash">cd /usr/local/mysql
-scripts/mysql_install_db –user=mysql –datadir=/data/mysqldb 
-</code></pre>
+scripts/mysql_install_db –user=mysql –datadir=/data/mysqldb </code></pre>
 </li>
 </ol>
 <p>成功初始化后，提示以下信息，记下来以备后用。</p>
@@ -593,10 +249,13 @@ Support MySQL by buying support/licenses at http://shop.mysql.com
 
 New default config file was created as ./my.cnf and
 will be used by default by the server when you start it.
-You may edit this file to change server settings
-</code></pre>
+You may edit this file to change server settings</code></pre>
 <ol start="7">
-<li>复制AliSQL服务启动配置文件、脚本，并加入PATH<br><code>`</code>bash<br>cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf<br>cp support-files/mysql.server /etc/init.d/mysqld<br>vim /etc/profile </li>
+<li>复制AliSQL服务启动配置文件、脚本，并加入PATH<pre><code class="bash">cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf 
+cp support-files/mysql.server /etc/init.d/mysqld
+vim /etc/profile 
+</code></pre>
+</li>
 </ol>
 <p>#加入这行<br>PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH </p>
 <p>export PATH<br>source/etc/profile </p>
@@ -604,25 +263,20 @@ You may edit this file to change server settings
 8. 启动AliSQL服务并加入开机自启
 ```bash
 service mysqld start 
-chkconfig –level 35 mysqld on 
-</code></pre><ol start="9">
+chkconfig –level 35 mysqld on </code></pre><ol start="9">
 <li>检查是否已启动<pre><code class="bash">netstat -tulnp | grep 3306 
-mysql -u root -p
-</code></pre>
+mysql -u root -p</code></pre>
 </li>
 </ol>
 <h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><ol>
 <li><p>下载包并解压</p>
 <pre><code class="bash">tar zxvf nginx-1.12.2.tar.gz
-cd ./nginx-1.12.2
-</code></pre>
+cd ./nginx-1.12.2</code></pre>
 </li>
 <li><p>编译安装</p>
-<pre><code class="bash">./configure  --prefix=/usr/local/nginx  --sbin-path=/usr/local/nginx/sbin/nginx --conf-path=/usr/local/nginx/conf/nginx.conf --error-log-path=/var/log/nginx/error.log  --http-log-path=/var/log/nginx/access.log  --pid-path=/var/run/nginx/nginx.pid --lock-path=/var/lock/nginx.lock  --user=nginx --group=nginx --with-http_ssl_module --with-http_stub_status_module --with-http_gzip_static_module --http-client-body-temp-path=/var/tmp/nginx/client/ --http-proxy-temp-path=/var/tmp/nginx/proxy/ --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi --http-scgi-temp-path=/var/tmp/nginx/scgi --with-pcre
-</code></pre>
+<pre><code class="bash">./configure  --prefix=/usr/local/nginx  --sbin-path=/usr/local/nginx/sbin/nginx --conf-path=/usr/local/nginx/conf/nginx.conf --error-log-path=/var/log/nginx/error.log  --http-log-path=/var/log/nginx/access.log  --pid-path=/var/run/nginx/nginx.pid --lock-path=/var/lock/nginx.lock  --user=nginx --group=nginx --with-http_ssl_module --with-http_stub_status_module --with-http_gzip_static_module --http-client-body-temp-path=/var/tmp/nginx/client/ --http-proxy-temp-path=/var/tmp/nginx/proxy/ --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi --http-scgi-temp-path=/var/tmp/nginx/scgi --with-pcre</code></pre>
 <p>可能需要依赖文件如下</p>
-<pre><code class="bash">yum install gcc gcc-c++ automake pcre pcre-devel zlip zlib-devel openssl openssl-devel 
-</code></pre>
+<pre><code class="bash">yum install gcc gcc-c++ automake pcre pcre-devel zlip zlib-devel openssl openssl-devel </code></pre>
 <p>安装完毕后有相关的提示信息，马克以备后用</p>
 <pre><code class="bash">Configuration summary
 + using system PCRE library
@@ -641,10 +295,11 @@ nginx http client request body temporary files: &quot;/var/tmp/nginx/client/&quo
 nginx http proxy temporary files: &quot;/var/tmp/nginx/proxy/&quot;
 nginx http fastcgi temporary files: &quot;/var/tmp/nginx/fcgi/&quot;
 nginx http uwsgi temporary files: &quot;/var/tmp/nginx/uwsgi&quot;
-nginx http scgi temporary files: &quot;/var/tmp/nginx/scgi&quot;
-</code></pre>
+nginx http scgi temporary files: &quot;/var/tmp/nginx/scgi&quot;</code></pre>
 </li>
-<li><p>修改监听端口<br><code>`</code>bash<br>vim /usr/local/nginx/conf/nginx.conf</p>
+<li><p>修改监听端口</p>
+<pre><code class="bash">vim /usr/local/nginx/conf/nginx.conf
+</code></pre>
 </li>
 </ol>
 <h1 id="listen把80改为8090，以防冲突"><a href="#listen把80改为8090，以防冲突" class="headerlink" title="listen把80改为8090，以防冲突"></a>listen把80改为8090，以防冲突</h1><p>server {<br>    listen       8090;</p>
@@ -657,8 +312,7 @@ nginx
 # 重载配置
 nginx -s reload
 # 停止
-nginx -s stop
-</code></pre><p>执行错误有：</p>
+nginx -s stop</code></pre><p>执行错误有：</p>
 <ul>
 <li><code>nginx: [emerg] getpwnam(&quot;nginx&quot;) failed</code>：表示没有nginx用户（<code>useradd -s /sbin/nologin -M nginx</code>)</li>
 <li><code>nginx: [emerg] mkdir() &quot;/var/tmp/nginx/client/&quot; failed (2: No such file or directory)</code>：表示没有该目录(<code>mkdir -p</code>)</li>
@@ -666,8 +320,7 @@ nginx -s stop
 <ol start="5">
 <li><p>验证nginx是否开启、端口是否监听</p>
 <pre><code class="bash">ps -ef | grep nginx
-netstat -antl | grep 8090
-</code></pre>
+netstat -antl | grep 8090</code></pre>
 <p>直接访问<code>ip:8090</code>显示<code>Welcome to Nginx</code>表明安装成功</p>
 </li>
 <li><p>更复杂的配置详看参考文档2</p>
@@ -677,28 +330,26 @@ netstat -antl | grep 8090
 <li><p>下载PHP压缩包解压并进入目录</p>
 </li>
 <li><p>编译安装<br>为了整合mysql 记得要带上<code>--with-mysql=YOUR_MYSQL_PATH</code></p>
-<pre><code class="bash">./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --enable-fpm --with-fpm-user=php-fpm --with-fpm-group=php-fpm --with-mysql=/usr/local/mysql --with-libxml-dir --enable-soap --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-exif --disable-ipv6 --with-curl --with-openssl
-</code></pre>
+<pre><code class="bash">./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --enable-fpm --with-fpm-user=php-fpm --with-fpm-group=php-fpm --with-mysql=/usr/local/mysql --with-libxml-dir --enable-soap --enable-gd-native-ttf --enable-ftp --enable-mbstring --enable-exif --disable-ipv6 --with-curl --with-openssl</code></pre>
 <p>同样可能需要安装依赖文件，见机行事</p>
-<pre><code class="bash">yum -y install libxml2 libxml2-devel curl curl-devel 
-</code></pre>
+<pre><code class="bash">yum -y install libxml2 libxml2-devel curl curl-devel </code></pre>
 <p>安装后有提示信息，同样马克</p>
 <pre><code class="bash">You may want to add: /usr/local/php/lib/php to your php.ini include_path
 /usr/local/src/php-5.6.0/build/shtool install -c ext/phar/phar.phar /usr/local/php/bin
 ln -s -f /usr/local/php/bin/phar.phar /usr/local/php/bin/phar
-Installing PDO headers:  /usr/local/php/include/php/ext/pdo/
-</code></pre>
+Installing PDO headers:  /usr/local/php/include/php/ext/pdo/</code></pre>
 </li>
 <li><p>修改配置文件</p>
 <pre><code class="bash">cp php-5.6.0/php.ini-production /usr/local/php/etc/php.ini
-cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
-</code></pre>
+cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf</code></pre>
 <p>使用<code>/usr/local/php/sbin/php-fpm -t</code>测试是否成功，不成功则</p>
 <pre><code class="bash">vim /usr/local/php/etc/php-fpm.conf
-# 将其中user和group改成系统用户
+# 将其中user和group改成系统用户</code></pre>
+</li>
+<li><p>启用php-fpm </p>
+<pre><code class="bash">service php-fpm start
 </code></pre>
 </li>
-<li>启用php-fpm<br><code>`</code>bash<br>service php-fpm start</li>
 </ol>
 <p>#开机启动和检测是否已启动<br>chkconfig php-fpm on<br>ps aux | grep php-fpm<br>netstat -ant |grep 9000</p>
 <pre><code>
@@ -712,8 +363,7 @@ export PATH
 
 source /etc/profile
 # 写个代码检验一下
-php test.php
-</code></pre><h3 id="更改Nginx配置"><a href="#更改Nginx配置" class="headerlink" title="更改Nginx配置"></a>更改Nginx配置</h3><p>整合成LNMP，.conf的详细参数配置看参考文档2</p>
+php test.php</code></pre><h3 id="更改Nginx配置"><a href="#更改Nginx配置" class="headerlink" title="更改Nginx配置"></a>更改Nginx配置</h3><p>整合成LNMP，.conf的详细参数配置看参考文档2</p>
 <pre><code class="bash">&gt; /usr/local/nginx/conf/nginx.conf
 vim /usr/local/nginx/conf/nginx.conf
 
@@ -781,13 +431,11 @@ http
             fastcgi_param SCRIPT_FILENAME /usr/local/nginx/html$fastcgi_script_name;
         }
     }
-}
-</code></pre>
+}</code></pre>
 <p>在<code>/usr/local/nginx/html</code>创建<code>test.php</code>，内容如下</p>
 <pre><code class="php">&lt;?php
     echo phpinfo();
-?&gt;
-</code></pre>
+?&gt;</code></pre>
 <p>查看<code>http://ip/test.php</code>是否出现phpinfo，并且在里面查看mysql是否正确配置。</p>
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
 <li><a href="http://blog.csdn.net/tanyhuan/article/details/64942722" target="_blank" rel="noopener">AliSQL 安装</a></li>
@@ -795,527 +443,239 @@ http
 <li><a href="http://blog.csdn.net/dyllove98/article/details/41120789" target="_blank" rel="noopener">5分钟搭建 nginx +php</a></li>
 </ul>
 
-        
-                <blockquote style="margin: 2em 0 0;padding: 0.5em 1em;border-left: 3px solid #F44336;background-color: #F5F5F5;list-style: none;">
-                    <p><strong>
-                         
-                            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png"></a><br>本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可。
-                        </strong>
-                        <br>
-                        <strong>本文链接：</strong><a href="https://leezj9671.github.io/20180109/Linux服务部署之LNMP搭建.html">https://leezj9671.github.io/20180109/Linux服务部署之LNMP搭建.html</a>
-                    </p>
-                </blockquote>
-        
-    
+        </div>
 
+        <blockquote class="post-copyright">
     
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-23T06:14:50.221Z" itemprop="dateUpdated">2019-09-23 14:14:50</time>
+</span><br>
+
+
+        
+        转载请注明出处：<a href="/20180109/Linux服务部署之LNMP搭建.html" target="_blank" rel="external">https://leezj9671.github.io/20180109/Linux服务部署之LNMP搭建.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://leezj9671.github.io">
+            <img src="/img/avatar.png" alt="n3ver">
+            n3ver
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
 </div>
 
 
-                
 
-                <!-- Post Comments -->
-                
-                    
-    <!-- 使用 Gitalk -->
-<div id="gitalk-comment">
-    <!-- Gitalk 评论框 -->
-<div id="gitalk-container"></div>
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
 
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+            
 
-<script>
-    var gitalk = new Gitalk({
-            clientID: 'ad451cc3feb9601c7fb1',
-            clientSecret: '80a6439f8f871afa1e07a8a4a00d0aafce1f8494',
-            repo: 'Leezj9671.github.io',
-            owner: 'Leezj9671',
-            admin: ['Leezj9671'],
-            id: decodeURI(location.pathname),
-            // facebook-like distraction free mode
-            distractionFreeMode: false
-        })
-   gitalk.render('gitalk-container')
-</script>
-</div>
-<style>
-    #gitalk-comment {
-        background-color: #eee;
-        padding: 2pc;
-    }
-</style>
 
-                
-            </div>
+        </div>
+    </div>
 
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    <!-- Prev Nav -->
     
-        <a href="/20180224/Gitpages绑定域名及启用HTTPS.html" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/20180224/Gitpages绑定域名及启用HTTPS.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Gitpages绑定域名及启用HTTPS</h4>
+      </a>
+    </div>
+  
 
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
-
-    <!-- Next Nav -->
-    
-        <a href="/20180108/20180108-Linux服务部署之VSFTP搭建.html" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20180108/20180108-Linux服务部署之VSFTP搭建.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Linux服务部署之VSFTP搭建(编译安装)</h4>
+      </a>
+    </div>
+  
 </nav>
 
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.5.0/gitalk.css">
+    <!-- <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> -->
+    <script src="https://cdn.staticfile.org/gitalk/1.5.0/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: '',
+          clientSecret: '',
+          repo: '',
+          owner: '',
+          admin: [''],
+          id: id,      // Ensure uniqueness and length less than 50
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
         </div>
-    </div>
-
-
-
-                    
-                        <!-- Overlay For Active Sidebar -->
-<div class="sidebar-overlay"></div>
-
-<!-- Material sidebar -->
-<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
-    <div id="sidebar-main">
-        <!-- Sidebar Header -->
-        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
-    <!-- Top bar -->
-    <div class="top-bar"></div>
-
-    <!-- Sidebar toggle button -->
-    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
-        <i class="material-icons">clear_all</i>
-        <span class="mdl-button__ripple-container">
-            <span class="mdl-ripple">
-            </span>
-        </span>
-    </button>
-
-    <!-- Sidebar Avatar -->
-    <div class="sidebar-image">
-        <img src="/img/avatar.png" alt="n3ver's avatar">
-    </div>
-
-    <!-- Sidebar Email -->
-    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
-        leezj9671@gmail.com
-        <b class="caret"></b>
-    </a>
-</div>
-
-
-        <!-- Sidebar Navigation  -->
-        <ul class="nav sidebar-nav">
-    <!-- User dropdown  -->
-    <li class="dropdown">
-        <ul id="settings-dropdown" class="dropdown-menu">
-            
-                <li>
-                    <a href="mailto: leezj9671@gmail.com" target="_blank" title="Email Me">
-                        
-                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
-                        
-                        Email Me
-                    </a>
-                </li>
-            
-        </ul>
-    </li>
-
-    <!-- Homepage -->
-    
-        <li id="sidebar-first-li">
-            <a href="/">
-                
-                    <i class="material-icons sidebar-material-icons">home</i>
-                
-                主页
-            </a>
-        </li>
         
-    
-
-    <!-- Archives  -->
-    
-        <li class="dropdown">
-            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
-                
-                    <i class="material-icons sidebar-material-icons">inbox</i>
-                
-                    归档
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-            <li>
-                <a class="sidebar_archives-link" href="/archives/2019/05/">五月 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/04/">四月 2019<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">二月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">八月 2017<span class="sidebar_archives-count">1</span></a>
-            </li></ul>
-        </li>
-        
-    
-
-    <!-- Categories  -->
-    
-        <li class="dropdown">
-            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
-                
-                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
-                
-                分类
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-                <li>
-                <a class="sidebar_archives-link" href="/categories/CTF/">CTF<span class="sidebar_archives-count">6</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/categories/内网渗透/">内网渗透<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/前端/">前端<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/博客搭建/">博客搭建<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/安卓/">安卓<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/神兵利器/">神兵利器<span class="sidebar_archives-count">1</span></a>
-            </li></ul>
-        </li>
-        
-    
-
-    <!-- Pages  -->
-    
-        <li>
-            <a href="/tags" title="标签">
-                
-                    <i class="material-icons sidebar-material-icons">loyalty</i>
-                
-                标签
-            </a>
-        </li>
-        
-    
-        <li>
-            <a href="/timeline" title="时间轴">
-                
-                    <i class="material-icons sidebar-material-icons">timeline</i>
-                
-                时间轴
-            </a>
-        </li>
-        
-    
-        <li>
-            <a href="/about" title="关于我">
-                
-                    <i class="material-icons sidebar-material-icons">person</i>
-                
-                关于我
-            </a>
-        </li>
-        
-    
-
-    <!-- Article Number  -->
-    
-        <li>
-            <a href="/archives">
-                文章总数
-                <span class="sidebar-badge">17</span>
-            </a>
-        </li>
-        
-    
-</ul>
-
-
-        <!-- Sidebar Footer -->
-        <!--
-I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
-If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
-It will not impact the appearance and can give developers a lot of support :)
-
-很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
-如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
-它不会影响美观并可以给开发者很大的支持和动力。 :)
--->
-
-<!-- Sidebar Divider -->
-
-    <div class="sidebar-divider"></div>
-
-
-<!-- Theme Material -->
-
-    <a href="https://github.com/viosey/hexo-theme-material" class="sidebar-footer-text-a" target="_blank">
-        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
-            主题 - Material
-            <span class="sidebar-badge badge-circle">i</span>
-        </div>
-    </a>
-
-
-<!-- Help & Support -->
-<!--
-
--->
-
-<!-- Feedback -->
-<!--
-
--->
-
-<!-- About Theme -->
-<!--
-
--->
-
-    </div>
-
-    <!-- Sidebar Image -->
-    
-
-</aside>
-
-                    
-
-                    
-                        <!-- Footer Top Button -->
-                        <div id="back-to-top" class="toTop-wrap">
-    <a href="#top" class="toTop">
-        <i class="material-icons footer_top-i">expand_less</i>
-    </a>
-</div>
-
-                    
-
-                    <!--Footer-->
-<footer class="mdl-mini-footer" id="bottom">
-    
-        <!-- Paradox Footer Left Section -->
-        <div class="mdl-mini-footer--left-section sns-list">
-    <!-- Twitter -->
-    
-
-    <!-- Facebook -->
-    
-
-    <!-- Google + -->
-    
-
-    <!-- Weibo -->
-    
-
-    <!-- Instagram -->
-    
-
-    <!-- Tumblr -->
-    
-
-    <!-- Github -->
-    
-        <a href="https://github.com/Leezj9671" target="_blank">
-            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
-                <span class="visuallyhidden">Github</span>
-            </button><!--
-     --></a>
-    
-
-    <!-- LinkedIn -->
-    
-
-    <!-- Zhihu -->
-    
-        <a href="https://www.zhihu.com/people/liyugui/activities" target="_blank">
-            <button class="mdl-mini-footer--social-btn social-btn footer-sns-zhihu">
-                <span class="visuallyhidden">Zhihu</span>
-            </button><!--
-     --></a>
-    
-
-    <!-- Bilibili -->
-    
-
-    <!-- Telegram -->
-    
-    
-    <!-- V2EX -->
-    
-</div>
-
-
-        <!--Copyright-->
-        <div id="copyright">
-            Copyright&nbsp;©&nbsp;2017&nbsp;-<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>NeverSec的博客 | 安全不止
-            
-                <br>
-                
-                    <a href="http://www.miitbeian.gov.cn" rel="nofollow">粤ICP备19002199号-1</a>
-                
-            
-
-            
-            <!-- All Site UV -->
-            <br>
-            <span id="busuanzi_container_site_uv">
-                已经有<span id="busuanzi_value_site_uv"></span>个小伙伴来看过
-            </span>|
-            <span id="busuanzi_container_site_pv">
-                总访问量<span id="busuanzi_value_site_pv"></span>次
-            </span>|
-            
-            本博客总字数<span class="post-count">24.1k</span>
-        </div>
-        <!-- Paradox Footer Right Section -->
-
-        <!--
-        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
-        It will not impact the appearance and can give developers a lot of support :)
-
-        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
-        它不会影响美观并可以给开发者很大的支持。 :)
-        -->
-
-        <div class="mdl-mini-footer--right-section">
-            <div>
-                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
-                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
             </div>
-        </div>
-    
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>n3ver &copy; 2018 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
 </footer>
 
-
-                    <!-- Import JS File -->
-
-    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
-
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
-    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
-
-
-
-    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
-
-
-<script type="text/ls-javascript" id="NProgress-script">
-    NProgress.configure({
-        showSpinner: true
-    });
-    NProgress.start();
-    $('#nprogress .bar').css({
-        'background': '#29d'
-    });
-    $('#nprogress .peg').css({
-        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
-    });
-    $('#nprogress .spinner-icon').css({
-        'border-top-color': '#29d',
-        'border-left-color': '#29d'
-    });
-    setTimeout(function() {
-        NProgress.done();
-        $('.fade').removeClass('out');
-    }, 800);
-</script>
-
-
-
-
-
-
-
-    <!-- Busuanzi -->
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-   <!-- GitTalk -->
-
-
-
-
-
-<!-- UC Browser Compatible -->
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-	var agent = navigator.userAgent.toLowerCase();
-	if(agent.indexOf('ucbrowser')>0) {
-		document.write('<link rel="stylesheet" href="/css/uc.css">');
-	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
-	}
+var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
+
+
 </script>
 
-<!-- Import prettify js  -->
-
-    
-        
-            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
-        
-    
+<script src="/js/main.min.js?v=1.7.2"></script>
 
 
-
-<!-- Window Load -->
-<!-- add class for prettify -->
-<script type="text/ls-javascript" id="window-load">
-    $(window).on('load', function() {
-        // Post_Toc parent position fixed
-        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
-    });
-
-    
-        
-            $(function() {
-                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
-                prettyPrint();
-                })
-        
-    
-    
-</script>
-
-<!-- MathJax Load-->
-
-
-<!-- Bing Background -->
-
-
-<script type="text/ls-javascript" id="lazy-load">
-    // Offer LazyLoad
-    queue.offer(function(){
-        $('.lazy').lazyload({
-            effect : 'show'
-        });
-    });
-
-    // Start Queue
-    $(document).ready(function(){
-        setInterval(function(){
-            queue.execNext();
-        },200);
-    });
-</script>
-
-<!-- Custom Footer -->
-
-
-
-<script>
-    (function(){
-        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
-
-        for (var i = 0; i < scriptList.length; ++i) {
-            var item = scriptList[i];
-            lsloader.runInlineScript(item.id,item.id);
-        }
-    })()
-console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
-</script>
-
-                </main>
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
             </div>
-        </body>
-    
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//cdn.busuanzi.ibruce.info/cdn/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
 </html>
