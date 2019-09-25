@@ -35,7 +35,7 @@
 <meta name="twitter:description" content="前言最近要搞个公司内网穿透类似的东东，需要从外网连接到办公内网，一波挑选之后决定采用 OpenVPN。由于需要搭一个大内网，且不妨碍访问外网，并且要求客户端之间也要互通，搜了一下网上都没有 docker 版本的说明，倒腾两天，记录一下。">
     
     <link rel="shortcut icon" href="/favicon.png">
-    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -381,7 +381,7 @@ docker-compose run --rm openvpn ovpn_genconfig -N -d -n 192.168.13.6 -u udp://vp
 
 
         
-        转载请注明出处：<a href="/20190515/openvqn.html" target="_blank" rel="external">https://leezj9671.github.io/20190515/openvqn.html</a>
+        转载请注明作者和出处：<a href="/20190515/openvqn.html" target="_blank" rel="external">https://leezj9671.github.io/20190515/openvqn.html</a>
         
     </div>
     
@@ -394,10 +394,6 @@ docker-compose run --rm openvpn ovpn_genconfig -N -d -n 192.168.13.6 -u udp://vp
 </blockquote>
 
         
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
 
 
         <div class="post-footer">
@@ -460,8 +456,8 @@ docker-compose run --rm openvpn ovpn_genconfig -N -d -n 192.168.13.6 -u udp://vp
           clientID: 'ad451cc3feb9601c7fb1',
           clientSecret: '80a6439f8f871afa1e07a8a4a00d0aafce1f8494',
           repo: 'Leezj9671.github.io',
-          owner: '',
-          admin: [''],
+          owner: 'leezj9671',
+          admin: ['leezj9671'],
           id: id,      // Ensure uniqueness and length less than 50
           title: document.title.split('|')[0],
           distractionFreeMode: false  // Facebook-like distraction free mode
@@ -476,32 +472,6 @@ docker-compose run --rm openvpn ovpn_genconfig -N -d -n 192.168.13.6 -u udp://vp
 
 </article>
 
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        谢谢大爷~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
-        </div>
-        
-        <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
-            <div class="reward-toggle-ctrol">
-                <span class="reward-toggle-item wechat">微信</span>
-                <span class="reward-toggle-label"></span>
-                <span class="reward-toggle-item alipay">支付宝</span>
-            </div>
-        </label>
-        
-    </div>
-</div>
-
 
 
 </div>
@@ -511,10 +481,10 @@ docker-compose run --rm openvpn ovpn_genconfig -N -d -n 192.168.13.6 -u udp://vp
         
 <p>
     <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
     <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
 
@@ -525,7 +495,7 @@ docker-compose run --rm openvpn ovpn_genconfig -N -d -n 192.168.13.6 -u udp://vp
         </p>
     </div>
     <div class="bottom">
-        <p><span>n3ver &copy; 2018 - 2019</span>
+        <p><span>n3ver &copy; 2017 - 2019</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -541,12 +511,12 @@ docker-compose run --rm openvpn ovpn_genconfig -N -d -n 192.168.13.6 -u udp://vp
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
+var BLOG = { ROOT: '/', SHARE: false, REWARD: false };
 
 
 </script>
 
-<script src="/js/main.min.js?v=1.7.2"></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
 
 
 <div class="search-panel" id="search-panel">
@@ -566,7 +536,7 @@ var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
 </li>
 </template>
 
-<script src="/js/search.min.js?v=1.7.2" async></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
 
@@ -582,7 +552,7 @@ var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
     var OriginTitile = document.title, titleTime;
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
-            document.title = '死鬼去哪里了！';
+            document.title = '死鬼去哪里了！-NeverSec';
             clearTimeout(titleTime);
         } else {
             document.title = '(つェ⊂)咦!又好了!';

@@ -34,7 +34,7 @@
 <meta name="twitter:description" content="WhoAmI 热爱网络安全的同学，熟悉渗透测试、流量分析 四非大学 UJS 本科 18 应届毕业生 CTF 划水队员，获得过一些说大不大说小不小奖项 Python 爱好者，熟练 Python 的安装和卸载 偶尔玩玩前端，有一些前端的踩坑经历  Work 无实习经历，喜欢搞这搞那 曾就职中国移动，目前位于深圳某创业公司  Contact Me Mail: GMail QQ: R000REdPSlRH">
     
     <link rel="shortcut icon" href="/favicon.png">
-    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -185,10 +185,6 @@
         
 
         
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
 
 
         
@@ -224,8 +220,8 @@
           clientID: 'ad451cc3feb9601c7fb1',
           clientSecret: '80a6439f8f871afa1e07a8a4a00d0aafce1f8494',
           repo: 'Leezj9671.github.io',
-          owner: '',
-          admin: [''],
+          owner: 'leezj9671',
+          admin: ['leezj9671'],
           id: id,      // Ensure uniqueness and length less than 50
           title: document.title.split('|')[0],
           distractionFreeMode: false  // Facebook-like distraction free mode
@@ -240,32 +236,6 @@
 
     </article>
     
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        谢谢大爷~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
-        </div>
-        
-        <label class="reward-toggle">
-            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
-                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
-            <div class="reward-toggle-ctrol">
-                <span class="reward-toggle-item wechat">微信</span>
-                <span class="reward-toggle-label"></span>
-                <span class="reward-toggle-item alipay">支付宝</span>
-            </div>
-        </label>
-        
-    </div>
-</div>
-
 
 </div>
 
@@ -274,10 +244,10 @@
         
 <p>
     <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
     <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
 
@@ -288,7 +258,7 @@
         </p>
     </div>
     <div class="bottom">
-        <p><span>n3ver &copy; 2018 - 2019</span>
+        <p><span>n3ver &copy; 2017 - 2019</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
@@ -304,12 +274,12 @@
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
+var BLOG = { ROOT: '/', SHARE: false, REWARD: false };
 
 
 </script>
 
-<script src="/js/main.min.js?v=1.7.2"></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
 
 
 <div class="search-panel" id="search-panel">
@@ -329,7 +299,7 @@ var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
 </li>
 </template>
 
-<script src="/js/search.min.js?v=1.7.2" async></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
 
@@ -345,7 +315,7 @@ var BLOG = { ROOT: '/', SHARE: false, REWARD: true };
     var OriginTitile = document.title, titleTime;
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
-            document.title = '死鬼去哪里了！';
+            document.title = '死鬼去哪里了！-NeverSec';
             clearTimeout(titleTime);
         } else {
             document.title = '(つェ⊂)咦!又好了!';
