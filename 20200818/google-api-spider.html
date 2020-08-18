@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>用谷歌搜索API来爬取搜索结果 | NeverSec的博客 | 安全不止 | Hacking fun!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="前言最近需要爬取一些 google 搜索结果，首先看的就是有没有相关的 API，官方有提供 API 查询，但爬取量有一定限制。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用谷歌搜索API来爬取搜索结果">
+<meta property="og:url" content="https://leezj9671.github.io/20200818/google-api-spider.html">
+<meta property="og:site_name" content="NeverSec的博客 | 安全不止">
+<meta property="og:description" content="前言最近需要爬取一些 google 搜索结果，首先看的就是有没有相关的 API，官方有提供 API 查询，但爬取量有一定限制。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2020/08/08/fO9LzFWuNT1IBr3.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/08/z7Bj9Wt4ZPgAp61.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/08/MnmrOZSitTsdGDX.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/08/bd3zuJ5wGfDUX2H.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/08/B1XQjbknmqlYxGp.png">
+<meta property="og:updated_time" content="2020-08-18T07:34:00.405Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用谷歌搜索API来爬取搜索结果">
+<meta name="twitter:description" content="前言最近需要爬取一些 google 搜索结果，首先看的就是有没有相关的 API，官方有提供 API 查询，但爬取量有一定限制。">
+<meta name="twitter:image" content="https://i.loli.net/2020/08/08/fO9LzFWuNT1IBr3.png">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">n3ver</h5>
+          <a href="mailto:leezj9671@gmail.com" title="leezj9671@gmail.com" class="mail">leezj9671@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Leezj9671" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">用谷歌搜索API来爬取搜索结果</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">用谷歌搜索API来爬取搜索结果</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-08-18T07:31:30.000Z" itemprop="datePublished" class="page-time">
+  2020-08-18
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#太长不看版"><span class="post-toc-number">2.</span> <span class="post-toc-text">太长不看版</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#怎么做"><span class="post-toc-number">3.</span> <span class="post-toc-text">怎么做</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#生成-API-KEY"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">生成 API KEY</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#生成-cx"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">生成 cx</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#API"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">API</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#存在的一些问题"><span class="post-toc-number">4.</span> <span class="post-toc-text">存在的一些问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#搜索结果与-API-不一致"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">搜索结果与 API 不一致</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#请求频率"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">请求频率</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#页数比第一页看到的结果数少"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">页数比第一页看到的结果数少</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">5.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-google-api-spider"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">用谷歌搜索API来爬取搜索结果</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-08-18 15:31:30" datetime="2020-08-18T07:31:30.000Z"  itemprop="datePublished">2020-08-18</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近需要爬取一些 google 搜索结果，首先看的就是有没有相关的 API，官方有提供 API 查询，但爬取量有一定限制。</p>
+<a id="more"></a>
+
+<h2 id="太长不看版"><a href="#太长不看版" class="headerlink" title="太长不看版"></a>太长不看版</h2><ol>
+<li>接口地址为 <code>https://www.googleapis.com/customsearch/v1?key={YOUR_KEY}&amp;q={SEARCH_WORDS}&amp;cx={YOUR_CX}&amp;start={10}&amp;num={10}</code></li>
+<li>KEY 从 <a href="https://console.developers.google.com/apis/credentials" target="_blank" rel="noopener">谷歌云 API 控制台</a> 来的，需要有外币卡先注册谷歌云账号。但似乎付费的话就不用这个 KEY 了，仅用 CX 即可，这个待查。</li>
+<li>CX 从 <a href="https://programmablesearchengine.google.com/cse/create/new" target="_blank" rel="noopener">谷歌可编程搜索</a> 中来</li>
+<li>一天只有 100 次的免费搜索限额，只能查询前 100 条。如需增加则 5 刀 1000 次，但一天上限 10000。 次，对于我来说已经足够用了</li>
+</ol>
+<h2 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h2><p>首先来到 <a href="https://developers.google.com/custom-search/v1/overview?hl=en_US" target="_blank" rel="noopener">Google Developers</a> 的相关文档页面，可以看到大概的介绍。</p>
+<h3 id="生成-API-KEY"><a href="#生成-API-KEY" class="headerlink" title="生成 API KEY"></a>生成 API KEY</h3><p>点击 overview 中的 <a href="https://developers.google.com/custom-search/v1/overview#api_key" target="_blank" rel="noopener">Get a Key</a>，此处需要登录谷歌帐号，以及注册谷歌云帐号（应该需要绑定外币信用卡）并且创建一个 project，此处略过不表，最后你会得到一个 Key。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/08/08/fO9LzFWuNT1IBr3.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>这个 Key 可以从<a href="https://console.developers.google.com/apis/credentials/key" target="_blank" rel="noopener">谷歌云控制台</a>中看到，建议加上应用限制和 API 限制，以防泄露后被滥用。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/08/08/z7Bj9Wt4ZPgAp61.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h3 id="生成-cx"><a href="#生成-cx" class="headerlink" title="生成 cx"></a>生成 cx</h3><p>cx 是 Google 可编程搜索引擎(Programmable Search Engine)的 id 标识，在此处 <a href="https://programmablesearchengine.google.com/cse/create/new" target="_blank" rel="noopener">新增搜索引擎</a> 可以获取。这里可以指定要搜索的网站，比如说我只希望通过该 API 搜索出来的网站是 shodan.io，谷歌语法里面相当于 <code>site:shodan.io</code>，可以这么设置：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/08/08/MnmrOZSitTsdGDX.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>新增完成之后点击修改搜索引擎，并点击设置，你就可以看到你的搜索引擎 id，就是我们说的 cx</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/08/08/bd3zuJ5wGfDUX2H.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>里面还有一些选项，自己可以看着修改~如果还想看看文档，可点击在页面下方一点的【以程序化方式访问】-【使用入门】</p>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><p>JSON API 可以从 <a href="https://developers.google.com/custom-search/v1/introduction#api_overview" target="_blank" rel="noopener">文档</a> 中查看</p>
+<p>完整的可请求参数如下，基本上和高级搜索保持一致：</p>
+<pre><code>https://www.googleapis.com/customsearch/v1?q={searchTerms}&amp;num={count?}&amp;start={startIndex?}&amp;lr={language?}&amp;safe={safe?}&amp;cx={cx?}&amp;sort={sort?}&amp;filter={filter?}&amp;gl={gl?}&amp;cr={cr?}&amp;googlehost={googleHost?}&amp;c2coff={disableCnTwTranslation?}&amp;hq={hq?}&amp;hl={hl?}&amp;siteSearch={siteSearch?}&amp;siteSearchFilter={siteSearchFilter?}&amp;exactTerms={exactTerms?}&amp;excludeTerms={excludeTerms?}&amp;linkSite={linkSite?}&amp;orTerms={orTerms?}&amp;relatedSite={relatedSite?}&amp;dateRestrict={dateRestrict?}&amp;lowRange={lowRange?}&amp;highRange={highRange?}&amp;searchType={searchType}&amp;fileType={fileType?}&amp;rights={rights?}&amp;imgSize={imgSize?}&amp;imgType={imgType?}&amp;imgColorType={imgColorType?}&amp;imgDominantColor={imgDominantColor?}&amp;alt=json&quot;</code></pre><p>简化版：<code>https://www.googleapis.com/customsearch/v1?key={YOUR_KEY}&amp;q={SEARCH_WORDS}&amp;cx={YOUR_CX}&amp;start={10}&amp;num={10}</code></p>
+<h2 id="存在的一些问题"><a href="#存在的一些问题" class="headerlink" title="存在的一些问题"></a>存在的一些问题</h2><h3 id="搜索结果与-API-不一致"><a href="#搜索结果与-API-不一致" class="headerlink" title="搜索结果与 API 不一致"></a>搜索结果与 API 不一致</h3><p>因为不同 IP 使用谷歌搜索会出现不一样的结果，比如美国和香港的 IP 访问必然会不一样。可以使用 API 中的 <code>lr</code> 参数修改语言选项，也可以在【修改搜索引擎】中修改语言和地区选项。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/08/08/B1XQjbknmqlYxGp.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h3 id="请求频率"><a href="#请求频率" class="headerlink" title="请求频率"></a>请求频率</h3><p>由于一天查的上限就这么多，所以等待时间尽量拉长吧，我 5-10s 请求一次没啥问题</p>
+<h3 id="页数比第一页看到的结果数少"><a href="#页数比第一页看到的结果数少" class="headerlink" title="页数比第一页看到的结果数少"></a>页数比第一页看到的结果数少</h3><p>在第一页中，谷歌通常会显示比较多的结果，但是实际上很少有搜索结果能翻到100页的，甚至可能三四页就没了。这个是谷歌的策略吧，只会显示相关度比较高的页面……</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<p><a href="https://developers.google.com/custom-search/docs/tutorial/introduction" target="_blank" rel="noopener">https://developers.google.com/custom-search/docs/tutorial/introduction</a><br><a href="https://developers.google.com/custom-search/v1/reference/rest" target="_blank" rel="noopener">https://developers.google.com/custom-search/v1/reference/rest</a></p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-08-18T07:34:00.405Z" itemprop="dateUpdated">2020-08-18 15:34:00</time>
+</span><br>
+
+
+        
+        转载请注明作者和出处：<a href="/20200818/google-api-spider.html" target="_blank" rel="external">https://leezj9671.github.io/20200818/google-api-spider.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://leezj9671.github.io">
+            <img src="/img/avatar.png" alt="n3ver">
+            n3ver
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20190515/openvqn.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Docker-OpenVPN搭建局域网记录</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.5.0/gitalk.css">
+    <!-- <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> -->
+    <script src="https://cdn.staticfile.org/gitalk/1.5.0/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: 'ad451cc3feb9601c7fb1',
+          clientSecret: '80a6439f8f871afa1e07a8a4a00d0aafce1f8494',
+          repo: 'Leezj9671.github.io',
+          owner: 'leezj9671',
+          admin: ['leezj9671'],
+          id: decodeURI(location.pathname),
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>n3ver &copy; 2017 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！-NeverSec';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
