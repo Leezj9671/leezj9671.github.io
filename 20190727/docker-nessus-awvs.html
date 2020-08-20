@@ -14,25 +14,25 @@
     
     
     
-    <title>you_need_python_by_sunnyelf题解 | NeverSec的博客 | 安全不止 | Hacking fun!</title>
+    <title>自用Docker版Nessus和WVS破解版 | NeverSec的博客 | 安全不止 | Hacking fun!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="CTF,加解密">
-    <meta name="description" content="今天碰到了一个比较有意思的综合题目，记下来给大家看看。">
-<meta name="keywords" content="CTF,加解密">
+    <meta name="keywords" content="awvs,nessus">
+    <meta name="description" content="自己一直在用的 Docker 版的 AWVS 和 Nessus，build 一次即可爽歪歪">
+<meta name="keywords" content="awvs,nessus">
 <meta property="og:type" content="article">
-<meta property="og:title" content="you_need_python_by_sunnyelf题解">
-<meta property="og:url" content="https://leezj9671.github.io/20170823/[CTF]you_need_python_by_sunnyelf.html">
+<meta property="og:title" content="自用Docker版Nessus和WVS破解版">
+<meta property="og:url" content="https://leezj9671.github.io/20190727/docker-nessus-awvs.html">
 <meta property="og:site_name" content="NeverSec的博客 | 安全不止">
-<meta property="og:description" content="今天碰到了一个比较有意思的综合题目，记下来给大家看看。">
+<meta property="og:description" content="自己一直在用的 Docker 版的 AWVS 和 Nessus，build 一次即可爽歪歪">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-08-20T02:37:14.741Z">
+<meta property="og:updated_time" content="2020-08-20T02:49:17.285Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="you_need_python_by_sunnyelf题解">
-<meta name="twitter:description" content="今天碰到了一个比较有意思的综合题目，记下来给大家看看。">
+<meta name="twitter:title" content="自用Docker版Nessus和WVS破解版">
+<meta name="twitter:description" content="自己一直在用的 Docker 版的 AWVS 和 Nessus，build 一次即可爽歪歪">
     
     <link rel="shortcut icon" href="/favicon.png">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
@@ -118,7 +118,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">you_need_python_by_sunnyelf题解</div>
+        <div class="flex-col header-title ellipsis">自用Docker版Nessus和WVS破解版</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -136,15 +136,15 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">you_need_python_by_sunnyelf题解</h1>
+        <h1 class="title">自用Docker版Nessus和WVS破解版</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-08-23T06:53:12.000Z" itemprop="datePublished" class="page-time">
-  2017-08-23
+                <time datetime="2019-07-27T02:43:15.000Z" itemprop="datePublished" class="page-time">
+  2019-07-27
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CTF/">CTF</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/神兵利器/">神兵利器</a></li></ul>
 
             
         </h5>
@@ -158,17 +158,24 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简述"><span class="post-toc-number">1.</span> <span class="post-toc-text">简述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关于破解补丁"><span class="post-toc-number">2.</span> <span class="post-toc-text">关于破解补丁</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#WVS-快速部署"><span class="post-toc-number">3.</span> <span class="post-toc-text">WVS 快速部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nessus-快速部署"><span class="post-toc-number">4.</span> <span class="post-toc-text">Nessus 快速部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#END"><span class="post-toc-number">5.</span> <span class="post-toc-text">END</span></a></li></ol>
+        </nav>
+    </aside>
 
-<article id="post-[CTF]you_need_python_by_sunnyelf"
+
+<article id="post-docker-nessus-awvs"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">you_need_python_by_sunnyelf题解</h1>
+        <h1 class="post-card-title">自用Docker版Nessus和WVS破解版</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-08-23 14:53:12" datetime="2017-08-23T06:53:12.000Z"  itemprop="datePublished">2017-08-23</time>
+            <time class="post-time" title="2019-07-27 10:43:15" datetime="2019-07-27T02:43:15.000Z"  itemprop="datePublished">2019-07-27</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CTF/">CTF</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/神兵利器/">神兵利器</a></li></ul>
 
 
 
@@ -180,79 +187,52 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>今天碰到了一个比较有意思的综合题目，记下来给大家看看。</p>
+            <p>自己一直在用的 Docker 版的 AWVS 和 Nessus，build 一次即可爽歪歪</p>
 <a id="more"></a>
-<p>题目和脚本地址：you_need_python_by_sunnyelf<br>解压zip有两个文件，一个是flag.py，一个是key_is_here_but_do_you_know_rfc4042。<br>首先第一步看提示rfc4042的文件，查询可得，它是utf9或者是utf18的编码。在github上找到utf9解码的库，代码如下：</p>
-<pre><code class="python">import utf9
 
-dt = &#39;&#39;
-with open(&#39;key_is_here_but_do_you_know_rfc4042&#39;, &#39;r&#39;) as f:
-    t = f.read()
-    dt = utf9.utf9decode(t)
-print dt</code></pre>
-<p>解出为</p>
-<pre><code>_____*((__//__+___+______-____%____)**((___%(___-_))+________+(___%___+_____+_______%__+______-(______//(_____%___)))))+__*(((________/__)+___%__+_______-(________//____))**(_*(_____+_____)+_______+_________%___))+________*(((_________//__+________%__)+(_______-_))**((___+_______)+_________-(______//__)))+_______*((___+_________-(______//___-_______%__%_))**(_____+_____+_____))+__*(__+_________-(___//___-_________%_____%__))**(_________-____+_______)+(___+_______)**(________%___%__+_____+______)+(_____-__)*((____//____-_____%____%_)+_________)**(_____-(_______//_______+_________%___)+______)+(_____+(_________%_______)*__+_)**_________+_______*(((_________%_______)*__+_______-(________//________))**_______)+(________/__)*(((____-_+_______)*(______+____))**___)+___*((__+_________-_)**_____)+___*(((___+_______-______/___+__-_________%_____%__)*(___-_+________/__+_________%_____))**__)+(_//_)*(((________%___%__+_____+_____)%______)+_______-_)**___+_____*((______/(_____%___))+_______)*((_________%_______)*__+_____+_)+___//___+_________+_________/___</code></pre><p>刚开始还以为是类似brainfuck之类的东西，但是观察到有括号和运算符，于是猜测是不是下划线的个数代表数字，验证了一下结果是正确的。运算之后得到了一串数字，应该为key。</p>
-<pre><code class="python"># 似乎不能直接u&#39;_&#39;会验证不出来，因此用dt[0]代替
-ul = dt[0]
-cnt = 0
-ns = &#39;&#39;
-for i in dt:
-    if i is ul:
-        cnt += 1
-    else:
-        if cnt != 0:
-            ns += str(cnt)
-            cnt = 0
-            ns += i
-        else:
-            ns += i
-# add
-ns += str(cnt)
-ns = ns.replace(&#39;//&#39;, &#39;/&#39;)
-print ns
-key = eval(ns)
-print key
-# 5287002131074331513 key</code></pre>
-<p>第二步是难点，看marshal.loads()应该处理之后的是编译后的二进制流，查阅资料 <a href="http://www.cnblogs.com/rainduck/p/3524557.html" target="_blank" rel="noopener">http://www.cnblogs.com/rainduck/p/3524557.html</a> 找到反编译的方法，因此用uncompyle2是最好不过的了，反编译得出py文件。</p>
-<pre><code class="python">import marshal, zlib, base64
+<h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><ol>
+<li>因为破解版有些问题，有时候一个星期后虽然仍然显示永久激活，但实际上并不可用，二次激活会出现奇怪的问题，每次要用的时候要是突然失去激活状态很容易令人崩溃</li>
+<li>其它人发的 docker 不是很透明，担心不可控，还是自己写一个吧又不难……</li>
+<li>破解版做一下隔离会比较好，毕竟服务器跑着很多奇怪的东西</li>
+<li>docker 版重新部署很快，容易迁移</li>
+</ol>
+<p>因此萌发了用 docker 做扫描器的想法。</p>
+<h2 id="关于破解补丁"><a href="#关于破解补丁" class="headerlink" title="关于破解补丁"></a>关于破解补丁</h2><p>破解补丁均用的是 52pojie 和 t00ls 中分享的，如果不放心的话大可自己替换，对 Dockerfile 稍作修改就可以了~</p>
+<h2 id="WVS-快速部署"><a href="#WVS-快速部署" class="headerlink" title="WVS 快速部署"></a>WVS 快速部署</h2><ol>
+<li>使用的 AWVS 安装包从官网下载或使用文末的百度网盘下载~</li>
+<li>将破解补丁 <code>patch_awvs</code> 和安装包 <code>acunetix_trail.sh</code> 放在该目录下。安装包可以直接从官网下载，而破解补丁用的是广为流传的、52破解上的破解补丁，如有担心可以更换为自己信任的补丁</li>
+<li>运行 Dockerfile</li>
+<li>成功运行后需要手动进入容器进行激活，不过也很简便啦</li>
+<li>用户名密码：<a href="mailto:admin@test.com" target="_blank" rel="noopener">admin@test.com</a>/Aa123456，可在 Dockerfile 自行修改</li>
+</ol>
+<pre><code class="bash">#build image
+docker build -t test/wvs .
 
-bs = marshal.loads(zlib.decompress(base64.b64decode(&#39;eJxtVP9r21YQvyd/ieWm66Cd03QM1B8C3pggUuzYCSWstHSFQijyoJBhhGq9OXJl2ZFeqAMOK6Q/94f9Ofvn1s+d7Lgtk/3O997du/vc584a0eqpYP2GVfwDEeOrKCU6g2LRRyiK4oooFsVVUSqkqxTX6J1F+SfSNYrrdKPorC76luhbpOEGCZNFZw2KG3Rmk26QtuXi3xTb7ND6/aVu0g2RuvhEcZNut5lAGbTvAFbyH57TkYLKy8J6xpDvQxiiiaIlcdqJxVcHbXY6bXNlZgviPCrO0+StqfKd88gzNh/qRZyMdWHE29TZZvIkG7eZFRGGRcBmsXJaUoKCQ9fWKHwSqNeKFnsM5PnwJ7q2aKk4AFhcWtQCh+ChB5+Lu/RmyYUxmtOEYxas7i/2iuR7Ti14OEOSmU0RADd4+dQzbM1FJhukAUeQ+kZROuLyioagrau76kc1slY1NNaY/y3LAxDQBrAICJisV2hMdF2lxQcyFuMoqcX3+TCl6xotqzSpkqmxYVmjXVjAXiwBsEfBrd1VvTvLCj2EXRnhoryAKdpxcIgJcowUB68yAx/tlCAuPHqDuZo0CN3CUGHwkPhGMA7aXMfphjbmQLhLhJcHa0a+mpgB191c1U1lnHJQbgkHx+WGxeJbejnpkzSavo2jkxZ7i725npGAaTc8FXmUjbUETHUmkxXN5zqL5WiWxwE7Bc11yyYzNJpN02jerq+DzNNodfxOX8kE4FcmYKscDdYD1oPGGucXYNmgs1F+NTf3GOt3Mg7b+NTVruqoQyX1hOEUacKw+AGbP38ZOq9THRXaSbL5pXGQ8bho/Z/lrzQaHxdoCrlev+t6nZ7re57r+57rHXag93Deh37k+vuw9zorO/Qj/B50cAf2oyOsvut3D+ADWxdxfN/1Drqu39mHzvcRswv/Hvz7sHeg9w8Qzy99DzuFwxhPhs6zWTbOI3OZRiaZZcVj5wVwOklx7OwVxR47PR46r/SVM8ulBJic9zku/eqY/MqJxiDj+Gd55wS3f35pbLCzHoEwzKKpDkN5i+TR+1AYCWTo5IV0Z0P9H3phDDd6lMzPdS5bbo9eJGbTsW9nbDqLL1N9Iq+rRxDbll2x67a9Lf27hw5uK1s1rZr6DOPF+FI=&#39;)))
+#按需修改
+docker run -m 2048M -d -p 13443:13443 --name wvs test/wvs
 
-import uncompyle2
-with open(&#39;f.py&#39;, &#39;w&#39;) as f:
-    uncompyle2.uncompyle(&#39;2.7&#39;, bs, f)
-看encrypt函数，加密方法如下：
-def encrypt(plain, key):
-    keySHA1 = sha1(key)
-    intSHA1 = calc(keySHA1)
-    r = []
-    for i in range(len(plain)):
-        r.append(ord(plain[i]) + int(&#39;0x%s&#39; % keySHA1[i % 40], 16) - intSHA1)
-        intSHA1 = calc(sha1(plain[:i + 1])[:20] + sha1(str(intSHA1))[:20])
-
-    return &#39;&#39;.join(map(lambda x: str(x), r))</code></pre>
-<p>对key进行sha1加密为16进制串，再处理为10进制串保存到intSHA1；<br>对plain里面的每一位ascii编码与keySHA1的某位进行相加后减去intSHA1，放入r中；<br>intSHA1变化为plain前i位的sha1前二十位与intSHA1的SHA1前二十位相加的十进制值；<br>将r中的元素转化为字符串得到加密后的字符串，因此，该加密方法是前后字符关联的，第n位的加密都与前n-1位有关。<br>了解了加密方法后，接下来尝试用第一步爆出的key爆破，爆破代码如下：</p>
-<pre><code class="python">...
-if __name__ == &#39;__main__&#39;
-    cipherText = &#39;-185-147-211-221-164-217-188-169-205-174-211-225-191-234-148-199-198-253-175-157-222-135-240-229-201-154-178-187-244-183-212-222-164&#39;
-
-    key = &#39;5287002131074331513&#39;
-    flag =&#39;&#39;
-    for i in range(len(cipherText)/4):
-        for j in range(31, 128):   # 一般31-128才是常用字符
-            if encrypt(flag+chr(j), key) == cipherText[0:i*4+4]:
-                print j,
-                flag += chr(j)
-                break
-    print flag
-发现爆破出的都是无意义字符串，猜想是否key有问题，尝试将key转换为16进制、16进制转字符串发现有意义字符串I_4m-k3y
-hk = hex(key)[2:]
-print hk
-kk = &#39;&#39;
-for i in range(len(hk)/2):
-    kk += chr(int(&#39;0x&#39; + hk[i*2:i*2+2], 16))
-print kk</code></pre>
-<p>将key代入爆破代码即可解出flag。</p>
+#进入容器 patch
+docker exec -it -u root wvs /bin/bash
+#运行
+&gt; ./patch_awvs</code></pre>
+<p>目前的缺陷是数据库没法做持久化，不知道是我的姿势有误还是什么问题……解决方法是使用漏洞管控平台对接，如 <a href="https://gitee.com/gy071089/SecurityManageFramwork" target="_blank" rel="noopener">SeMF</a> 之类的 SIEM 平台</p>
+<h2 id="Nessus-快速部署"><a href="#Nessus-快速部署" class="headerlink" title="Nessus 快速部署"></a>Nessus 快速部署</h2><ol>
+<li>建立image</li>
+<li>运行容器，等待插件安装完成即可</li>
+</ol>
+<pre><code class="bash">docker build -t test/nessus .
+#视情况决定是否使用Volume
+docker run -d -m 2048M -v NESSUS_VOL:/opt/nessus -v /usr/share/zoneinfo:/usr/share/zoneinfo:ro -p 8834:8834 --name nessus test/nessus</code></pre>
+<ol start="3">
+<li>修改密码，默认用户名为 Nessus</li>
+</ol>
+<pre><code class="bash">docker exec -it nessus /bin/bash
+/opt/nessus/sbin/nessuscli chpasswd Nessus</code></pre>
+<h2 id="END"><a href="#END" class="headerlink" title="END"></a>END</h2><p>非常 easy 的一套做法，妈妈再也不用担心我的破解版失效了~ Github 链接可点击或阅读原文查看：</p>
+<p><a href="https://github.com/Leezj9671/SecDevices_docker" target="_blank" rel="noopener">https://github.com/Leezj9671/SecDevices_docker</a></p>
+<p>关于破解版资源可访问百度网盘： </p>
+<p>pan.baidu.com/s/1KT1vzGvZLSZcCxVLr5ZHXg 提取码: 6iak</p>
+<p><em>资源均从52pojie、t00ls下载，可自行比对哈希值</em></p>
 
         </div>
 
@@ -261,12 +241,12 @@ print kk</code></pre>
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-08-20T02:37:14.741Z" itemprop="dateUpdated">2020-08-20 10:37:14</time>
+    最后更新时间：<time datetime="2020-08-20T02:49:17.285Z" itemprop="dateUpdated">2020-08-20 10:49:17</time>
 </span><br>
 
 
         
-        转载请注明作者和出处：<a href="/20170823/[CTF]you_need_python_by_sunnyelf.html" target="_blank" rel="external">https://leezj9671.github.io/20170823/[CTF]you_need_python_by_sunnyelf.html</a>
+        转载请注明作者和出处：<a href="/20190727/docker-nessus-awvs.html" target="_blank" rel="external">https://leezj9671.github.io/20190727/docker-nessus-awvs.html</a>
         
     </div>
     
@@ -283,7 +263,7 @@ print kk</code></pre>
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CTF/">CTF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/加解密/">加解密</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/awvs/">awvs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nessus/">nessus</a></li></ul>
 
 
             
@@ -296,13 +276,20 @@ print kk</code></pre>
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/20171013/2017蓝盾杯bdctf热身题.html" id="post-prev" class="post-nav-link">
+      <a href="/20200818/google-api-spider.html" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">2017蓝盾杯bdctf热身题</h4>
+        <h4 class="title">用谷歌搜索API来爬取搜索结果</h4>
       </a>
     </div>
   
 
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20190710/2019GoogleCTF-web-bnv.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">2019GoogleCTF-web-bnv XXE 题目</h4>
+      </a>
+    </div>
   
 </nav>
 

