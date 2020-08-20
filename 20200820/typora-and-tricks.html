@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>更换笔记系统到Typora及一些tricks | NeverSec的博客 | 安全不止 | Hacking fun!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="苦各种云笔记久矣，抛弃有道云笔记，最后决定用 Typora + PicGo + Github 作为我的笔记系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="更换笔记系统到Typora及一些tricks">
+<meta property="og:url" content="https://leezj9671.github.io/20200820/typora-and-tricks.html">
+<meta property="og:site_name" content="NeverSec的博客 | 安全不止">
+<meta property="og:description" content="苦各种云笔记久矣，抛弃有道云笔记，最后决定用 Typora + PicGo + Github 作为我的笔记系统">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2020/08/20/9VbPFM8mrHjTSxC.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/20/ZWDjbzXPvHQpkCl.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/20/ypjoECeRI6JYhnF.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/20/kWZSaev7QFTpLmD.png">
+<meta property="og:updated_time" content="2020-08-20T13:28:34.563Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="更换笔记系统到Typora及一些tricks">
+<meta name="twitter:description" content="苦各种云笔记久矣，抛弃有道云笔记，最后决定用 Typora + PicGo + Github 作为我的笔记系统">
+<meta name="twitter:image" content="https://i.loli.net/2020/08/20/9VbPFM8mrHjTSxC.png">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">n3ver</h5>
+          <a href="mailto:leezj9671@gmail.com" title="leezj9671@gmail.com" class="mail">leezj9671@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Leezj9671" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">更换笔记系统到Typora及一些tricks</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">更换笔记系统到Typora及一些tricks</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-08-20T13:22:21.000Z" itemprop="datePublished" class="page-time">
+  2020-08-20
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/日常/">日常</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#起因"><span class="post-toc-number">1.</span> <span class="post-toc-text">起因</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Typora设置"><span class="post-toc-number">2.</span> <span class="post-toc-text">Typora设置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#文件备份"><span class="post-toc-number">3.</span> <span class="post-toc-text">文件备份</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一些Tricks"><span class="post-toc-number">4.</span> <span class="post-toc-text">一些Tricks</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一些缺点"><span class="post-toc-number">5.</span> <span class="post-toc-text">一些缺点</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-typora-and-tricks"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">更换笔记系统到Typora及一些tricks</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-08-20 21:22:21" datetime="2020-08-20T13:22:21.000Z"  itemprop="datePublished">2020-08-20</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/日常/">日常</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>苦各种云笔记久矣，抛弃有道云笔记，最后决定用 Typora + PicGo + Github 作为我的笔记系统</p>
+<a id="more"></a>
+
+<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>说起来，我也是有道云笔记付费好几年的用户了。由于我的笔记挺多的，代码尤甚，所以对搜索功能其实是强需求，而有道云笔记越改越垃圾，最后搜索功能已经变成一个废柴，做不到全文搜索，只能搜索到标题和前几行，这样的笔记应用对我而言已经是废品了。</p>
+<p>一番查找之后，对比了一些方案，印象笔记和为知笔记用过一阵子，还是有点难受。发现 Typora 能满足我的需求：</p>
+<ul>
+<li>Markdown 写作，需要自动上传与备份图片</li>
+<li>好用的全文搜索功能，可以忍受一定的速度</li>
+<li>编辑器简洁、无广告、安全</li>
+</ul>
+<p>综合比较之后，我选择了 PicGo 作为图床，并且本地同时也保存一份。本地文件已经在 bitlocker 加密的磁盘中，由于不信任国内的云服务，考虑许久🤔后还是使用了 Github 作为自己的文章备份处。</p>
+<h2 id="Typora设置"><a href="#Typora设置" class="headerlink" title="Typora设置"></a>Typora设置</h2><p>基本安装不表。安装完成后继续安装 PicGo，设置好 sm.ms 的图床后，打开 Typora，在<code>文件-偏好设置-图像</code>中如下设置好 ​，​但​建议​图片​保存​位置​是​完整路径，相对路径的话会保存到该 md 文件的相对路径 👇 ：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/08/20/9VbPFM8mrHjTSxC.png" alt="image-20200820204758230" title>
+                </div>
+                <div class="image-caption">image-20200820204758230</div>
+            </figure>
+
+<p>在需要复制图片的时候直接在编辑器中粘贴即可，由于需要上传，这里需要手动再点一次上传图片 👇：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/08/20/ZWDjbzXPvHQpkCl.png" alt="image-20200820204940947" title>
+                </div>
+                <div class="image-caption">image-20200820204940947</div>
+            </figure>
+
+<p>这样的话，本地和网络都会备份一份，以防图床丢失。</p>
+<h2 id="文件备份"><a href="#文件备份" class="headerlink" title="文件备份"></a>文件备份</h2><p>在 Github 创建一个私有仓库，如果不清楚如何做的话可以看下 Github 在创建仓库完成后的界面，里面有教你如何上传。</p>
+<p>备份的话我使用了 Windows 计划任务对我的文章定时上传到 Github，使用 Linux 可以直接用 Crontab。我可以容忍一定时间内的内容丢失，如果你对实时性要求高，并且对云服务比较放心的话，可以使用坚果云、Onedrive等，它们支持实时同步，如果使用坚果云付费的话也有历史版本功能，对我而言不太需要。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/08/20/ypjoECeRI6JYhnF.png" alt="image-20200820210355980" title>
+                </div>
+                <div class="image-caption">image-20200820210355980</div>
+            </figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/08/20/kWZSaev7QFTpLmD.png" alt="image-20200820211958377" title>
+                </div>
+                <div class="image-caption">image-20200820211958377</div>
+            </figure>
+
+<h2 id="一些Tricks"><a href="#一些Tricks" class="headerlink" title="一些Tricks"></a>一些Tricks</h2><ul>
+<li>替代网页剪藏功能：网页上复制富文本，粘贴到 Typora 中可以自动转换为 Markdown，当然不是所有都有效。</li>
+<li>LaTex 语法及 Markdown 的一些设置可以从偏好设置里面修改</li>
+<li>支持 Pandoc，所以可以很好地转换为 doc 文档，这一点在工作里面很赞</li>
+<li>使用 <code>:thinking:</code> 语法可以直接打出 emoji 表情 🤔</li>
+<li>如果需要 debug Typora，可以直接 <code>shift+F12</code> 打开控制台查看</li>
+<li>如果需要使用标签功能，可以在第一行写上 <code>#tag</code>，通过搜索功能来找到对应的 tag，这个是 <a href="https://support.typora.io/File-Management/#tags" target="_blank" rel="noopener">官方文档</a> 的建议</li>
+</ul>
+<h2 id="一些缺点"><a href="#一些缺点" class="headerlink" title="一些缺点"></a>一些缺点</h2><ul>
+<li>安装占用 300M+，不过用的是 Electron 也可以理解…… 🤔</li>
+<li>排序规则应用到了所有文件及文件夹，其实文件夹按名称排序，文件内容按修改日期排序是最好的</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-08-20T13:28:34.563Z" itemprop="dateUpdated">2020-08-20 21:28:34</time>
+</span><br>
+
+
+        
+        转载请注明作者和出处：<a href="/20200820/typora-and-tricks.html" target="_blank" rel="external">https://leezj9671.github.io/20200820/typora-and-tricks.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://leezj9671.github.io">
+            <img src="/img/avatar.png" alt="n3ver">
+            n3ver
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20200818/google-api-spider.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">用谷歌搜索API来爬取搜索结果</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.5.0/gitalk.css">
+    <!-- <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> -->
+    <script src="https://cdn.staticfile.org/gitalk/1.5.0/gitalk.min.js"></script>
+    <script>
+        var id = location.pathname
+        if (location.pathname.length > 50) {
+          id = location.pathname.replace(/\/\d+\/\d+\/\d+\//, '').replace('/', '').substring(0, 50)
+        }
+        const gitalk = new Gitalk({
+          clientID: 'ad451cc3feb9601c7fb1',
+          clientSecret: '80a6439f8f871afa1e07a8a4a00d0aafce1f8494',
+          repo: 'Leezj9671.github.io',
+          owner: 'leezj9671',
+          admin: ['leezj9671'],
+          id: decodeURI(location.pathname),
+          title: document.title.split('|')[0],
+          distractionFreeMode: false  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+</section>
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>n3ver &copy; 2017 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！-NeverSec';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

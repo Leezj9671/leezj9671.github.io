@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>更换笔记系统到Typora及一些tricks</title>
+      <link href="/20200820/typora-and-tricks.html"/>
+      <url>/20200820/typora-and-tricks.html</url>
+      
+        <content type="html"><![CDATA[<p>苦各种云笔记久矣，抛弃有道云笔记，最后决定用 Typora + PicGo + Github 作为我的笔记系统</p><a id="more"></a><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>说起来，我也是有道云笔记付费好几年的用户了。由于我的笔记挺多的，代码尤甚，所以对搜索功能其实是强需求，而有道云笔记越改越垃圾，最后搜索功能已经变成一个废柴，做不到全文搜索，只能搜索到标题和前几行，这样的笔记应用对我而言已经是废品了。</p><p>一番查找之后，对比了一些方案，印象笔记和为知笔记用过一阵子，还是有点难受。发现 Typora 能满足我的需求：</p><ul><li>Markdown 写作，需要自动上传与备份图片</li><li>好用的全文搜索功能，可以忍受一定的速度</li><li>编辑器简洁、无广告、安全</li></ul><p>综合比较之后，我选择了 PicGo 作为图床，并且本地同时也保存一份。本地文件已经在 bitlocker 加密的磁盘中，由于不信任国内的云服务，考虑许久🤔后还是使用了 Github 作为自己的文章备份处。</p><h2 id="Typora设置"><a href="#Typora设置" class="headerlink" title="Typora设置"></a>Typora设置</h2><p>基本安装不表。安装完成后继续安装 PicGo，设置好 sm.ms 的图床后，打开 Typora，在<code>文件-偏好设置-图像</code>中如下设置好 ​，​但​建议​图片​保存​位置​是​完整路径，相对路径的话会保存到该 md 文件的相对路径 👇 ：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2020/08/20/9VbPFM8mrHjTSxC.png" alt="image-20200820204758230" title>                </div>                <div class="image-caption">image-20200820204758230</div>            </figure><p>在需要复制图片的时候直接在编辑器中粘贴即可，由于需要上传，这里需要手动再点一次上传图片 👇：</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2020/08/20/ZWDjbzXPvHQpkCl.png" alt="image-20200820204940947" title>                </div>                <div class="image-caption">image-20200820204940947</div>            </figure><p>这样的话，本地和网络都会备份一份，以防图床丢失。</p><h2 id="文件备份"><a href="#文件备份" class="headerlink" title="文件备份"></a>文件备份</h2><p>在 Github 创建一个私有仓库，如果不清楚如何做的话可以看下 Github 在创建仓库完成后的界面，里面有教你如何上传。</p><p>备份的话我使用了 Windows 计划任务对我的文章定时上传到 Github，使用 Linux 可以直接用 Crontab。我可以容忍一定时间内的内容丢失，如果你对实时性要求高，并且对云服务比较放心的话，可以使用坚果云、Onedrive等，它们支持实时同步，如果使用坚果云付费的话也有历史版本功能，对我而言不太需要。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2020/08/20/ypjoECeRI6JYhnF.png" alt="image-20200820210355980" title>                </div>                <div class="image-caption">image-20200820210355980</div>            </figure><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://i.loli.net/2020/08/20/kWZSaev7QFTpLmD.png" alt="image-20200820211958377" title>                </div>                <div class="image-caption">image-20200820211958377</div>            </figure><h2 id="一些Tricks"><a href="#一些Tricks" class="headerlink" title="一些Tricks"></a>一些Tricks</h2><ul><li>替代网页剪藏功能：网页上复制富文本，粘贴到 Typora 中可以自动转换为 Markdown，当然不是所有都有效。</li><li>LaTex 语法及 Markdown 的一些设置可以从偏好设置里面修改</li><li>支持 Pandoc，所以可以很好地转换为 doc 文档，这一点在工作里面很赞</li><li>使用 <code>:thinking:</code> 语法可以直接打出 emoji 表情 🤔</li><li>如果需要 debug Typora，可以直接 <code>shift+F12</code> 打开控制台查看</li><li>如果需要使用标签功能，可以在第一行写上 <code>#tag</code>，通过搜索功能来找到对应的 tag，这个是 <a href="https://support.typora.io/File-Management/#tags" target="_blank" rel="noopener">官方文档</a> 的建议</li></ul><h2 id="一些缺点"><a href="#一些缺点" class="headerlink" title="一些缺点"></a>一些缺点</h2><ul><li>安装占用 300M+，不过用的是 Electron 也可以理解…… 🤔</li><li>排序规则应用到了所有文件及文件夹，其实文件夹按名称排序，文件内容按修改日期排序是最好的</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 日常 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>用谷歌搜索API来爬取搜索结果</title>
       <link href="/20200818/google-api-spider.html"/>
       <url>/20200818/google-api-spider.html</url>
@@ -505,9 +524,9 @@
     
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>标签云</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -520,7 +539,7 @@
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[<h2 id="WhoAmI"><a href="#WhoAmI" class="headerlink" title="WhoAmI"></a>WhoAmI</h2><ul><li>热爱网络安全的同学，熟悉<strong>渗透测试</strong>、流量分析</li><li>四非大学 <strong>UJS</strong> 本科 18 应届毕业生</li><li>CTF 划水队员，获得过一些<em>说大不大说小不小</em>奖项</li><li>Python 爱好者，熟练 Python <del>的安装和卸载</del></li><li>偶尔玩玩前端，有一些前端的踩坑经历</li></ul><h2 id="Work"><a href="#Work" class="headerlink" title="Work"></a>Work</h2><ul><li>无实习经历，喜欢搞这搞那</li><li>曾就职中国移动，目前位于深圳某创业公司</li></ul><h2 id="Contact-Me"><a href="#Contact-Me" class="headerlink" title="Contact Me"></a>Contact Me</h2><ul><li>Mail: <a href="mailto://leezj9671@gmail.com" target="_blank" rel="noopener">GMail</a></li><li>QQ: R000REdPSlRHVVpUUU1aWUdNWVRHT0pUR1laVEk9PT0</li><li>Location: 广东深圳</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="WhoAmI"><a href="#WhoAmI" class="headerlink" title="WhoAmI"></a>WhoAmI</h2><ul><li>热爱网络安全的同学，熟悉<strong>渗透测试</strong>、流量分析</li><li>四非大学 <strong>UJS</strong> 本科 18 应届毕业生</li><li>CTF 划水队员，获得过一些<em>说大不大说小不小</em>的奖项</li><li>Python/Go 爱好者，熟练 Python <del>的安装和卸载</del></li><li>偶尔玩玩前端，有一些前端的踩坑经历</li></ul><h2 id="Work"><a href="#Work" class="headerlink" title="Work"></a>Work</h2><ul><li>无实习经历，喜欢搞这搞那</li><li>曾就职中国移动，目前位于深圳某创业公司，负责甲方安全与爬虫 </li></ul><h2 id="Contact-Me"><a href="#Contact-Me" class="headerlink" title="Contact Me"></a>Contact Me</h2><ul><li>Mail: <a href="mailto://leezj9671@gmail.com" target="_blank" rel="noopener">GMail</a></li><li>QQ: R000REdPSlRHVVpUUU1aWUdNWVRHT0pUR1laVEk9PT0</li><li>Location: 广东深圳</li></ul>]]></content>
       
     </entry>
     
@@ -538,9 +557,9 @@
     
     
     <entry>
-      <title>标签云</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
